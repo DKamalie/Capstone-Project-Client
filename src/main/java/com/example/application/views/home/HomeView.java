@@ -26,10 +26,14 @@ public class HomeView extends HorizontalLayout {
         sayHello = new Button("Say hello");
         temp = new TextField("");
         sayHello.addClickListener(e -> {
-            Pizzeria r = new Pizzeria();
+
+            Pizzeria object = new Pizzeria();
+
                     PizzeriaApi o = new PizzeriaApi();
-                    r = o.readPizzeria("2487d4fb-9ab9-4bf3-b975-de9838ca3be8");
-                    name.setValue(r.getLocation());
+                    object = o.readPizzeria("2487d4fb-9ab9-4bf3-b975-de9838ca3be8");
+
+                    name.setValue(object.getLocation());
+
             Notification.show("This Prints " + name.getValue());
         });
         sayHello.addClickShortcut(Key.ENTER);

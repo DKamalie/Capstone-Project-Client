@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 /*
-PizzeriaApi.java
-Author: Timothy Lombard (220154856)
- Date: 1st September (last updated) 2023
+ PizzeriaApi.java
+ Author: Timothy Lombard (220154856)
+ Date: 18st September (last updated) 2023
  */
 @RestController
 public class PizzeriaApi {
@@ -26,7 +26,6 @@ public class PizzeriaApi {
     public Pizzeria readPizzeria(String id){
         Pizzeria p = restTemplate.getForObject(urlPizzeria + "/read/" + id, Pizzeria.class);
         System.out.println(p.toString());
-
     return p;
     }
 }
