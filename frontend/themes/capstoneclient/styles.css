@@ -1,0 +1,8 @@
+@import url('./main-layout.css');
+@import url('./views/menu-view.css');
+@import url('./views/checkout-view.css');
+@import url('@fontsource/lato/index.css');    html {
+      --lumo-body-text-color: hsla(214, 0%, 0%, 0.94);
+--lumo-font-family: Lato;
+
+    }
