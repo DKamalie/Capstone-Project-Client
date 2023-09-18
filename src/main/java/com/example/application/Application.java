@@ -27,8 +27,8 @@ public class Application implements AppShellConfigurator {
     }
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-            PizzeriaApi o = new PizzeriaApi();
-            o.readPizzeria("2487d4fb-9ab9-4bf3-b975-de9838ca3be8");
+//            PizzeriaApi o = new PizzeriaApi();
+//            o.readPizzeria("2487d4fb-9ab9-4bf3-b975-de9838ca3be8");
     }
 
 }
