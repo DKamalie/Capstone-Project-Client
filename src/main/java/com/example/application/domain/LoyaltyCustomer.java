@@ -20,53 +20,53 @@ public class LoyaltyCustomer extends Customer {
 
     }
 
-    private LoyaltyCustomer(Builder builder){
-        super(builder);
-        this.dateJoined = builder.dateJoined;
-        this.discounts = builder.discounts;
+//    private LoyaltyCustomer(Builder builder){
+//        super(builder);
+//        this.dateJoined = builder.dateJoined;
+//        this.discounts = builder.discounts;
+//
+//    }
+//
+//    public LocalDate getDateJoined() {
+//        return dateJoined;
+//    }
+//    public double getDiscounts() {
+//        return discounts;
+//    }
+//
+//    public void setDateJoined(LocalDate dateJoined) {
+//        this.dateJoined = dateJoined;
+//    }
+//
+//    public void setDiscounts(double discounts) {
+//        this.discounts = discounts;
+//    }
 
-    }
-
-    public LocalDate getDateJoined() {
-        return dateJoined;
-    }
-    public double getDiscounts() {
-        return discounts;
-    }
-
-    public void setDateJoined(LocalDate dateJoined) {
-        this.dateJoined = dateJoined;
-    }
-
-    public void setDiscounts(double discounts) {
-        this.discounts = discounts;
-    }
-
-    public static class Builder extends Customer.Builder{
-        private LocalDate dateJoined;
-        private double discounts;
-
-        public Builder setDateJoined(LocalDate dateJoined) {
-            this.dateJoined = dateJoined;
-            return this;
-        }
-
-        public Builder setDiscounts(double discounts) {
-            this.discounts = discounts;
-            return this;
-        }
-
-
-        public Builder copy(LoyaltyCustomer loyaltyCustomer){
-            super.copy(loyaltyCustomer);
-            this.dateJoined = loyaltyCustomer.dateJoined;
-            this.discounts = loyaltyCustomer.discounts;
-            return this;
-        }
-        public LoyaltyCustomer build(){
-            return new LoyaltyCustomer(this);
-        }
-    }
+//    public static class Builder extends Customer.Builder{
+//        private LocalDate dateJoined;
+//        private double discounts;
+//
+//        public Builder setDateJoined(LocalDate dateJoined) {
+//            this.dateJoined = dateJoined;
+//            return this;
+//        }
+//
+//        public Builder setDiscounts(double discounts) {
+//            this.discounts = discounts;
+//            return this;
+//        }
+//
+//
+//        public Builder copy(LoyaltyCustomer loyaltyCustomer){
+//            super.copy(loyaltyCustomer);
+//            this.dateJoined = loyaltyCustomer.dateJoined;
+//            this.discounts = loyaltyCustomer.discounts;
+//            return this;
+//        }
+//        public LoyaltyCustomer build(){
+//            return new LoyaltyCustomer(this);
+//        }
+//    }
 
     @Override
     public boolean equals(Object o) {
