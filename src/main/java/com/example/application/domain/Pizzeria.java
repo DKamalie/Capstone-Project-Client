@@ -16,9 +16,14 @@ public class Pizzeria implements Serializable {
     private String location;
 
     public Pizzeria(){
-
     }
-    private Pizzeria(Builder builder){
+    public Pizzeria(String pizzariaAlias,String location){
+    this.pizzariaAlias = pizzariaAlias;
+    this.location = location;
+    }
+
+
+        private Pizzeria(Builder builder){
         this.pizzeriaID = builder.pizzeriaID;
         this.pizzariaAlias = builder.pizzariaAlias;
         this.location = builder.location;

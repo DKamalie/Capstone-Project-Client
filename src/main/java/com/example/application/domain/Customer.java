@@ -95,6 +95,9 @@ public class Customer implements Serializable{
         }
     }
 
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     @Override
     public boolean equals(Object o) {
