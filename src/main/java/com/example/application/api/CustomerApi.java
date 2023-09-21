@@ -1,6 +1,7 @@
 package com.example.application.api;
 
 import com.example.application.domain.Customer;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -20,11 +21,23 @@ public class CustomerApi {
         private static String urlCustomer = "http://localhost:8080/customer";
 
 //    public Customer createCustomer(Customer customer) {
-//        HttpEntity<Customer> request = new HttpEntity<>(new Customer());
-//        customer = restTemplate.postForObject(urlCustomer+ "/create", request, Customer.class);
+//        String a = "";
+//        String b = "";
+//        Integer c = 0;
+//        String d = "";
+//        String e = "";
+//
+//        a = customer.getCustomerName();
+//        b = customer.getCustomerSurname();
+//       // c = customer.getCustomerID();
+//        d = customer.getPhoneNumber();
+//        e = customer.getAddress();
+//
+//        HttpEntity<Customer> request = new HttpEntity<>(new Customer(c,a,b,d,e));
+//        Customer customer2 = restTemplate.postForObject(urlCustomer+ "/create", request, Customer.class);
 //        System.out.println(customer.toString());
 //
-//        return customer;
+//        return customer2;
 //    }
         public Customer readCustomer(String id){
             Customer p = restTemplate.getForObject(urlCustomer + "/read/" + id, Customer.class);

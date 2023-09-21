@@ -11,15 +11,16 @@ import java.util.Objects;
 
 public class Pizzeria implements Serializable {
 
-    private String pizzeriaID;
+    private Integer pizzeriaID;
     private String pizzariaAlias;
     private String location;
 
     public Pizzeria(){
     }
-    public Pizzeria(String pizzariaAlias,String location){
-    this.pizzariaAlias = pizzariaAlias;
-    this.location = location;
+    public Pizzeria(Integer pizzeriaID,String pizzariaAlias,String location){
+        this.pizzeriaID = pizzeriaID;
+        this.pizzariaAlias = pizzariaAlias;
+        this.location = location;
     }
 
 
@@ -29,7 +30,7 @@ public class Pizzeria implements Serializable {
         this.location = builder.location;
     }
 
-    public String getPizzeriaID() {
+    public Integer getPizzeriaID() {
         return pizzeriaID;
     }
 
@@ -45,11 +46,11 @@ public class Pizzeria implements Serializable {
 
 
     public static class Builder {
-        private String pizzeriaID;
+        private Integer pizzeriaID;
         private String pizzariaAlias;
         private String location;
 
-        public Builder setPizzariaID(String pizzeriaID) {
+        public Builder setPizzariaID(Integer pizzeriaID) {
             this.pizzeriaID = pizzeriaID;
             return this;
         }
