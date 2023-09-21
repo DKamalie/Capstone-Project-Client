@@ -26,7 +26,7 @@ public class PizzeriaApi {
     private static String urlPizzeria = "http://localhost:8080/pizzeria";
 
     private static Pizzeria pizzeriaTest = PizzeriaFactory.buildPizzaria(
-            "Hill Crest",
+            "Hill Crest Work",
             "Hotel Transylvania");
 
     @GetMapping("/api/ping")
@@ -35,31 +35,26 @@ public class PizzeriaApi {
         return "pong";
     }
 
-    public Pizzeria readPizzeria(String id){
-        Pizzeria p = restTemplate.getForObject(urlPizzeria + "/read/" + id, Pizzeria.class);
-        System.out.println(p.toString());
-    return p;
-    }
-
     public Pizzeria createPizzeria(Pizzeria pizzeria) {
         String a = "";
         String b = "";
+        Integer c = 0;
 
         a = pizzeria.getPizzariaAlias();
         b = pizzeria.getLocation();
+        c = pizzeria.getPizzeriaID();
 
-        HttpEntity<Pizzeria> request = new HttpEntity<>(new Pizzeria(a,b));
+        HttpEntity<Pizzeria> request = new HttpEntity<>(new Pizzeria(c,a,b));
         Pizzeria pizzeria2 = restTemplate.postForObject(urlPizzeria+ "/create", request, Pizzeria.class);
         System.out.println(pizzeria.toString());
 
         return pizzeria2;
     }
-
-//    public Pizzeria readPizzeria(String id){
-//        Pizzeria p = restTemplate.getForObject(urlPizzeria + "/read/" + id, Pizzeria.class);
-//        System.out.println(p.toString());
-//        return p;
-//    }
+    public Pizzeria readPizzeria(String id){
+        Pizzeria p = restTemplate.getForObject(urlPizzeria + "/read/" + id, Pizzeria.class);
+        System.out.println(p.toString());
+        return p;
+    }
 
     public void get() {
         Pizzeria o = new Pizzeria();

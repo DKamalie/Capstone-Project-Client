@@ -14,7 +14,7 @@ public class PizzeriaFactory {
             return null;
         }
 
-        String pizzeriaID = Helper.generateId();
+        Integer pizzeriaID = Helper.generateId2();
 
         Pizzeria pizzeria = new Pizzeria.Builder()
                 .setPizzariaID(pizzeriaID)
