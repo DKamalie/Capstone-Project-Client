@@ -1,14 +1,9 @@
 package com.example.application.api;
 
-import com.example.application.domain.Address;
 import com.example.application.domain.Customer;
-import com.example.application.domain.Pizzeria;
-import org.jsoup.Connection;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -24,13 +19,13 @@ public class CustomerApi {
         static RestTemplate restTemplate = new RestTemplate();
         private static String urlCustomer = "http://localhost:8080/customer";
 
-    public Customer createCustomer(Customer customer) {
-        HttpEntity<Customer> request = new HttpEntity<>(customer);
-        customer = restTemplate.postForObject(urlCustomer+ "/create", request, Customer.class);
-        System.out.println(customer.toString());
-
-        return customer;
-    }
+//    public Customer createCustomer(Customer customer) {
+//        HttpEntity<Customer> request = new HttpEntity<>(new Customer());
+//        customer = restTemplate.postForObject(urlCustomer+ "/create", request, Customer.class);
+//        System.out.println(customer.toString());
+//
+//        return customer;
+//    }
         public Customer readCustomer(String id){
             Customer p = restTemplate.getForObject(urlCustomer + "/read/" + id, Customer.class);
             System.out.println(p.toString());

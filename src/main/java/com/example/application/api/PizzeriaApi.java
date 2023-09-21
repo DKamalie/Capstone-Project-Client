@@ -1,13 +1,13 @@
 package com.example.application.api;
 
-import com.example.application.domain.Customer;
+
 import com.example.application.domain.Pizzeria;
+import com.example.application.factory.PizzeriaFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -25,6 +25,10 @@ public class PizzeriaApi {
 //    private RestTemplate restTemplate2;
     private static String urlPizzeria = "http://localhost:8080/pizzeria";
 
+    private static Pizzeria pizzeriaTest = PizzeriaFactory.buildPizzaria(
+            "Hill Crest",
+            "Hotel Transylvania");
+
     @GetMapping("/api/ping")
     public String ping() {
         System.out.println("Received ping request");
@@ -35,6 +39,20 @@ public class PizzeriaApi {
         Pizzeria p = restTemplate.getForObject(urlPizzeria + "/read/" + id, Pizzeria.class);
         System.out.println(p.toString());
     return p;
+    }
+
+    public Pizzeria createPizzeria(Pizzeria pizzeria) {
+        String a = "";
+        String b = "";
+
+        a = pizzeria.getPizzariaAlias();
+        b = pizzeria.getLocation();
+
+        HttpEntity<Pizzeria> request = new HttpEntity<>(new Pizzeria(a,b));
+        Pizzeria pizzeria2 = restTemplate.postForObject(urlPizzeria+ "/create", request, Pizzeria.class);
+        System.out.println(pizzeria.toString());
+
+        return pizzeria2;
     }
 
 //    public Pizzeria readPizzeria(String id){

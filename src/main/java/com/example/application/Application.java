@@ -1,9 +1,8 @@
 package com.example.application;
 
-import com.example.application.domain.Address;
-import com.example.application.domain.AddressType;
-import com.example.application.domain.Customer;
+import com.example.application.api.PizzeriaApi;
 import com.example.application.domain.Pizzeria;
+import com.example.application.factory.PizzeriaFactory;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
@@ -30,30 +29,32 @@ public class Application implements AppShellConfigurator {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
 
-        Pizzeria i = new Pizzeria();
-        i.setLocation("Home");
-        i.setPizzariaAlias("Test");
+          Pizzeria pizzeria = PizzeriaFactory.buildPizzaria(
+            "Hill Crest Work",
+            "Hotel Transylvania");
 
 
-        Address n = new Address();
-        n.setStreetNumber("21");
-        n.setStreetName("Jump Street");
-        n.setSuburb("West Olmstead");
-        n.setCity("Bikini Bottom");
-        n.setCity("California");
-        n.setProvince("Crownland");
-        n.setPostalCode("0007");
-        n.setAddressType(AddressType.RESIDENTIAL_HOME);
 
-        Customer b = new Customer();
-        b.setCustomerName("Homie");
-        b.setCustomerSurname("Kahn");
-        b.setPhoneNumber("0677717742");
-        b.setAddress(n);
+//        Address n = new Address();
+//        n.setStreetNumber("21");
+//        n.setStreetName("Jump Street");
+//        n.setSuburb("West Olmstead");
+//        n.setCity("Bikini Bottom");
+//        n.setCity("California");
+//        n.setProvince("Crownland");
+//        n.setPostalCode("0007");
+//        n.setAddressType(AddressType.RESIDENTIAL_HOME);
+//
+//        Customer b = new Customer();
+//        b.setCustomerName("Homie");
+//        b.setCustomerSurname("Kahn");
+//        b.setPhoneNumber("0677717742");
+//        b.setAddress(n);
 
-
-//            PizzeriaApi o = new PizzeriaApi();
-//        System.out.println(o.getAllPizzeria());
+//        System.out.println(pizzeria);
+//        PizzeriaApi o = new PizzeriaApi();
+//        o.createPizzeria(pizzeria);
+//        System.out.println(o.toString());
 
 
 //        CustomerApi a = new CustomerApi();

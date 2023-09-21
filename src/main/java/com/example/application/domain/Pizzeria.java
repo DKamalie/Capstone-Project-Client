@@ -16,84 +16,64 @@ public class Pizzeria implements Serializable {
     private String location;
 
     public Pizzeria(){
+    }
+    public Pizzeria(String pizzariaAlias,String location){
+    this.pizzariaAlias = pizzariaAlias;
+    this.location = location;
+    }
 
+
+        private Pizzeria(Builder builder){
+        this.pizzeriaID = builder.pizzeriaID;
+        this.pizzariaAlias = builder.pizzariaAlias;
+        this.location = builder.location;
     }
 
     public String getPizzeriaID() {
         return pizzeriaID;
     }
 
-    public void setPizzeriaID(String pizzeriaID) {
-        this.pizzeriaID = pizzeriaID;
-    }
-
     public String getPizzariaAlias() {
         return pizzariaAlias;
-    }
-
-    public void setPizzariaAlias(String pizzariaAlias) {
-        this.pizzariaAlias = pizzariaAlias;
     }
 
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
-    //    private Pizzeria(Builder builder){
-//        this.pizzeriaID = builder.pizzeriaID;
-//        this.pizzariaAlias = builder.pizzariaAlias;
-//        this.location = builder.location;
-//    }
-//
-//    public String getPizzeriaID() {
-//        return pizzeriaID;
-//    }
-//
-//    public String getPizzariaAlias() {
-//        return pizzariaAlias;
-//    }
-//
-//    public String getLocation() {
-//        return location;
-//    }
-//
-//
-//
-//
-//    public static class Builder {
-//        private String pizzeriaID;
-//        private String pizzariaAlias;
-//        private String location;
-//
-//        public Builder setPizzariaID(String pizzeriaID) {
-//            this.pizzeriaID = pizzeriaID;
-//            return this;
-//        }
-//        public Builder setPizzariaAlias(String pizzariaAlias) {
-//            this.pizzariaAlias = pizzariaAlias;
-//            return this;
-//        }
-//        public Builder setLocation(String location) {
-//            this.location = location;
-//            return this;
-//        }
-//
-//        public Builder copy(Pizzeria t) {
-//            this.pizzeriaID = t.pizzeriaID;
-//            this.pizzariaAlias = t.pizzariaAlias;
-//            this.location = t.location;
-//            return this;
-//        }
-//
-//        public Pizzeria build(){
-//            return new Pizzeria(this);
-//        }
-//
-//    }
+
+
+    public static class Builder {
+        private String pizzeriaID;
+        private String pizzariaAlias;
+        private String location;
+
+        public Builder setPizzariaID(String pizzeriaID) {
+            this.pizzeriaID = pizzeriaID;
+            return this;
+        }
+        public Builder setPizzariaAlias(String pizzariaAlias) {
+            this.pizzariaAlias = pizzariaAlias;
+            return this;
+        }
+        public Builder setLocation(String location) {
+            this.location = location;
+            return this;
+        }
+
+        public Builder copy(Pizzeria t) {
+            this.pizzeriaID = t.pizzeriaID;
+            this.pizzariaAlias = t.pizzariaAlias;
+            this.location = t.location;
+            return this;
+        }
+
+        public Pizzeria build(){
+            return new Pizzeria(this);
+        }
+
+    }
 
     @Override
     public boolean equals(Object o) {
