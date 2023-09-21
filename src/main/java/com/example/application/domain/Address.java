@@ -26,6 +26,18 @@ public class Address {
 
     public Address() {}
 
+    public Address( String addressId, String streetNumber, String streetName,String suburb, String city, String province, String country, String postalCode, AddressType addressType) {
+        this.addressId = addressId;
+        this.streetNumber = streetNumber;
+        this.streetName = streetName;
+        this.suburb = suburb;
+        this.city = city;
+        this.province = province;
+        this.country = country;
+        this.postalCode = postalCode;
+        this.addressType = addressType;
+            }
+
 
         private Address(Builder builder) {
         this.addressId = builder.addressId;

@@ -19,4 +19,7 @@ public class Helper {
     public static String generateId(){// to randomly assign an ID
         return UUID.randomUUID().toString();
     } //Randomly assigns an ID
+    public static Integer generateId2(){// to randomly assign an ID
+        return UUID.randomUUID().hashCode();
+    }
 }
