@@ -39,7 +39,7 @@ public class CustomerApi {
 //
 //        return customer2;
 //    }
-        public Customer readCustomer(String id){
+        public Customer readCustomer(Integer id){
             Customer p = restTemplate.getForObject(urlCustomer + "/read/" + id, Customer.class);
             System.out.println(p.toString());
 
