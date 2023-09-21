@@ -50,7 +50,7 @@ public class PizzeriaApi {
 
         return pizzeria2;
     }
-    public Pizzeria readPizzeria(String id){
+    public Pizzeria readPizzeria(Integer id){
         Pizzeria p = restTemplate.getForObject(urlPizzeria + "/read/" + id, Pizzeria.class);
         System.out.println(p.toString());
         return p;

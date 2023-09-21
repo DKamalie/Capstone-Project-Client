@@ -30,7 +30,7 @@ public class HomeView extends HorizontalLayout {
             Pizzeria object = new Pizzeria();
 
                     PizzeriaApi o = new PizzeriaApi();
-                    object = o.readPizzeria("3b727475-01c8-4f20-ae1a-a9f6de80cc47");
+                    object = o.readPizzeria(123);
 
                     name.setValue(object.getLocation());
 
