@@ -1,6 +1,5 @@
 package com.example.application;
 
-import com.example.application.api.PizzeriaApi;
 import com.example.application.domain.Address;
 import com.example.application.domain.AddressType;
 import com.example.application.domain.Customer;
