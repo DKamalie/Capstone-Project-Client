@@ -1,5 +1,8 @@
 package com.example.application.views.signUp;
 
+import com.example.application.views.MainLayout;
+import com.example.application.views.about.AboutView;
+import com.example.application.views.home.HomeView;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
@@ -8,8 +11,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.dom.Style;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.router.*;
 
 import java.util.InputMismatchException;
 import com.vaadin.flow.component.Text;
@@ -30,7 +32,8 @@ import java.util.InputMismatchException;
  Author: Keenan Meyer (220194920)
  Date: 9th September (last updated) 2023
 */
-@Route("/signup")
+@PageTitle("Sign Up")
+@Route(value = "sign-up", layout = MainLayout.class)
 public class signUp extends VerticalLayout{
         private Text alreadyWithUs;
         //    private Text checkIfYoureaLoyaltyCustomer;
@@ -48,7 +51,7 @@ public class signUp extends VerticalLayout{
         public signUp() {
 
             alreadyWithUs = new Text("Already with us?");
-            //loginLink = new RouterLink("Login", LoginView.class);
+            loginLink = new RouterLink("Login", AboutView.class);
             hL = new HorizontalLayout();
             mainframe = new VerticalLayout();
             hL.add(alreadyWithUs, loginLink);
@@ -61,9 +64,9 @@ public class signUp extends VerticalLayout{
             phoneNumber = new TextField("Phone Number:");
             phoneNumber.setWidth("300px");
             phoneNumber.setPlaceholder("Enter your Phone Number");
-            username = new TextField("Username:");
+            username = new TextField("Email:");
             username.setWidth("300px");
-            username.setPlaceholder("Enter your username");
+            username.setPlaceholder("Enter your email");
             password = new PasswordField("Password:");
             password.setWidth("300px");
             password.setPlaceholder("Enter your password");
@@ -74,7 +77,7 @@ public class signUp extends VerticalLayout{
             btnSubmit.addClickListener(e -> {
                 try {
 
-                   // getUI().ifPresent(ui -> ui.navigate(HomeView.class));
+                    getUI().ifPresent(ui -> ui.navigate(HomeView.class));
 
                 } catch (Exception exception) {
                     Notification.show(exception.getMessage());
@@ -83,7 +86,7 @@ public class signUp extends VerticalLayout{
 
             Style buttonStyle = btnSubmit.getStyle();
             buttonStyle.set("color", "white");
-            buttonStyle.set("background-color", "#8F6666");
+            buttonStyle.set("background-color", "#000000");
             buttonStyle.set("font-family", "Arial");
             buttonStyle.set("font-size", "16px");
             buttonStyle.set("font-weight", "bold");
@@ -149,7 +152,7 @@ public class signUp extends VerticalLayout{
             String usernameValue = username.getValue();
             String passwordValue = password.getValue();
 
-            if (firstNameValue.isEmpty() || lastNameValue.isEmpty() || phoneValue.isEmpty() || usernameValue.isEmpty() || passwordValue.isEmpty()) {
+            if (firstNameValue.isEmpty() || lastNameValue.isEmpty() || phoneValue.isEmpty()  || passwordValue.isEmpty()) {
                 Notification.show("Please enter in all the required fields");
                 return true;
             }
