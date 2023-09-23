@@ -18,7 +18,7 @@ public class LoyaltyCustomerFactory {
             return null;
         }
 
-        String customerId = Helper.generateId();
+        Integer customerId = Helper.generateId2();
 
        LoyaltyCustomer loyaltyCustomer = (LoyaltyCustomer) new LoyaltyCustomer.Builder().setDateJoined(dateJoined).setDiscounts(discounts).setCustomerID(customerId).setCustomerName(customerName).setCustomerSurname(customerSurname).setPhoneNumber(phoneNumber).setAddress(address).build();
        return loyaltyCustomer;

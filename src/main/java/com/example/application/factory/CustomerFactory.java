@@ -20,7 +20,7 @@ public class CustomerFactory {
             return null;
         }
 
-        String customerID = Helper.generateId();
+        Integer customerID = Helper.generateId2();
 
         Customer customer = new Customer.Builder()
                 .setCustomerID(customerID)
@@ -38,7 +38,7 @@ public class CustomerFactory {
             return null;
         }
 
-        String customerID = Helper.generateId();
+        Integer customerID = Helper.generateId2();
 
         Customer customer = new Customer.Builder()
                 .setCustomerID(customerID)
