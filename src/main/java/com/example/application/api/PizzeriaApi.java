@@ -21,9 +21,10 @@ import java.util.Set;
 @RestController
 public class PizzeriaApi {
     static RestTemplate restTemplate = new RestTemplate();
-//    @Autowired
-//    private RestTemplate restTemplate2;
-    private static String urlPizzeria = "http://localhost:8080/pizzeria";
+    public String pizzriaAlias = "";
+    public String location = "";
+    public Integer id = 0;
+    private static String urlPizzeria = "http://localhost:8080/pizzeria/";
 
     private static Pizzeria pizzeriaTest = PizzeriaFactory.buildPizzaria(
             "Hill Crest Work",
@@ -36,36 +37,46 @@ public class PizzeriaApi {
     }
 
     public Pizzeria createPizzeria(Pizzeria pizzeria) {
-        String a = "";
-        String b = "";
-        Integer c = 0;
+        pizzriaAlias = pizzeria.getPizzariaAlias();
+        location = pizzeria.getLocation();
+        id = pizzeria.getPizzeriaID();
 
-        a = pizzeria.getPizzariaAlias();
-        b = pizzeria.getLocation();
-        c = pizzeria.getPizzeriaID();
-
-        HttpEntity<Pizzeria> request = new HttpEntity<>(new Pizzeria(c,a,b));
-        Pizzeria pizzeria2 = restTemplate.postForObject(urlPizzeria+ "/create", request, Pizzeria.class);
+        HttpEntity<Pizzeria> request = new HttpEntity<>(new Pizzeria(
+                id,
+                pizzriaAlias,
+                location));
+        Pizzeria pizzeria2 = restTemplate.postForObject(urlPizzeria+ "create", request, Pizzeria.class);
         System.out.println(pizzeria.toString());
 
         return pizzeria2;
     }
     public Pizzeria readPizzeria(Integer id){
-        Pizzeria p = restTemplate.getForObject(urlPizzeria + "/read/" + id, Pizzeria.class);
+        Pizzeria p = restTemplate.getForObject(urlPizzeria + "read/" + id, Pizzeria.class);
         System.out.println(p.toString());
         return p;
     }
 
-    public void get() {
-        Pizzeria o = new Pizzeria();
-        HttpEntity<Pizzeria> request = new HttpEntity<>(new Pizzeria());
-        Pizzeria customer = restTemplate.postForObject(urlPizzeria, request, Pizzeria.class);
-        System.out.println(customer.toString());
+    public String updatePizzeria(Pizzeria pizzeria){
+        pizzriaAlias = pizzeria.getPizzariaAlias();
+        location = pizzeria.getLocation();
+        id = pizzeria.getPizzeriaID();
+
+        HttpEntity<Pizzeria> request = new HttpEntity<>(new Pizzeria(
+                id,
+                pizzriaAlias,
+                location));
+        Pizzeria pizzeria2 = restTemplate.postForObject(urlPizzeria+ "update", request, Pizzeria.class);
+        System.out.println(pizzeria2.toString());
+
+        String update = "The updated Pizzeria is: " + pizzeria2;
+        return update;
     }
-    public void delete(String id) {
-        String entityUrl = urlPizzeria + "/" + id;
-        restTemplate.delete(entityUrl);
-    }
+
+//    public void deleteBill(Integer id) {
+//        String entityUrl = urlPizzeria + "/delete/" + id;
+//        System.out.println(entityUrl);
+//        restTemplate.delete(entityUrl);
+//    }
     public Set<Pizzeria> getAllPizzeria() {
         String apiUrl = urlPizzeria + "/getAll";
         ResponseEntity<Pizzeria[]> response1 = restTemplate.getForEntity(apiUrl, Pizzeria[].class);
