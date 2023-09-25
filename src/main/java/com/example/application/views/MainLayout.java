@@ -6,7 +6,9 @@ import com.example.application.views.checkout.CheckoutView;
 import com.example.application.views.contactus.ContactUs;
 import com.example.application.views.home.HomeView;
 import com.example.application.views.menu.MenuView;
+ 
 import com.example.application.views.team.TeamView;
+ 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.html.Div;
@@ -113,9 +115,12 @@ public class MainLayout extends AppLayout {
 
                 new MenuItemInfo("About", LineAwesomeIcon.INFO_CIRCLE_SOLID.create(), AboutView.class), //
 
+ 
                 new MenuItemInfo("Team", LineAwesomeIcon.PERSON_BOOTH_SOLID.create(), TeamView.class), //
 
                 new MenuItemInfo("ContactUs", LineAwesomeIcon.PHONE_VOLUME_SOLID.create(), ContactUs.class), //
+ 
+ 
 
         };
     }
