@@ -23,7 +23,7 @@ public class Base {
 
 
 
-    private String baseId;
+    private Integer baseId;
     private BaseCrust crust;
     private BaseThickness thickness;
     private BaseTexture texture;
@@ -41,7 +41,7 @@ public class Base {
         this.price = builder.price;
     }
 
-    public String getBaseId() {
+    public Integer getBaseId() {
         return baseId;
     }
 
@@ -62,14 +62,14 @@ public class Base {
     }
 
     public static class Builder {
-        private String baseId;
+        private Integer baseId;
         private BaseCrust crust;
         private BaseThickness thickness;
         private BaseTexture texture;
         private double price;
 
 
-        public Builder setBaseId(String baseId) {
+        public Builder setBaseId(Integer baseId) {
             this.baseId = baseId;
             return this;
         }

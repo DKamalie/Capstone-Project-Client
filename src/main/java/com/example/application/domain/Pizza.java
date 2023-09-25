@@ -12,7 +12,7 @@ public class Pizza {
     public enum Size{
         EXTRA_SMALL, SMALL, MEDIUM, LARGE, EXTRA_LARGE
     }
-    private String pizzaId;
+    private Integer pizzaId;
 
     private Base baseId;
     private String name;
@@ -39,7 +39,7 @@ public class Pizza {
         this.pizzeria = builder.pizzeria;
     }
 
-    public String getPizzaId() {
+    public Integer getPizzaId() {
             return pizzaId;
         }
 
@@ -68,7 +68,7 @@ public class Pizza {
     }
 
     public static class Builder {
-        private String pizzaId;
+        private Integer pizzaId;
         private Base baseId;
         private String name;
         private String description;
@@ -77,7 +77,7 @@ public class Pizza {
         private double price;
         private Pizzeria pizzeria;
 
-        public Builder setPizzaId(String pizzaId) {
+        public Builder setPizzaId(Integer pizzaId) {
             this.pizzaId = pizzaId;
             return this;
         }

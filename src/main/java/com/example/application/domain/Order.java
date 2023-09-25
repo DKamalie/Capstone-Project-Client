@@ -17,7 +17,7 @@ public class Order {
         NEW, HOLD, SHIPPED, DELIVERED, CLOSED
     }
 
-    private String orderId;
+    private Integer orderId;
     private LocalDate createDate;
     private LocalTime time;
     private Customer customer;
@@ -37,7 +37,7 @@ public class Order {
         this.pizzeria = builder.pizzeria;
     }
 
-    public String getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
@@ -62,14 +62,14 @@ public class Order {
     }
 
     public static class Builder {
-        private String orderId;
+        private Integer orderId;
         private LocalDate createDate;
         private LocalTime time;
         private Customer customer;
         private OrderStatus orderStatus;
         private Pizzeria pizzeria;
 
-        public Builder setOrderId(String orderId) {
+        public Builder setOrderId(Integer orderId) {
             this.orderId = orderId;
             return this;
         }

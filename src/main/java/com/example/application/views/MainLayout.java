@@ -3,9 +3,12 @@ package com.example.application.views;
 
 import com.example.application.views.about.AboutView;
 import com.example.application.views.checkout.CheckoutView;
+import com.example.application.views.contactus.ContactUs;
 import com.example.application.views.home.HomeView;
 import com.example.application.views.menu.MenuView;
-import com.example.application.views.signUp.signUp;
+ 
+import com.example.application.views.team.TeamView;
+ 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.html.Div;
@@ -81,7 +84,7 @@ public class MainLayout extends AppLayout {
         Div layout = new Div();
         layout.addClassNames(Display.FLEX, AlignItems.CENTER, Padding.Horizontal.LARGE);
 
-        H1 appName = new H1("CapstoneClient");
+        H1 appName = new H1("Hill Crest");
         appName.addClassNames(Margin.Vertical.MEDIUM, Margin.End.AUTO, FontSize.LARGE);
         layout.add(appName);
 
@@ -112,7 +115,12 @@ public class MainLayout extends AppLayout {
 
                 new MenuItemInfo("About", LineAwesomeIcon.INFO_CIRCLE_SOLID.create(), AboutView.class), //
 
-                new MenuItemInfo("Sign-up", LineAwesomeIcon.AIRBNB.create(), signUp.class), //
+ 
+                new MenuItemInfo("Team", LineAwesomeIcon.PERSON_BOOTH_SOLID.create(), TeamView.class), //
+
+                new MenuItemInfo("ContactUs", LineAwesomeIcon.PHONE_VOLUME_SOLID.create(), ContactUs.class), //
+ 
+ 
 
         };
     }
