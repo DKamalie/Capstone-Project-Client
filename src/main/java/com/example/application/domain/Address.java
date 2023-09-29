@@ -24,9 +24,22 @@ public class Address {
     private String postalCode;
     private AddressType addressType;
 
-    protected Address() {}
+    public Address() {}
 
-    private Address(Builder builder) {
+    public Address( String addressId, String streetNumber, String streetName,String suburb, String city, String province, String country, String postalCode, AddressType addressType) {
+        this.addressId = addressId;
+        this.streetNumber = streetNumber;
+        this.streetName = streetName;
+        this.suburb = suburb;
+        this.city = city;
+        this.province = province;
+        this.country = country;
+        this.postalCode = postalCode;
+        this.addressType = addressType;
+            }
+
+
+        private Address(Builder builder) {
         this.addressId = builder.addressId;
         this.streetNumber = builder.streetNumber;
         this.streetName = builder.streetName;
@@ -39,45 +52,6 @@ public class Address {
         this.addressType = builder.addressType;
     }
 
-    public String getAddressId() {
-        return addressId;
-    }
-
-    public String getStreetNumber() {
-        return streetNumber;
-    }
-
-    public String getStreetName() {
-        return streetName;
-    }
-
-    public String getFlatNumber() {
-        return flatNumber;
-    }
-
-    public String getSuburb() {
-        return suburb;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public AddressType getAddressType() {
-        return addressType;
-    }
 
     public static class Builder {
         private String addressId;
@@ -90,6 +64,8 @@ public class Address {
         private String country;
         private String postalCode;
         private AddressType addressType;
+
+
 
         public Builder setAddressId(String addressId) {
             this.addressId = addressId;

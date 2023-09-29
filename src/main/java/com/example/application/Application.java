@@ -1,7 +1,11 @@
 package com.example.application;
 
-
 import com.example.application.api.PizzeriaApi;
+import com.example.application.domain.*;
+import com.example.application.factory.AddressFactory;
+import com.example.application.factory.BillFactory;
+import com.example.application.factory.CustomerFactory;
+import com.example.application.factory.PizzeriaFactory;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
@@ -27,8 +31,43 @@ public class Application implements AppShellConfigurator {
     }
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-//            PizzeriaApi o = new PizzeriaApi();
-//            o.readPizzeria("2487d4fb-9ab9-4bf3-b975-de9838ca3be8");
+
+
+        Pizzeria pizzeria = PizzeriaFactory.buildPizzaria(
+            "Home work",
+            "Please work");
+
+        Pizzeria pizzeriaWID = PizzeriaFactory.buildPizzaria(
+                1,
+                "Home work",
+                "Please work");
+
+
+          Address address = AddressFactory.buildAddress(
+        "21",
+        "Jump Street",
+        "West Olmstead",
+        "Bikini Bottom",
+        "California",
+        "Crownland",
+        "0007",
+        AddressType.RESIDENTIAL_HOME);
+
+        Customer customer = CustomerFactory.buildCustomer(
+                "Homie",
+                "Working",
+                "0666666666",
+                address);
+
+//        System.out.println(pizzeriaWID);
+//        PizzeriaApi o = new PizzeriaApi();
+//        o.deletePizzeria(1);
+//        System.out.println(o.toString());
+
+
+//        CustomerApi a = new CustomerApi();
+//        a.createCustomer(b)
+
     }
 
 }

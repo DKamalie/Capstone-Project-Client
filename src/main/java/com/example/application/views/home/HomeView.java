@@ -22,7 +22,7 @@ public class HomeView extends HorizontalLayout {
     private TextField temp;
 
     public HomeView() {
-        name = new TextField("Your name");
+        name = new TextField("");
         sayHello = new Button("Say hello");
         temp = new TextField("");
         sayHello.addClickListener(e -> {
@@ -30,7 +30,7 @@ public class HomeView extends HorizontalLayout {
             Pizzeria object = new Pizzeria();
 
                     PizzeriaApi o = new PizzeriaApi();
-                    object = o.readPizzeria("2487d4fb-9ab9-4bf3-b975-de9838ca3be8");
+                    object = o.readPizzeria(1);
 
                     name.setValue(object.getLocation());
 
