@@ -5,7 +5,9 @@ import com.example.application.views.about.AboutView;
 import com.example.application.views.checkout.CheckoutView;
 import com.example.application.views.contactus.ContactUs;
 import com.example.application.views.home.HomeView;
-import com.example.application.views.menu.MenuView; 
+import com.example.application.views.login.LoginView;
+import com.example.application.views.menu.MenuView;
+import com.example.application.views.team.TeamView;
 import com.example.application.views.welcome.WelcomeView;
  
  
@@ -123,6 +125,8 @@ public class MainLayout extends AppLayout {
                 new MenuItemInfo("Team", LineAwesomeIcon.PERSON_BOOTH_SOLID.create(), TeamView.class), //
 
                 new MenuItemInfo("ContactUs", LineAwesomeIcon.PHONE_VOLUME_SOLID.create(), ContactUs.class), //
+
+                new MenuItemInfo("Login", LineAwesomeIcon.SIGN_SOLID.create(), LoginView.class), //
  
  
 
