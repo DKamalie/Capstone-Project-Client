@@ -3,6 +3,7 @@ package com.example.application.views.signUp;
 import com.example.application.views.MainLayout;
 import com.example.application.views.about.AboutView;
 import com.example.application.views.home.HomeView;
+import com.example.application.views.login.LoginView;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
@@ -51,7 +52,7 @@ public class signUp extends VerticalLayout{
         public signUp() {
 
             alreadyWithUs = new Text("Already with us?");
-            loginLink = new RouterLink("Login", AboutView.class);
+            loginLink = new RouterLink("Login", LoginView.class);
             hL = new HorizontalLayout();
             mainframe = new VerticalLayout();
             hL.add(alreadyWithUs, loginLink);
