@@ -1,12 +1,10 @@
 package com.example.application;
 
 import com.example.application.api.CustomerApi;
+import com.example.application.api.PizzaApi;
 import com.example.application.api.PizzeriaApi;
 import com.example.application.domain.*;
-import com.example.application.factory.AddressFactory;
-import com.example.application.factory.BillFactory;
-import com.example.application.factory.CustomerFactory;
-import com.example.application.factory.PizzeriaFactory;
+import com.example.application.factory.*;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
@@ -71,6 +69,33 @@ public class Application implements AppShellConfigurator {
 //        a.updateCustomer(customer);
 //        System.out.println(a.toString());
 
+         Base base = BaseFactory.buildBase( Base.BaseCrust.CRUSTY,
+                 Base.BaseThickness.THIN, Base.BaseTexture.CRISPY,
+                 20);
+         Pizza pizza = PizzaFactory.createPizza(
+                 -2049057700,
+                 base,
+                 "Margherita pizza",
+                 "none",
+                 Pizza.Size.SMALL,
+                 false,
+                 55,
+                 pizzeria);
+
+        Pizza pizza2 = PizzaFactory.createPizza(
+                base,
+                "Margherita pizza",
+                "Thin crust with high quality flour and fresh tomato sauce and with creamy extra cheese.",
+                Pizza.Size.SMALL,
+                false,
+                55,
+                pizzeria);
+
+        PizzaApi l = new PizzaApi();
+        l.updatePizza(pizza2);
+        System.out.println(l.toString());
     }
+
+
 
 }

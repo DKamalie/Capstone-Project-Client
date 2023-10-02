@@ -10,21 +10,47 @@ import com.example.application.util.Helper;
  Date: 21st July (last updated) 2023
 */
 
-//    public class PizzaFactory {
-//
-//
-//
-//        public static Pizza createPizza(Base baseId, String name, String description, Pizza.Size size, boolean vegetarianOrNot, double price, Pizzeria pizzeria) {
-//            if (Helper.isNullOrEmpty(name) || Helper.isNullOrEmpty(description) || Helper.isNullOrEmpty(String.valueOf(size)) || Helper.isNullOrEmpty(String.valueOf(vegetarianOrNot)) || Helper.isNullOrEmpty(String.valueOf(price)) || Helper.isNullOrEmpty(String.valueOf(pizzeria))) {
-//                return null;
-//            }
-//            String pizzaId = Helper.generateId();
-//
-//            Pizza pizza = new Pizza.Builder().setPizzaId(pizzaId).setBaseId(baseId).setName(name).setDescription(description).setSize(size).setVegetarianOrNot(vegetarianOrNot).setPrice(price).setPizzeria(pizzeria).build();
-//            return pizza;
-//
-//        }
-//
-//
-//    }
+    public class PizzaFactory {
+
+
+
+        public static Pizza createPizza(Base baseId, String name, String description, Pizza.Size size, boolean vegetarianOrNot, double price, Pizzeria pizzeria) {
+            if (Helper.isNullOrEmpty(name) || Helper.isNullOrEmpty(description) || Helper.isNullOrEmpty(String.valueOf(size)) || Helper.isNullOrEmpty(String.valueOf(vegetarianOrNot)) || Helper.isNullOrEmpty(String.valueOf(price)) || Helper.isNullOrEmpty(String.valueOf(pizzeria))) {
+                return null;
+            }
+            Integer pizzaId = Helper.generateId2();
+
+            Pizza pizza = new Pizza.Builder().
+                    setPizzaId(pizzaId).
+                    setBaseId(baseId).
+                    setName(name).
+                    setDescription(description).
+                    setSize(size).
+                    setVegetarianOrNot(vegetarianOrNot).
+                    setPrice(price).setPizzeria(pizzeria).
+                    build();
+            return pizza;
+
+        }
+
+        public static Pizza createPizza(Integer pizzaId, Base baseId, String name, String description, Pizza.Size size, boolean vegetarianOrNot, double price, Pizzeria pizzeria) {
+            if (Helper.isNullOrEmpty(name) || Helper.isNullOrEmpty(description) || Helper.isNullOrEmpty(String.valueOf(size)) || Helper.isNullOrEmpty(String.valueOf(vegetarianOrNot)) || Helper.isNullOrEmpty(String.valueOf(price)) || Helper.isNullOrEmpty(String.valueOf(pizzeria))) {
+                return null;
+            }
+
+            Pizza pizza = new Pizza.Builder().
+                    setPizzaId(pizzaId).
+                    setBaseId(baseId).
+                    setName(name).
+                    setDescription(description).
+                    setSize(size).
+                    setVegetarianOrNot(vegetarianOrNot).
+                    setPrice(price).setPizzeria(pizzeria).
+                    build();
+            return pizza;
+
+        }
+
+
+    }
 
