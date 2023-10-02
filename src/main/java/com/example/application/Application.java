@@ -1,5 +1,6 @@
 package com.example.application;
 
+import com.example.application.api.CustomerApi;
 import com.example.application.api.PizzeriaApi;
 import com.example.application.domain.*;
 import com.example.application.factory.AddressFactory;
@@ -38,8 +39,8 @@ public class Application implements AppShellConfigurator {
             "Please work");
 
         Pizzeria pizzeriaWID = PizzeriaFactory.buildPizzaria(
-                1,
-                "Home work",
+                -1035790709,
+                "Home NO WORK",
                 "Please work");
 
 
@@ -54,19 +55,21 @@ public class Application implements AppShellConfigurator {
         AddressType.RESIDENTIAL_HOME);
 
         Customer customer = CustomerFactory.buildCustomer(
-                "Homie",
+                1,
+                "Jollie,loly",
                 "Working",
-                "0666666666",
+                "0666689777",
                 address);
 
-//        System.out.println(pizzeriaWID);
+//        System.out.println(pizzeria);
 //        PizzeriaApi o = new PizzeriaApi();
-//        o.deletePizzeria(1);
+//        o.updatePizzeria(pizzeriaWID);
 //        System.out.println(o.toString());
 
-
+//        System.out.println(customer);
 //        CustomerApi a = new CustomerApi();
-//        a.createCustomer(b)
+//        a.updateCustomer(customer);
+//        System.out.println(a.toString());
 
     }
 
