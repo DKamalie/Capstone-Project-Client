@@ -14,7 +14,7 @@ import com.vaadin.flow.router.RouteAlias;
 
 @PageTitle("Home")
 @Route(value = "home", layout = MainLayout.class)
-@RouteAlias(value = "", layout = MainLayout.class)
+//@RouteAlias(value = "", layout = MainLayout.class)    //made WelcomeView the "landing page"
 public class HomeView extends HorizontalLayout {
 
     private TextField name;

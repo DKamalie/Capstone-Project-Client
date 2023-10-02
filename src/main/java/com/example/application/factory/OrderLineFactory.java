@@ -5,11 +5,12 @@ import com.example.application.domain.Order;
 import com.example.application.domain.OrderLine;
 import com.example.application.domain.Pizza;
 import com.example.application.util.Helper;
+
 /*
 OrderLineFactory.java
 Author: Tamryn Lisa Lewin (219211981)
 Date: 04 April 2023
-Last update: 08 April 2023
+Last update: 30 September 2023
  */
 
 public class OrderLineFactory {
@@ -18,7 +19,7 @@ public class OrderLineFactory {
             return null;
         }
 
-        String orderLineId = Helper.generateId();
+        Integer orderLineId = Helper.generateId2();
 
         OrderLine orderLine = new OrderLine.Builder()
                 .setOrderLineId(orderLineId)
@@ -29,5 +30,4 @@ public class OrderLineFactory {
                 .build();
         return orderLine;
     }
-
 }
