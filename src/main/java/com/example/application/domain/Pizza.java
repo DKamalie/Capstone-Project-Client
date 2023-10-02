@@ -27,7 +27,17 @@ public class Pizza {
     protected Pizza(){
 
     }
+    public Pizza(Integer pizzaId,Base baseId ,String name , String description , Size size , Boolean vegetarianOrNot, double price, Pizzeria pizzeria){
+        this.pizzaId = pizzaId;
+        this.baseId = baseId;
+        this.name = name;
+        this.description = description;
+        this.size = size;
+        this.vegetarianOrNot = vegetarianOrNot;
+        this.price = price;
+        this.pizzeria = pizzeria;
 
+    }
     private Pizza(Builder builder){
         this.pizzaId = builder.pizzaId;
         this.baseId = builder.baseId;

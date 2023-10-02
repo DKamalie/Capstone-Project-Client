@@ -1,11 +1,10 @@
 package com.example.application;
 
+import com.example.application.api.CustomerApi;
+import com.example.application.api.PizzaApi;
 import com.example.application.api.PizzeriaApi;
 import com.example.application.domain.*;
-import com.example.application.factory.AddressFactory;
-import com.example.application.factory.BillFactory;
-import com.example.application.factory.CustomerFactory;
-import com.example.application.factory.PizzeriaFactory;
+import com.example.application.factory.*;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
@@ -38,8 +37,8 @@ public class Application implements AppShellConfigurator {
             "Please work");
 
         Pizzeria pizzeriaWID = PizzeriaFactory.buildPizzaria(
-                1,
-                "Home work",
+                -1035790709,
+                "Home NO WORK",
                 "Please work");
 
 
@@ -54,20 +53,49 @@ public class Application implements AppShellConfigurator {
         AddressType.RESIDENTIAL_HOME);
 
         Customer customer = CustomerFactory.buildCustomer(
-                "Homie",
+                1,
+                "Jollie,loly",
                 "Working",
-                "0666666666",
+                "0666689777",
                 address);
 
-//        System.out.println(pizzeriaWID);
+//        System.out.println(pizzeria);
 //        PizzeriaApi o = new PizzeriaApi();
-//        o.deletePizzeria(1);
+//        o.updatePizzeria(pizzeriaWID);
 //        System.out.println(o.toString());
 
-
+//        System.out.println(customer);
 //        CustomerApi a = new CustomerApi();
-//        a.createCustomer(b)
+//        a.updateCustomer(customer);
+//        System.out.println(a.toString());
 
+         Base base = BaseFactory.buildBase( Base.BaseCrust.CRUSTY,
+                 Base.BaseThickness.THIN, Base.BaseTexture.CRISPY,
+                 20);
+         Pizza pizza = PizzaFactory.createPizza(
+                 -2049057700,
+                 base,
+                 "Margherita pizza",
+                 "none",
+                 Pizza.Size.SMALL,
+                 false,
+                 55,
+                 pizzeria);
+
+        Pizza pizza2 = PizzaFactory.createPizza(
+                base,
+                "Margherita pizza",
+                "Thin crust with high quality flour and fresh tomato sauce and with creamy extra cheese.",
+                Pizza.Size.SMALL,
+                false,
+                55,
+                pizzeria);
+
+        PizzaApi l = new PizzaApi();
+        l.updatePizza(pizza2);
+        System.out.println(l.toString());
     }
+
+
 
 }

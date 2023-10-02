@@ -48,12 +48,13 @@ public class CustomerApi {
     }
         public Customer readCustomer(Integer id){
             Customer p = restTemplate.getForObject(urlCustomer + "read/" + id, Customer.class);
+            System.out.println("teken +" + p);
             System.out.println(p.toString());
 
             return p;
         }
 
-        public String updatePizzeria(Customer customer){
+        public String updateCustomer(Customer customer){
             id = customer.getCustomerID();
             customerName = customer.getCustomerName();
             customerSurname = customer.getCustomerSurname();

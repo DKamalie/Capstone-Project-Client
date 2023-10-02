@@ -49,4 +49,19 @@ public class CustomerFactory {
         return customer;
 
     }
+
+    public static Customer buildCustomer(Integer customerID, String customerName, String customerSurname,String phoneNumber, Address address) {
+        if (Helper.isNullOrEmpty(customerName) || Helper.isNullOrEmpty(String.valueOf(customerSurname))|| Helper.isNullOrEmpty(phoneNumber)) {
+            return null;
+        }
+        Customer customer = new Customer.Builder()
+                .setCustomerID(customerID)
+                .setCustomerName(customerName)
+                .setCustomerSurname(customerSurname)
+                .setPhoneNumber(phoneNumber)
+                .setAddress(address)
+                .build();
+        return customer;
+
+    }
 }
