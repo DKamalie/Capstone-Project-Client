@@ -81,8 +81,8 @@ public class AddressApi {
     }
 
     public Set<Address> getAllAddresses() {
-        String addressApi = addressServerURL + "/getAll";
-        ResponseEntity<Address[]> response1 = restTemplate.getForEntity(addressApi, Address[].class);
+        String allAddresses = addressServerURL + "/getall";
+        ResponseEntity<Address[]> response1 = restTemplate.getForEntity(allAddresses, Address[].class);
 
         if (response1.getStatusCode().is2xxSuccessful()) {
             Address[] addresses = response1.getBody();

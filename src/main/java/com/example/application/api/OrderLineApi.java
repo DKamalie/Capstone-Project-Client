@@ -62,9 +62,15 @@ public class OrderLineApi {
         return update;
     }
 
+    public void deleteOrderLine(Integer orderLineId) {
+        String deletedOrderLine = orderLineServerURL + "/delete/" + orderLineId;
+        System.out.println(deletedOrderLine);
+        restTemplate.delete(deletedOrderLine);
+    }
+
     public Set<OrderLine> getAllOrderLines() {
-        String orderLineApi = orderLineServerURL + "/getAll";
-        ResponseEntity<OrderLine[]> response1 = restTemplate.getForEntity(orderLineApi, OrderLine[].class);
+        String allOrderLines = orderLineServerURL + "/getall";
+        ResponseEntity<OrderLine[]> response1 = restTemplate.getForEntity(allOrderLines, OrderLine[].class);
 
         if (response1.getStatusCode().is2xxSuccessful()) {
             OrderLine[] orderLines = response1.getBody();
