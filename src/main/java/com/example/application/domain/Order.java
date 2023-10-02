@@ -7,7 +7,7 @@ import java.util.Objects;
 /* Order.java
  Entity for the Order
  Author: Timothy Lombard (220154856)
- Date: 4th August (last updated) 2023
+ Date: 02 October (last updated) 2023
  ////
 */
 
@@ -26,6 +26,15 @@ public class Order {
 
     protected Order(){
 
+    }
+
+    public Order(Integer orderId, LocalDate createDate, LocalTime time, Customer customer, OrderStatus orderStatus, Pizzeria pizzeria){
+        this.orderId = orderId;
+        this.createDate = createDate;
+        this.time = time;
+        this.customer = customer;
+        this.orderStatus = orderStatus;
+        this.pizzeria = pizzeria;
     }
 
     private Order(Builder builder){

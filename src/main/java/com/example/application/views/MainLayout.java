@@ -1,6 +1,5 @@
 package com.example.application.views;
 
-
 import com.example.application.views.about.AboutView;
 import com.example.application.views.checkout.CheckoutView;
 import com.example.application.views.contactus.ContactUs;
@@ -10,9 +9,7 @@ import com.example.application.views.menu.MenuView;
 import com.example.application.views.signUp.signUp;
 import com.example.application.views.team.TeamView;
 import com.example.application.views.welcome.WelcomeView;
- 
- 
-//import com.example.application.views.team.TeamView;
+import com.example.application.views.team.TeamView;
   
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -112,26 +109,29 @@ public class MainLayout extends AppLayout {
 
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{ //
-                new MenuItemInfo("Welcome", LineAwesomeIcon.HANDSHAKE.create(), WelcomeView.class), //
+            new MenuItemInfo("Welcome", LineAwesomeIcon.HANDSHAKE.create(), WelcomeView.class), //
 
-                new MenuItemInfo("Home", LineAwesomeIcon.HOME_SOLID.create(), HomeView.class), //
+            new MenuItemInfo("Home", LineAwesomeIcon.HOME_SOLID.create(), HomeView.class), //
 
-                new MenuItemInfo("Menu", LineAwesomeIcon.TH_LIST_SOLID.create(), MenuView.class), //
+            new MenuItemInfo("Menu", LineAwesomeIcon.TH_LIST_SOLID.create(), MenuView.class), //
 
-                new MenuItemInfo("Checkout", LineAwesomeIcon.CREDIT_CARD.create(), CheckoutView.class), //
+            new MenuItemInfo("Checkout", LineAwesomeIcon.CREDIT_CARD.create(), CheckoutView.class), //
 
-                new MenuItemInfo("About", LineAwesomeIcon.INFO_CIRCLE_SOLID.create(), AboutView.class), //
 
-                new MenuItemInfo("Team", LineAwesomeIcon.PERSON_BOOTH_SOLID.create(), TeamView.class), //
+//             new MenuItemInfo("About", LineAwesomeIcon.INFO_CIRCLE_SOLID.create(), AboutView.class), //
 
-                new MenuItemInfo("ContactUs", LineAwesomeIcon.PHONE_VOLUME_SOLID.create(), ContactUs.class), //
+//             new MenuItemInfo("Team", LineAwesomeIcon.PERSON_BOOTH_SOLID.create(), TeamView.class), //
 
-                new MenuItemInfo("Sign up", LineAwesomeIcon.ADDRESS_BOOK.create(), signUp.class), //
+//                 new MenuItemInfo("Team", LineAwesomeIcon.PERSON_BOOTH_SOLID.create(), TeamView.class), //
 
-                new MenuItemInfo("Login", LineAwesomeIcon.SIGN_SOLID.create(), LoginView.class), //
+//                 new MenuItemInfo("ContactUs", LineAwesomeIcon.PHONE_VOLUME_SOLID.create(), ContactUs.class), //
+
+//                 new MenuItemInfo("Sign up", LineAwesomeIcon.ADDRESS_BOOK.create(), signUp.class), //
+
+//                 new MenuItemInfo("Login", LineAwesomeIcon.SIGN_SOLID.create(), LoginView.class), //
  
- 
 
+            new MenuItemInfo("ContactUs", LineAwesomeIcon.PHONE_VOLUME_SOLID.create(), ContactUs.class), //
         };
     }
 

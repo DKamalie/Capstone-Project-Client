@@ -19,6 +19,14 @@ public class Topping {
 
     }
 
+    public Topping(Integer toppingId, String name, String description, int quantity, double price){
+        this.toppingId = toppingId;
+        this.name = name;
+        this.description = description;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
     private Topping(Builder builder){
         this.toppingId = builder.toppingId;
         this.name = builder.name;

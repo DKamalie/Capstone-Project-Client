@@ -9,9 +9,11 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouteAlias;
 
 @PageTitle("Welcome")
 @Route(value = "welcome", layout = MainLayout.class)
+@RouteAlias(value = "", layout = MainLayout.class)
 public class WelcomeView extends VerticalLayout {
 
     private Image imgPizza;
@@ -21,7 +23,7 @@ public class WelcomeView extends VerticalLayout {
 
     public WelcomeView() {
 
-        imgPizza = new Image("/images/pizza_olives_right_opacity.jpg", "Pizza image");
+        imgPizza = new Image("/images/pizza_olives_right_boarder.jpg", "Pizza image");
 
         header = new Html("<div><br><br></div>");
 
