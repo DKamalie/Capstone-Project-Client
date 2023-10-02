@@ -30,4 +30,21 @@ public class OrderLineFactory {
         return orderLine;
     }
 
+    public static OrderLine createOrderLine(Integer orderId, int quantity, Order order, Pizza pizza, Bill bill) {
+        if(Helper.isNullOrEmpty(String.valueOf(quantity)) || Helper.isNullOrEmpty(String.valueOf(order)) || Helper.isNullOrEmpty(String.valueOf(pizza)) || Helper.isNullOrEmpty(String.valueOf(bill))) {
+            return null;
+        }
+
+
+
+        OrderLine orderLine = new OrderLine.Builder()
+               // .setOrderLineId(orderLineId)it is only complaining because it is a String in the pojo class
+                .setQuantity(quantity)
+                .setOrder(order)
+                .setPizza(pizza)
+                .setBill(bill)
+                .build();
+        return orderLine;
+    }
+
 }
