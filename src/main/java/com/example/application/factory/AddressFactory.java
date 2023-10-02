@@ -15,7 +15,7 @@ public class AddressFactory {
 
     //  flat building
     public static Address buildAddress(String streetNumber, String streetName, String flatNumber, String suburb, String city, String province, String country, String postalCode, AddressType addressType) {
-        if(Helper.isNullOrEmpty(streetNumber) || Helper.isNullOrEmpty(streetName) || Helper.isNullOrEmpty(flatNumber) || Helper.isNullOrEmpty(suburb) || Helper.isNullOrEmpty(city) || Helper.isNullOrEmpty(province) || Helper.isNullOrEmpty(country) || Helper.isNullOrEmpty(postalCode) || Helper.isNullOrEmpty(String.valueOf(addressType))) {
+        if (Helper.isNullOrEmpty(streetNumber) || Helper.isNullOrEmpty(streetName) || Helper.isNullOrEmpty(flatNumber) || Helper.isNullOrEmpty(suburb) || Helper.isNullOrEmpty(city) || Helper.isNullOrEmpty(province) || Helper.isNullOrEmpty(country) || Helper.isNullOrEmpty(postalCode) || Helper.isNullOrEmpty(String.valueOf(addressType))) {
             return null;
         }
 
@@ -40,7 +40,7 @@ public class AddressFactory {
 
     //  residential home
     public static Address buildAddress(String streetNumber, String streetName, String suburb, String city, String province, String country, String postalCode, AddressType addressType) {
-        if(Helper.isNullOrEmpty(streetNumber) || Helper.isNullOrEmpty(streetName) || Helper.isNullOrEmpty(suburb) || Helper.isNullOrEmpty(city) || Helper.isNullOrEmpty(province) || Helper.isNullOrEmpty(country) || Helper.isNullOrEmpty(postalCode) || Helper.isNullOrEmpty(String.valueOf(addressType))) {
+        if (Helper.isNullOrEmpty(streetNumber) || Helper.isNullOrEmpty(streetName) || Helper.isNullOrEmpty(suburb) || Helper.isNullOrEmpty(city) || Helper.isNullOrEmpty(province) || Helper.isNullOrEmpty(country) || Helper.isNullOrEmpty(postalCode) || Helper.isNullOrEmpty(String.valueOf(addressType))) {
             return null;
         }
 
@@ -62,18 +62,8 @@ public class AddressFactory {
         return address;
     }
 
- 
+
     private static void postalCodeCheck(String postalCode) {
- 
-    //The methods below takes a Id
-
-
-    public static Address createAddress(Integer addressId, String streetNumber, String streetName, String flatNumber, String suburb, String city, String province, String country, String postalCode, AddressType addressType) {
-        if(Helper.isNullOrEmpty(streetNumber) || Helper.isNullOrEmpty(streetName) || Helper.isNullOrEmpty(flatNumber) || Helper.isNullOrEmpty(suburb) || Helper.isNullOrEmpty(city) || Helper.isNullOrEmpty(province) || Helper.isNullOrEmpty(country) || Helper.isNullOrEmpty(postalCode) || Helper.isNullOrEmpty(String.valueOf(addressType))) {
-            return null;
-        }
-
- 
         if (postalCode != null && postalCode.matches("^[0-9]{4}$")) {
 //            int postalCodeValue = Integer.parseInt(postalCode);
             if (Integer.parseInt(postalCode) >= 1 && Integer.parseInt(postalCode) <= 9999) {
@@ -83,53 +73,60 @@ public class AddressFactory {
         } else {
             throw new IllegalArgumentException("Invalid postal code: Not 4 digits");
         }
- 
 
-
-
-        Address address = new Address.Builder()
-               // .setAddressId(addressId)//it is only complaining because it is a String in the pojo class
-                .setStreetNumber(streetNumber)
-                .setStreetName(streetName)
-                .setFlatNumber(flatNumber)
-                .setSuburb(suburb)
-                .setCity(city)
-                .setProvince(province)
-                .setCountry(country)
-                .setPostalCode(postalCode)
-                .setAddressType(addressType)
-                .build();
-        return address;
     }
 
-    public static Address createAddress(Integer addressId, String streetNumber, String streetName, String suburb, String city, String province, String country, String postalCode, AddressType addressType) {
-        if(Helper.isNullOrEmpty(streetNumber) || Helper.isNullOrEmpty(streetName) || Helper.isNullOrEmpty(suburb) || Helper.isNullOrEmpty(city) || Helper.isNullOrEmpty(province) || Helper.isNullOrEmpty(country) || Helper.isNullOrEmpty(postalCode) || Helper.isNullOrEmpty(String.valueOf(addressType))) {
-            return null;
-        }
+        //The methods below takes a Id
 
-        if (postalCode != null && postalCode.matches("^[0-9]{4}$")) {
-            if (Integer.parseInt(postalCode) >= 1 && Integer.parseInt(postalCode) <= 9999) {
-            } else {
-                throw new IllegalArgumentException("Invalid postal code: Not between 1 and 9999");
+
+        public static Address createAddress (Integer addressId, String streetNumber, String streetName, String
+        flatNumber, String suburb, String city, String province, String country, String postalCode, AddressType
+        addressType){
+            if (Helper.isNullOrEmpty(streetNumber) || Helper.isNullOrEmpty(streetName) || Helper.isNullOrEmpty(flatNumber) || Helper.isNullOrEmpty(suburb) || Helper.isNullOrEmpty(city) || Helper.isNullOrEmpty(province) || Helper.isNullOrEmpty(country) || Helper.isNullOrEmpty(postalCode) || Helper.isNullOrEmpty(String.valueOf(addressType))) {
+                return null;
             }
-        } else {
-            throw new IllegalArgumentException("Invalid postal code: Not 4 digits");
+
+
+            postalCodeCheck(postalCode);
+
+
+            Address address = new Address.Builder()
+                    .setAddressId(addressId)
+                    .setStreetNumber(streetNumber)
+                    .setStreetName(streetName)
+                    .setFlatNumber(flatNumber)
+                    .setSuburb(suburb)
+                    .setCity(city)
+                    .setProvince(province)
+                    .setCountry(country)
+                    .setPostalCode(postalCode)
+                    .setAddressType(addressType)
+                    .build();
+            return address;
         }
 
+        public static Address createAddress (Integer addressId, String streetNumber, String streetName, String
+        suburb, String city, String province, String country, String postalCode, AddressType addressType){
+            if (Helper.isNullOrEmpty(streetNumber) || Helper.isNullOrEmpty(streetName) || Helper.isNullOrEmpty(suburb) || Helper.isNullOrEmpty(city) || Helper.isNullOrEmpty(province) || Helper.isNullOrEmpty(country) || Helper.isNullOrEmpty(postalCode) || Helper.isNullOrEmpty(String.valueOf(addressType))) {
+                return null;
+            }
+
+           postalCodeCheck(postalCode);
 
 
-        Address address = new Address.Builder()
-               // .setAddressId(addressId)//it is only complaining because it is a String in the pojo class
-                .setStreetNumber(streetNumber)
-                .setStreetName(streetName)
-                .setSuburb(suburb)
-                .setCity(city)
-                .setProvince(province)
-                .setCountry(country)
-                .setPostalCode(postalCode)
-                .setAddressType(addressType)
-                .build();
-        return address;
- 
+            Address address = new Address.Builder()
+                    .setAddressId(addressId)
+                    .setStreetNumber(streetNumber)
+                    .setStreetName(streetName)
+                    .setSuburb(suburb)
+                    .setCity(city)
+                    .setProvince(province)
+                    .setCountry(country)
+                    .setPostalCode(postalCode)
+                    .setAddressType(addressType)
+                    .build();
+            return address;
+
+        }
     }
-}
+
