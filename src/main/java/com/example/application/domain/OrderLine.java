@@ -1,5 +1,6 @@
 package com.example.application.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /*
@@ -7,18 +8,27 @@ OrderLine.java
 OrderLine entity
 Author: Tamryn Lisa Lewin (219211981)
 Date: 04 April 2023
-Last update: 31 July 2023
+Last update: 30 September 2023
  */
 
-public class OrderLine {
-
-    private String orderLineId;
+public class OrderLine implements Serializable {
+    private Integer orderLineId;
     private int quantity;
     private Order order;
     private Pizza pizza;
     private Bill bill;
 
-    protected OrderLine() {}
+    protected OrderLine() {
+
+    }
+
+    public OrderLine(Integer orderLineId, int quantity, Order order, Pizza pizza, Bill bill) {
+        this.orderLineId = orderLineId;
+        this.quantity = quantity;
+        this.order = order;
+        this.pizza = pizza;
+        this.bill = bill;
+    }
 
     private OrderLine(Builder builder) {
         this.orderLineId = builder.orderLineId;
@@ -28,7 +38,7 @@ public class OrderLine {
         this.bill = builder.bill;
     }
 
-    public String getOrderLineId() {
+    public Integer getOrderLineId() {
         return orderLineId;
     }
     public int getQuantity() {
@@ -41,17 +51,17 @@ public class OrderLine {
         return pizza;
     }
     public Bill getBill() {
-       return bill;
+        return bill;
     }
 
     public static class Builder {
-        private String orderLineId;
+        private Integer orderLineId;
         private int quantity;
         private Order order;
         private Pizza pizza;
         private Bill bill;
 
-        public Builder setOrderLineId(String orderLineId) {
+        public Builder setOrderLineId(Integer orderLineId) {
             this.orderLineId = orderLineId;
             return this;
         }
@@ -72,8 +82,8 @@ public class OrderLine {
 
         public Builder setBill(Bill bill) {
             this.bill = bill;
-           return this;
-       }
+            return this;
+        }
 
         public Builder copy(OrderLine orderLine) {
             this.orderLineId = orderLine.orderLineId;

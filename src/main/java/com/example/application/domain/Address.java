@@ -1,5 +1,6 @@
 package com.example.application.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /*
@@ -7,13 +8,11 @@ Address.java
 Address entity
 Author: Tamryn Lisa Lewin (219211981)
 Date: 04 April 2023
-Last update: July 2023
+Last update: 30 September 2023
  */
 
-
-public class Address {
-
-    private String addressId;
+public class Address implements Serializable {
+    private Integer addressId;
     private String streetNumber;
     private String streetName;
     private String flatNumber;
@@ -24,22 +23,23 @@ public class Address {
     private String postalCode;
     private AddressType addressType;
 
-    public Address() {}
+    protected Address() {
+    }
 
-    public Address( String addressId, String streetNumber, String streetName,String suburb, String city, String province, String country, String postalCode, AddressType addressType) {
+    public Address(Integer addressId, String streetNumber, String streetName, String flatNumber, String suburb, String city, String province, String country, String postalCode, AddressType addressType) {
         this.addressId = addressId;
         this.streetNumber = streetNumber;
         this.streetName = streetName;
+        this.flatNumber = flatNumber;
         this.suburb = suburb;
         this.city = city;
         this.province = province;
         this.country = country;
         this.postalCode = postalCode;
         this.addressType = addressType;
-            }
+    }
 
-
-        private Address(Builder builder) {
+    private Address(Builder builder) {
         this.addressId = builder.addressId;
         this.streetNumber = builder.streetNumber;
         this.streetName = builder.streetName;
@@ -52,9 +52,48 @@ public class Address {
         this.addressType = builder.addressType;
     }
 
+    public Integer getAddressId() {
+        return addressId;
+    }
+
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public String getFlatNumber() {
+        return flatNumber;
+    }
+
+    public String getSuburb() {
+        return suburb;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public AddressType getAddressType() {
+        return addressType;
+    }
 
     public static class Builder {
-        private String addressId;
+        private Integer addressId;
         private String streetNumber;
         private String streetName;
         private String flatNumber;
@@ -65,9 +104,7 @@ public class Address {
         private String postalCode;
         private AddressType addressType;
 
-
-
-        public Builder setAddressId(String addressId) {
+        public Builder setAddressId(Integer addressId) {
             this.addressId = addressId;
             return this;
         }
