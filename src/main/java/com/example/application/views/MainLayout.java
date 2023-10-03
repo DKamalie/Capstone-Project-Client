@@ -118,17 +118,17 @@ public class MainLayout extends AppLayout {
             new MenuItemInfo("Checkout", LineAwesomeIcon.CREDIT_CARD.create(), CheckoutView.class), //
 
 
-//             new MenuItemInfo("About", LineAwesomeIcon.INFO_CIRCLE_SOLID.create(), AboutView.class), //
+             new MenuItemInfo("About", LineAwesomeIcon.INFO_CIRCLE_SOLID.create(), AboutView.class), //
 
 //             new MenuItemInfo("Team", LineAwesomeIcon.PERSON_BOOTH_SOLID.create(), TeamView.class), //
 
-//                 new MenuItemInfo("Team", LineAwesomeIcon.PERSON_BOOTH_SOLID.create(), TeamView.class), //
+                 new MenuItemInfo("Team", LineAwesomeIcon.PERSON_BOOTH_SOLID.create(), TeamView.class), //
 
-//                 new MenuItemInfo("ContactUs", LineAwesomeIcon.PHONE_VOLUME_SOLID.create(), ContactUs.class), //
+                // new MenuItemInfo("ContactUs", LineAwesomeIcon.PHONE_VOLUME_SOLID.create(), ContactUs.class), //
 
 //                 new MenuItemInfo("Sign up", LineAwesomeIcon.ADDRESS_BOOK.create(), signUp.class), //
 
-//                 new MenuItemInfo("Login", LineAwesomeIcon.SIGN_SOLID.create(), LoginView.class), //
+                 new MenuItemInfo("Login", LineAwesomeIcon.SIGN_SOLID.create(), LoginView.class), //
  
 
             new MenuItemInfo("ContactUs", LineAwesomeIcon.PHONE_VOLUME_SOLID.create(), ContactUs.class), //
