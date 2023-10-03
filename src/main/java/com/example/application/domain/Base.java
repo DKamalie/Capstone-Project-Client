@@ -33,6 +33,14 @@ public class Base {
 
     }
 
+    public Base(Integer baseId, BaseCrust crust, BaseThickness thickness, BaseTexture texture, double price) {
+        this.baseId = baseId;
+        this.crust = crust;
+        this.thickness = thickness;
+        this.texture = texture;
+        this.price = price;
+    }
+
     private Base(Builder builder){
         this.baseId = builder.baseId;
         this.crust = builder.crust;
