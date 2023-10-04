@@ -41,7 +41,7 @@ public class Both extends VerticalLayout{
     private TextField firstName;
     private TextField lastName;
     private TextField phoneNumber;
-    private TextField username;
+    private TextField email;
     private PasswordField password;
 
     //address
@@ -77,9 +77,9 @@ public class Both extends VerticalLayout{
         phoneNumber = new TextField("Phone number:");
         phoneNumber.setWidth("300px");
         phoneNumber.setPlaceholder("Enter your phone number");
-        username = new TextField("Email:");
-        username.setWidth("300px");
-        username.setPlaceholder("Enter your email");
+        email = new TextField("Email:");
+        email.setWidth("300px");
+        email.setPlaceholder("Enter your email");
         password = new PasswordField("Password:");
         password.setWidth("300px");
         password.setPlaceholder("Enter your password");
@@ -125,24 +125,28 @@ public class Both extends VerticalLayout{
         //clicking Submit button
         btnNext.addClickListener(e -> {
             try {
-                //customer
-                firstName.setVisible(false);
-                lastName.setVisible(false);
-                phoneNumber.setVisible(false);
-                username.setVisible(false);
-                password.setVisible(false);
-                btnNext.setVisible(false);
+                if(customerErrors()  ==  false) {
+                    //customer
+                    firstName.setVisible(false);
+                    lastName.setVisible(false);
+                    phoneNumber.setVisible(false);
+                    email.setVisible(false);
+                    password.setVisible(false);
+                    btnNext.setVisible(false);
 
-                //address
-             streetNumber.setVisible(true);
-             streetName .setVisible(true);
-             suburb.setVisible(true);
-             city.setVisible(true);
-             province.setVisible(true);
-             country.setVisible(true);
-             postalCode.setVisible(true);
-             btnSubmit.setVisible(true);
+                    //address
+                    streetNumber.setVisible(true);
+                    streetName.setVisible(true);
+                    suburb.setVisible(true);
+                    city.setVisible(true);
+                    province.setVisible(true);
+                    country.setVisible(true);
+                    postalCode.setVisible(true);
+                    btnSubmit.setVisible(true);
 
+                } else{
+                    System.out.println("entered Customer errors");
+                }
 
             } catch (Exception exception) {
             Notification.show(exception.getMessage());
@@ -153,62 +157,19 @@ public class Both extends VerticalLayout{
         //clicking Submit button
         btnSubmit.addClickListener(e -> {
             try {
+                if(addressErrors()  ==  false){
                     LoyaltyCustomer  l = setValues();
+                    System.out.println(l.toString());
+//                  createLoyaltyCustomer();
+
+                Notification.show("You are now logged in as " + l.getCustomerName());
                 System.out.println(l.toString());
-//                createLoyaltyCustomer();
+
                 getUI().ifPresent(ui -> ui.navigate(WelcomeView.class));
-//                //customer
-//                String firstNameValue = firstName.getValue();
-//                String lastNameValue = lastName.getValue();
-//                String phoneValue = phoneNumber.getValue();
-//                String usernameValue = username.getValue();
-//                String passwordValue = password.getValue();
-//
-//                //address
-//                String streetNumberValue =  streetNumber.getValue();
-//                String streetNameValue = streetName.getValue();
-//                String suburbValue = suburb.getValue();
-//                String cityValue = city.getValue();
-//                String provinceValue = province.getValue();
-//                String countryValue = country.getValue();
-//                String postalCodeValue = postalCode.getValue();
-//
-//
-//
-//
-//                LocalDate date = LocalDate.now();
-//
-//                Address address =  AddressFactory.buildAddress(
-//                        streetNumberValue,
-//                        streetNameValue,
-//                        suburbValue,
-//                        cityValue,
-//                        provinceValue,
-//                        countryValue,
-//                        postalCodeValue,
-//                        AddressType.RESIDENTIAL_HOME
-//                );
-//
-//                Customer customer = CustomerFactory.buildCustomer(
-//                        firstNameValue,
-//                        lastNameValue,
-//                        phoneValue,
-//                        address
-//                );
-//
-//                LoyaltyCustomer data = LoyaltyCustomerFactory.createLoyaltyCustomer(
-//                        firstNameValue,
-//                        lastNameValue,
-//                        phoneValue,
-//                        address,
-//                        date,
-//                        10,
-//                        passwordValue,
-//                        usernameValue
-//                );
-//
-//                Notification.show("You are now logged in as " + data.getCustomerName());
-//                System.out.println(data.toString());
+                }else{
+                    System.out.println("entered Address errors");
+                }
+
             } catch (Exception exception) {
                 Notification.show(exception.getMessage());
             }
@@ -224,7 +185,7 @@ public class Both extends VerticalLayout{
 
         Style lastNameTextField = lastName.getStyle();
         lastNameTextField.set("font-family", "Arial");
-        firstNameTextField.set("font-size", "15px");
+        lastNameTextField.set("font-size", "15px");
         lastNameTextField.set("margin-right", "auto");
         lastNameTextField.set("margin-left", "auto");
 
@@ -234,7 +195,7 @@ public class Both extends VerticalLayout{
         emailTextField.set("margin-right", "auto");
         emailTextField.set("margin-left", "auto");
 
-        Style usernameTextField = username.getStyle();
+        Style usernameTextField = email.getStyle();
         usernameTextField.set("font-family", "Arial");
         usernameTextField.set("font-size", "15px");
         usernameTextField.set("margin-right", "auto");
@@ -326,7 +287,7 @@ public class Both extends VerticalLayout{
         mainframe.add(firstName);
         mainframe.add(lastName);
         mainframe.add(phoneNumber);
-        mainframe.add(username);
+        mainframe.add(email);
         mainframe.add(password);
         mainframe.add(streetNumber);
         mainframe.add(streetName);
@@ -351,7 +312,7 @@ public class Both extends VerticalLayout{
         String firstNameValue = firstName.getValue();
         String lastNameValue = lastName.getValue();
         String phoneValue = phoneNumber.getValue();
-        String usernameValue = username.getValue();
+        String emailValue = email.getValue();
         String passwordValue = password.getValue();
 
         //address
@@ -392,25 +353,26 @@ public class Both extends VerticalLayout{
                 date,
                 10,
                 passwordValue,
-                usernameValue
+                emailValue
         );
         return data;
     }
-    public Boolean CustomerErrors() {
+    public Boolean customerErrors() {
         String firstNameValue = firstName.getValue();
         String lastNameValue = lastName.getValue();
         String phoneValue = phoneNumber.getValue();
-        String usernameValue = username.getValue();
+        String emailValue = email.getValue();
         String passwordValue = password.getValue();
 
-        if (streetNumber.isEmpty() || streetName.isEmpty() || suburb.isEmpty() || city.isEmpty()  || country.isEmpty() || province.isEmpty() || postalCode.isEmpty()) {
+        if (firstName.isEmpty() || lastName.isEmpty() ||
+                phoneNumber.isEmpty() || emailValue.isEmpty()  || password.isEmpty()) {
             Notification.show("Please enter in all the required fields");
             return true;
         }
         if(!firstNameValue.matches("[a-zA-Z]+") || !lastNameValue.matches("[a-zA-Z]+")){
-            throw new InputMismatchException(("Invalid input, please only enter in letters for your Street or Suburb"));
+            throw new InputMismatchException(("Invalid input, please only enter in letters for your firstname or surname"));
         }
-        if(phoneValue.length() < 10){
+        if(phoneValue.length() != 10){
             Notification.show("The PHONE NUMBER length is below 10");
             return true;
         }
@@ -418,9 +380,14 @@ public class Both extends VerticalLayout{
             Notification.show("The password length is below 8");
             return true;
         }
+//        if(!emailValue.matches("[^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\\\.[A-Za-z0-9-]+)*(\\\\.[A-Za-z]{2,})$]+") ){
+//            Notification.show("Please enter a  valid email");
+//            throw new InputMismatchException(("Invalid input, please only enter in letters for your Street or Suburb"));
+//        }
+
         return false;
     }
-    public Boolean AddressErrors() {
+    public Boolean addressErrors() {
         //address
         String streetNumberValue =  streetNumber.getValue();
         String streetNameValue = streetName.getValue();
