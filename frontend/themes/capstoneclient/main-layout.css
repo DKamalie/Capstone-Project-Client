@@ -18,9 +18,9 @@ header nav a:focus-visible {
 }
 
 header nav a[highlight] span {
-  color: var(--lumo-primary-text-color);
+  color: var(--lumo-shade);
 }
 
 header nav a[highlight] {
-  background-color: var(--lumo-primary-color-10pct);
+  background-color: var(--lumo-shade-10pct);
 }
