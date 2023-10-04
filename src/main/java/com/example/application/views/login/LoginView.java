@@ -2,7 +2,7 @@ package com.example.application.views.login;
 
 import com.example.application.views.MainLayout;
 import com.example.application.views.home.HomeView;
-import com.example.application.views.signUp.signUp;
+import com.example.application.views.signUp.Both;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
@@ -57,7 +57,7 @@ public class LoginView extends VerticalLayout {
         });
 
         Text notMember = new Text("Not a Member?");
-        RouterLink signUpLink = new RouterLink("SignUp", signUp.class);
+        RouterLink signUpLink = new RouterLink("SignUp", Both.class);
 
         Style buttonStyle = btnLogin.getStyle();
         buttonStyle.set("color", "white");
