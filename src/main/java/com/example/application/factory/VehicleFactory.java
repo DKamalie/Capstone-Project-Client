@@ -13,7 +13,7 @@ public class VehicleFactory {
         if (Helper.isNullOrEmpty(vehicleType) || Helper.isNullOrEmpty(make) || Helper.isNullOrEmpty(model) || Helper.isNullOrEmpty(year) || Helper.isNullOrEmpty(colour)) {
             return null;
         }
-       String vehicleId = Helper.generateId();
+       Integer vehicleId = Helper.generateId2();
 
 
         Vehicle vehicle = new Vehicle.Builder().setVehicleId(vehicleId).setVehicleType(vehicleType).setMake(make).setModel(model).setYear(year).setColour(colour).build();
