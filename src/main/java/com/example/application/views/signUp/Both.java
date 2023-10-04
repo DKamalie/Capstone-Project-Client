@@ -175,7 +175,6 @@ public class Both extends VerticalLayout{
             }
         });
 
-
         //customer
         Style firstNameTextField = firstName.getStyle();
         firstNameTextField.set("font-family", "Arial");
