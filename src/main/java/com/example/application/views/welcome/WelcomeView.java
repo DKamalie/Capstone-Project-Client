@@ -11,9 +11,20 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
+/*
+WelcomeView.java
+Author: Tamryn Lisa Lewin (219211981)
+Date: 29 September 2023
+Last update: 02 October 2023
+ */
+
+/*
+    Switched to Home view
+ */
+
 @PageTitle("Welcome")
 @Route(value = "welcome", layout = MainLayout.class)
-@RouteAlias(value = "", layout = MainLayout.class)
+//@RouteAlias(value = "", layout = MainLayout.class)
 public class WelcomeView extends VerticalLayout {
 
     private Image imgPizza;
