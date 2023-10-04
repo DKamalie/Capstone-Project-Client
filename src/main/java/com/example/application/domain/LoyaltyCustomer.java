@@ -22,12 +22,11 @@ public class LoyaltyCustomer extends Customer {
     protected LoyaltyCustomer(){
 
     }
-
-    public LoyaltyCustomer(Customer customer, LocalDate dateJoined, double discounts, String password, String email){
-        super();
+    public LoyaltyCustomer(Integer customerID,String customerName,String customerSurname,String phoneNumber,Address address, LocalDate dateJoined, double discounts, String password, String email){
+        super(customerID,customerName,customerSurname,phoneNumber,address);
        this.dateJoined = dateJoined;
        this.discounts = discounts;
-       this. password = password;
+       this.password = password;
        this.email = email;
     }
 

@@ -21,4 +21,14 @@ public class BillFactory {
 
         return em;
     }
+
+    public static Bill createBill(Integer billId, double totalBill){
+        if(Helper.isNullOrEmpty(String.valueOf(totalBill))){
+            return null;
+        }
+
+        Bill em = new Bill.Builder().setBillId(billId).setTotalBill(totalBill).build();
+
+        return em;
+    }
 }
