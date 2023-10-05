@@ -1,8 +1,5 @@
 package com.example.application;
 
-import com.example.application.api.CustomerApi;
-import com.example.application.api.PizzaApi;
-import com.example.application.api.PizzeriaApi;
 import com.example.application.domain.*;
 import com.example.application.factory.*;
 import com.vaadin.flow.component.dependency.NpmPackage;
@@ -13,13 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-/**
- * The entry point of the Spring Boot application.
- *
- * Use the @PWA annotation make the application installable on phones, tablets
- * and some desktop browsers.
- *
- */
+import java.time.LocalDate;
+
 @SpringBootApplication
 @NpmPackage(value = "@fontsource/lato", version = "4.5.0")
 @Theme(value = "capstoneclient")
@@ -59,15 +51,16 @@ public class Application implements AppShellConfigurator {
                 "0666689777",
                 address);
 
-//        System.out.println(pizzeria);
-//        PizzeriaApi o = new PizzeriaApi();
-//        o.updatePizzeria(pizzeriaWID);
-//        System.out.println(o.toString());
-
-//        System.out.println(customer);
-//        CustomerApi a = new CustomerApi();
-//        a.updateCustomer(customer);
-//        System.out.println(a.toString());
+        LocalDate date = LocalDate.now();
+         LoyaltyCustomer lc1 = LoyaltyCustomerFactory.createLoyaltyCustomer(
+                "Keenan",
+                "Meyer",
+                "0852849389",
+                address,
+                date,
+                10.34,
+                "12345678",
+                "luto@gmail.com");
 
          Base base = BaseFactory.buildBase( Base.BaseCrust.CRUSTY,
                  Base.BaseThickness.THIN, Base.BaseTexture.CRISPY,
@@ -91,9 +84,6 @@ public class Application implements AppShellConfigurator {
                 55,
                 pizzeria);
 
-        PizzaApi l = new PizzaApi();
-        l.updatePizza(pizza2);
-        System.out.println(l.toString());
     }
 
 

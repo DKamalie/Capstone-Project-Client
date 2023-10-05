@@ -1,5 +1,6 @@
 package com.example.application.views.signUp;
 
+import com.example.application.api.LoyaltyCustomerApi;
 import com.example.application.domain.Address;
 import com.example.application.domain.AddressType;
 import com.example.application.domain.Customer;
@@ -8,7 +9,6 @@ import com.example.application.factory.AddressFactory;
 import com.example.application.factory.CustomerFactory;
 import com.example.application.factory.LoyaltyCustomerFactory;
 import com.example.application.views.MainLayout;
-import com.example.application.views.home.HomeView;
 import com.example.application.views.login.LoginView;
 import com.example.application.views.welcome.WelcomeView;
 import com.vaadin.flow.component.Text;
@@ -159,11 +159,11 @@ public class Both extends VerticalLayout{
             try {
                 if(addressErrors()  ==  false){
                     LoyaltyCustomer  l = setValues();
-                    System.out.println(l.toString());
-//                  createLoyaltyCustomer(l);
+
+                    System.out.println("Before create" + l.toString());
+                    createLoyaltyCustomer(l);
 
                 Notification.show("You are now logged in as " + l.getCustomerName());
-                System.out.println(l.getCustomerName());
 
                 getUI().ifPresent(ui -> ui.navigate(WelcomeView.class));
                 }else{
@@ -301,10 +301,14 @@ public class Both extends VerticalLayout{
 
     }
 
-//    public void createLoyaltyCustomer(LoyaltyCustomer loyaltyCustomer){
-//        LoyaltyCustomerApi loyaltyCustomerApi = new LoyaltyCustomerApi();
-//        loyaltyCustomerApi.createLoyaltyCustomer(loyaltyCustomer);
-//    }
+    public void createLoyaltyCustomer(LoyaltyCustomer loyaltyCustomer){
+        LoyaltyCustomerApi loyaltyCustomerApi = new LoyaltyCustomerApi();
+        loyaltyCustomerApi.createLoyaltyCustomer(loyaltyCustomer);
+    }
+    public boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+        return email.matches(emailRegex);
+    }
 
     public LoyaltyCustomer setValues(){
         //customer
@@ -372,17 +376,17 @@ public class Both extends VerticalLayout{
             throw new InputMismatchException(("Invalid input, please only enter in letters for your firstname or surname"));
         }
         if(phoneValue.length() != 10){
-            Notification.show("The PHONE NUMBER length is below 10");
+            Notification.show("The Phone   length is below 10");
             return true;
         }
         if(passwordValue.length() < 8){
             Notification.show("The password length is below 8");
             return true;
         }
-//        if(!emailValue.matches("[^(?=.{1,64}@)[A-Za-z0-9_-]+(\\\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\\\.[A-Za-z0-9-]+)*(\\\\.[A-Za-z]{2,})$]+") ){
-//            Notification.show("Please enter a  valid email");
-//            throw new InputMismatchException(("Invalid input, please only enter in letters for your Street or Suburb"));
-//        }
+        if (!isValidEmail(emailValue)){
+            Notification.show("Invalid email, please try again");
+            return true;
+        }
 
         return false;
     }
@@ -402,8 +406,10 @@ public class Both extends VerticalLayout{
             return true;
         }
 
-        if(!streetNameValue.matches("[a-zA-Z]+") || !suburbValue.matches("[a-zA-Z]+")
-        || !provinceValue.matches("[a-zA-Z]+") || !cityValue.matches("[a-zA-Z]+")
+        if(!streetNameValue.matches("[a-zA-Z]+")
+                || !suburbValue.matches("[a-zA-Z]+")
+                || !provinceValue.matches("[a-zA-Z]+")
+                || !cityValue.matches("[a-zA-Z]+")
                 || !countryValue.matches("[a-zA-Z]+")){
             throw new InputMismatchException(("Invalid input, please only enter in letters for your Street or Suburb"));
         }
