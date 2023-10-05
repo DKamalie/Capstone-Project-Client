@@ -160,10 +160,10 @@ public class Both extends VerticalLayout{
                 if(addressErrors()  ==  false){
                     LoyaltyCustomer  l = setValues();
                     System.out.println(l.toString());
-//                  createLoyaltyCustomer();
+//                  createLoyaltyCustomer(l);
 
                 Notification.show("You are now logged in as " + l.getCustomerName());
-                System.out.println(l.toString());
+                System.out.println(l.getCustomerName());
 
                 getUI().ifPresent(ui -> ui.navigate(WelcomeView.class));
                 }else{
@@ -403,7 +403,8 @@ public class Both extends VerticalLayout{
         }
 
         if(!streetNameValue.matches("[a-zA-Z]+") || !suburbValue.matches("[a-zA-Z]+")
-        || !provinceValue.matches("[a-zA-Z]+") || !cityValue.matches("[a-zA-Z]+")){
+        || !provinceValue.matches("[a-zA-Z]+") || !cityValue.matches("[a-zA-Z]+")
+                || !countryValue.matches("[a-zA-Z]+")){
             throw new InputMismatchException(("Invalid input, please only enter in letters for your Street or Suburb"));
         }
 
@@ -411,10 +412,10 @@ public class Both extends VerticalLayout{
             Notification.show("Invalid Postal Code, please try again");
             return true;
         }
-//        if(country.length() < 8){
-//            Notification.show("The password length is below 8");
-//            return true;
-//        }
+        if(streetNumberValue.length() < 0){
+            Notification.show("The Street Number is invalid");
+            return true;
+        }
         return false;
     }
 
