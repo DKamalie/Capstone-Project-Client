@@ -13,6 +13,9 @@ import java.util.Objects;
 
 public class Order {
 
+    public Order(int orderId, LocalDate createDate) {
+    }
+
     public enum OrderStatus{
         NEW, HOLD, SHIPPED, DELIVERED, CLOSED
     }
@@ -148,3 +151,5 @@ public class Order {
                 '}';
     }
 }
+
+
