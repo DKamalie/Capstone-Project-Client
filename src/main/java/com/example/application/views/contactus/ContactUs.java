@@ -30,7 +30,9 @@ public class ContactUs extends VerticalLayout {
 
     public ContactUs(){
 
-        contactUs = new Html("<div>CONTACT US</div>");
+        contactUs = new Html("<div>CONTACT US</div>");//still figure out what to do with this
+
+
 
         hillCrestAddress = new Html("<div><b>Hill Crest address:</b><br>" +
                 "300 Long St<br>" +
@@ -75,6 +77,7 @@ public class ContactUs extends VerticalLayout {
         contactUsStyle.set("font-size", "30px");
         contactUsStyle.set("font-weight", "bold");
 
+
         Style hillCrestAddressStyle = hillCrestAddress.getStyle();
         hillCrestAddressStyle.set("font-family", "Arial");
         hillCrestAddressStyle.set("font-size", "17px");
@@ -108,6 +111,8 @@ public class ContactUs extends VerticalLayout {
 
         VerticalLayout centerAlignedLayout = new VerticalLayout(borderDiv);
         centerAlignedLayout.setAlignItems(FlexComponent.Alignment.CENTER);
+
+
 
 
 

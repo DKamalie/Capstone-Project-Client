@@ -45,13 +45,16 @@ public class AboutView extends VerticalLayout {
         berge.setWidth("300px");
         berge.setHeight("250px");
 
+
         hillCrestImage = new Image("/images/hillcrest.jpg", "");
         hillCrestImage.setHeight("300px");
         hillCrestImage.setWidth("450px");
 
+
         oldHillCrestImage = new Image("/images/oldHillCrest.png", "");
         oldHillCrestImage.setHeight("300px");
         oldHillCrestImage.setWidth("450px");
+
 
         image = new HorizontalLayout(oldHillCrestImage, hillCrestImage);
 
@@ -67,6 +70,15 @@ public class AboutView extends VerticalLayout {
 
         HorizontalLayout mainLayout = new HorizontalLayout(berge, textLayout);
         mainLayout.setAlignItems(Alignment.CENTER);
+
+        Style bergeStyle = berge.getStyle();
+        bergeStyle.set("border-radius", "4%");
+
+        Style hillCrestImageStyle = hillCrestImage.getStyle();
+        hillCrestImageStyle.set("border-radius", "6%");
+
+        Style oldHillCrestImageStyle = oldHillCrestImage.getStyle();
+        oldHillCrestImageStyle.set("border-radius", "6%");
 
         Style aboutUsStyle = aboutUs.getStyle();
         aboutUsStyle.set("font-family", "Arial");

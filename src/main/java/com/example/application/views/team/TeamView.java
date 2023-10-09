@@ -77,9 +77,11 @@ public class TeamView extends VerticalLayout {
         Style teamButtonStyle = teamButton.getStyle();
         teamButtonStyle.set("color", "white");
         teamButtonStyle.set("background-color", "#000000");
-        teamButtonStyle.set("font-family", "Arial");
-        teamButtonStyle.set("font-size", "15px");
         teamButtonStyle.set("font-weight", "bold");
+        teamButtonStyle.set("width", "150px");
+        teamButtonStyle.set("height", "43px");
+        teamButtonStyle.set("border-radius", "22px");
+        teamButtonStyle.set("box-shadow", "0 5px 4px rgba(0, 0, 0, 0.2)");
 
 
         setMargin(true);
@@ -93,12 +95,13 @@ public class TeamView extends VerticalLayout {
     private Span createEmployeeSpan(Employee employee) {
         return new Span(
                 new Html("<table>" +
-                        "<tr><td>Employee ID:</td><td>" + employee.getEmpId() + "</td></tr>" +
+                        //"<tr><td>Employee ID:</td><td>" + employee.getEmpId() + "</td></tr>" +
+                        "<tr><td>Employee role:</td><td>" + "Other employee" + "</td></tr>" +
                         "<tr><td>Name:</td><td>" + employee.getName() + "</td></tr>" +
                         "<tr><td>Surname:</td><td>" + employee.getSurname() + "</td></tr>" +
-                        "<tr><td>Phone Number:</td><td>" + employee.getPhoneNumber() + "</td></tr>" +
-                        "<tr><td>Email:</td><td>" + employee.getEmail() + "</td></tr>" +
-                        "<tr><td>Pizzeria:</td><td>" + employee.getPizzeria() + "</td></tr>" +
+                        //"<tr><td>Phone Number:</td><td>" + employee.getPhoneNumber() + "</td></tr>" +
+                       // "<tr><td>Email:</td><td>" + employee.getEmail() + "</td></tr>" +
+                       // "<tr><td>Pizzeria:</td><td>" + employee.getPizzeria() + "</td></tr>" +
                         "<tr><td></td><td></td></tr>" +
                         "<tr><td></td><td></td></tr>" +
                         "<tr><td></td><td></td></tr>" +
@@ -110,12 +113,13 @@ public class TeamView extends VerticalLayout {
     private Span createChefSpan(Chef chef) {
         return new Span(
                 new Html("<table>" +
-                        "<tr><td>Employee ID:</td><td>" + chef.getEmpId() + "</td></tr>" +
+                       // "<tr><td>Employee ID:</td><td>" + chef.getEmpId() + "</td></tr>" +
+                         "<tr><td>Employee role:</td><td>" + "Chef" + "</td></tr>" +
                         "<tr><td>Name:</td><td>" + chef.getName() + "</td></tr>" +
                         "<tr><td>Surname:</td><td>" + chef.getSurname() + "</td></tr>" +
-                        "<tr><td>Phone Number:</td><td>" + chef.getPhoneNumber() + "</td></tr>" +
-                        "<tr><td>Email:</td><td>" + chef.getEmail() + "</td></tr>" +
-                        "<tr><td>Pizzeria:</td><td>" + chef.getPizzeria() + "</td></tr>" +
+                        //"<tr><td>Phone Number:</td><td>" + chef.getPhoneNumber() + "</td></tr>" +
+                       // "<tr><td>Email:</td><td>" + chef.getEmail() + "</td></tr>" +
+                       // "<tr><td>Pizzeria:</td><td>" + chef.getPizzeria() + "</td></tr>" +
                         "<tr><td>Title:</td><td>" + chef.getTitle() + "</td></tr>" +
                         "<tr><td>Culinary Experience:</td><td>" + chef.getCulinaryExperience() + "</td></tr>" +
                         "<tr><td></td><td></td></tr>" +
@@ -128,13 +132,14 @@ public class TeamView extends VerticalLayout {
     private Span createDriverSpan(Driver driver) {
         return new Span(
                 new Html("<table>" +
-                        "<tr><td>Employee ID:</td><td>" + driver.getEmpId() + "</td></tr>" +
+                       // "<tr><td>Employee ID:</td><td>" + driver.getEmpId() + "</td></tr>" +
+                        "<tr><td>Employee role:</td><td>" + "Driver" + "</td></tr>" +
                         "<tr><td>Name:</td><td>" + driver.getName() + "</td></tr>" +
                         "<tr><td>Surname:</td><td>" + driver.getSurname() + "</td></tr>" +
-                        "<tr><td>Phone Number:</td><td>" + driver.getPhoneNumber() + "</td></tr>" +
-                        "<tr><td>Email:</td><td>" + driver.getEmail() + "</td></tr>" +
-                        "<tr><td>Pizzeria:</td><td>" + driver.getPizzeria() + "</td></tr>" +
-                        "<tr><td>Vehicle:</td><td>" + driver.getVehicle() + "</td></tr>" +
+                       // "<tr><td>Phone Number:</td><td>" + driver.getPhoneNumber() + "</td></tr>" +
+                       // "<tr><td>Email:</td><td>" + driver.getEmail() + "</td></tr>" +
+                        //"<tr><td>Pizzeria:</td><td>" + driver.getPizzeria() + "</td></tr>" +
+                       // "<tr><td>Vehicle:</td><td>" + driver.getVehicle() + "</td></tr>" +
                         "<tr><td></td><td></td></tr>" +
                         "<tr><td></td><td></td></tr>" +
                         "<tr><td></td><td></td></tr>" +
