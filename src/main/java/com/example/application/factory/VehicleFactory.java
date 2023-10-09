@@ -19,4 +19,13 @@ public class VehicleFactory {
         Vehicle vehicle = new Vehicle.Builder().setVehicleId(vehicleId).setVehicleType(vehicleType).setMake(make).setModel(model).setYear(year).setColour(colour).build();
         return vehicle;
     }
+
+    public static Vehicle buildVehicle(Integer vehicleId, String vehicleType, String make, String model, String year, String colour){
+        if (Helper.isNullOrEmpty(vehicleType) || Helper.isNullOrEmpty(make) || Helper.isNullOrEmpty(model) || Helper.isNullOrEmpty(year) || Helper.isNullOrEmpty(colour)) {
+            return null;
+        }
+
+        Vehicle vehicle = new Vehicle.Builder().setVehicleId(vehicleId).setVehicleType(vehicleType).setMake(make).setModel(model).setYear(year).setColour(colour).build();
+        return vehicle;
+    }
 }

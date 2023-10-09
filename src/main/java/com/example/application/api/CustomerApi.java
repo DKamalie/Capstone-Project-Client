@@ -79,7 +79,7 @@ public class CustomerApi {
         System.out.println(entityUrl);
         restTemplate.delete(entityUrl);
     }
-    public Set<Customer> getAllPizzeria() {
+        public Set<Customer> getAllCustomers() {
         String apiUrl = urlCustomer + "getAll";
         ResponseEntity<Customer[]> response1 = restTemplate.getForEntity(apiUrl, Customer[].class);
 

@@ -1,5 +1,6 @@
 package com.example.application;
 
+import com.example.application.api.VehicleApi;
 import com.example.application.domain.*;
 import com.example.application.factory.*;
 import com.vaadin.flow.component.dependency.NpmPackage;
@@ -84,7 +85,17 @@ public class Application implements AppShellConfigurator {
                 55,
                 pizzeria);
 
+
+        Vehicle getVehicleData = VehicleFactory.buildVehicle(466555689, "nn", "nn", "nn", "2015", "bue");
+        VehicleApi vehicleApi = new VehicleApi();
+        System.out.println(getVehicleData);
+        vehicleApi.deleteVehicle(1843803432);
+
+
+
     }
+
+  //  Vehicle getVehicleData = VehicleFactory.buildVehicle(vehicleIdValue, vehicleTypeValue, makeValue, modelValue, yearValue, colourValue);
 
 
 

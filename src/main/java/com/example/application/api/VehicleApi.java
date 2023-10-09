@@ -76,13 +76,13 @@ public class VehicleApi {
         return "The updated Vehicle is: " + updated;
     }
 
-    /*
+
     public void deleteVehicle(Integer id){
     String entityUrl = vehicleUrl + "/delete/" + id;
-    System.out.println(entityUrl);
+    System.out.println("In Api" + entityUrl);
     restTemplate.delete(entityUrl);
     }
-     */
+
     public Set<Vehicle> getAll(){
         String apiUrl = vehicleUrl + "/getall";
         ResponseEntity<Vehicle[]> responseEntity = restTemplate.getForEntity(apiUrl, Vehicle[].class);

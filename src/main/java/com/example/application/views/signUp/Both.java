@@ -26,6 +26,8 @@ import java.util.InputMismatchException;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 
+import static com.example.application.helper.Helper.isValidEmail;
+
 /*
  Sign Up  View.java
  Author: Keenan Meyer (220194920)
@@ -305,10 +307,7 @@ public class Both extends VerticalLayout{
         LoyaltyCustomerApi loyaltyCustomerApi = new LoyaltyCustomerApi();
         loyaltyCustomerApi.createLoyaltyCustomer(loyaltyCustomer);
     }
-    public boolean isValidEmail(String email) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
-        return email.matches(emailRegex);
-    }
+
 
     public LoyaltyCustomer setValues(){
         //customer
@@ -406,11 +405,11 @@ public class Both extends VerticalLayout{
             return true;
         }
 
-        if(!streetNameValue.matches("[a-zA-Z]+")
-                || !suburbValue.matches("[a-zA-Z]+")
-                || !provinceValue.matches("[a-zA-Z]+")
-                || !cityValue.matches("[a-zA-Z]+")
-                || !countryValue.matches("[a-zA-Z]+")){
+        if(!streetNameValue.matches("[a-zA-Z ]+")
+                || !suburbValue.matches("[a-zA-Z ]+")
+                || !provinceValue.matches("[a-zA-Z ]+")
+                || !cityValue.matches("[a-zA-Z ]+")
+                || !countryValue.matches("[a-zA-Z ]+")){
             throw new InputMismatchException(("Invalid input, please only enter in letters for your Street or Suburb"));
         }
 
