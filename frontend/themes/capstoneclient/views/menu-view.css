@@ -133,7 +133,8 @@ main {
 }
 .sideBar > p {
   margin-top: 1.5rem;
-  font-size: 1.3rem;
+  font-size: 1rem;
+  
 }
 .test {
   z-index: 40;

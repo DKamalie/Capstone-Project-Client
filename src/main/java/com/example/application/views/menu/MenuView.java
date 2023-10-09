@@ -38,6 +38,7 @@ public class MenuView extends Main implements HasComponents, HasStyle {
     private int count =0;
     Button order;
     MenuApi getAll = new MenuApi();
+    Div sideBar;
     public MenuView() {
         addClassName("mainContainer");
         Set<Pizza> pizzas = getAll.getAllPizzas();
@@ -51,16 +52,23 @@ public class MenuView extends Main implements HasComponents, HasStyle {
     }
 
     public Div orderBar() {
-        Div sideBar = new Div();
+        sideBar = new Div();
         Paragraph p = new Paragraph("ORDER:");
         sideBar.add(p);
         sideBar.addClassName("sideBar");
+        order.addClickListener(event -> {
+            System.out.println("TEST");
+        });
         return sideBar;
     }
 
     private Div createPizzaSpan(Pizza pizza) {
         order = new Button("add");
         order.addClassName("orderBtn");
+        order.addClickListener(event -> {
+            System.out.println(pizza.getName());
+            sideBar.add(new Paragraph(String.valueOf(pizza.getName())));
+        });
         Div pizzaContainer = new Div();
         pizzaContainer.addClassName("pizzaContainer");
         //pizzaContainer.addClassNames(AlignItems.CENTER, JustifyContent.BETWEEN, MaxWidth.SCREEN_LARGE, Margin.Horizontal.AUTO, Padding.Bottom.LARGE, Padding.Horizontal.LARGE);;
