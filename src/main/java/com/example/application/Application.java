@@ -85,13 +85,13 @@ public class Application implements AppShellConfigurator {
                 55,
                 pizzeria);
 
-/*
+
         Vehicle getVehicleData = VehicleFactory.buildVehicle(466555689, "nn", "nn", "nn", "2015", "bue");
         VehicleApi vehicleApi = new VehicleApi();
         System.out.println(getVehicleData);
-        vehicleApi.updateVehicle(getVehicleData);
+        vehicleApi.deleteVehicle(1843803432);
 
- */
+
 
     }
 
