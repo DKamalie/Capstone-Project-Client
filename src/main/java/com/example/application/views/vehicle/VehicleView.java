@@ -9,6 +9,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -59,7 +60,7 @@ public class VehicleView extends VerticalLayout {
 
         updateButton = new Button("Update");
         updateButton.setWidth("300px");
-        updateButton.setEnabled(false);
+        updateButton.setEnabled(true);
 
         readUpdateButton = new Button("Read update");
         readUpdateButton.setWidth("300px");
@@ -94,7 +95,6 @@ public class VehicleView extends VerticalLayout {
                     if (vehicleData != null) {
                         updateVehicleFields(vehicleData);
                         vehicleId.setEnabled(false);
-                        disableEditing();
                         Notification.show("Vehicle Id read successfully");
                     } else {
                         // Handle the case where the entered vehicleId does not exist
@@ -113,12 +113,13 @@ public class VehicleView extends VerticalLayout {
 
         updateButton.addClickListener(e -> {
             try {
+                System.out.println(isEditing);
 
-                    if (isEditing) {
+                    if (isEditing == false) {
                         Vehicle updatedVehicle = updateSetVehicleValues();
                         updateVehicle(updatedVehicle);
+
                         Notification.show("Vehicle updated successfully");
-                        disableEditing(); // Disable editing after updating
                     }
                 } catch (Exception ex) {
                     Notification.show("An error occurred during the update: " + ex.getMessage());
@@ -126,121 +127,28 @@ public class VehicleView extends VerticalLayout {
         });
 
 
-/*
-        vehicleId.addKeyDownListener(Key.ENTER, event -> {
-            try {
-                TextField source = (TextField) event.getSource();
-                String enteredValue = source.getValue();
-
-                if (!enteredValue.isEmpty()) {
-                    Integer enteredVehicleId = Integer.valueOf(enteredValue);
-
-                    // Perform update action
-                    Vehicle updatedVehicle = setVehicleValues();
-                    updateVehicle(updatedVehicle);
-                    Notification.show("Vehicle Id read successfully");
-                    vehicleId.setEnabled(false);
-                }
-            } catch (NumberFormatException e) {
-                Notification.show("Please enter a valid vehicle ID as a number.");
-            } catch (Exception e) {
-                Notification.show("An error occurred: " + e.getMessage());
-            }
-        });
-
- */
-/*
-        updateButton.addClickListener(e -> {
-            try {
-                // TextField source = (TextField) event.getSource();
-                String enteredValue = vehicleId.getValue();
-
-                if (!enteredValue.isEmpty()) {
-                    Integer enteredVehicleId = Integer.valueOf(enteredValue);
-
-                    // Call the readVehicleId method to fetch vehicle data
-                    Vehicle vehicleData = readVehicleId(enteredVehicleId);
-
-                    // Update the other text fields with the retrieved data
-                    if (vehicleData != null) {
-                        updateVehicleFields(vehicleData);
-                        vehicleId.setEnabled(false);
-                        Notification.show("Vehicle Id read successfully");
-                    }  if (isEditing) {
-
-
-                        // Capture the updated data from the textfields
-                        Vehicle updatedVehicle = updateSetVehicleValues();
-
-                        // Perform the update action
-                        updateVehicle(updatedVehicle);
-
-                        // Notify the user of a successful update
-                        Notification.show("Vehicle updated successfully");
-
-                        // Re-enable editing mode
-                        enableEditing();
-                    } else {
-                        // Handle the case where the entered vehicleId does not exist
-                        Notification.show("Vehicle with ID " + enteredVehicleId + " not found");
-                    }
-                }
-            } catch (NumberFormatException eg) {
-                // Handle the case where the entered value is not a valid integer
-                Notification.show("Please enter a valid vehicle ID as a number.");
-            } catch (Exception eg) {
-                // Handle any other exceptions that may occur
-                Notification.show("An error occurred: " + eg.getMessage());
-            }
-            /*
-            try {
-                if (isEditing) {
-
-
-                    // Capture the updated data from the textfields
-                    Vehicle updatedVehicle = updateSetVehicleValues();
-
-                    // Perform the update action
-                    updateVehicle(updatedVehicle);
-
-                    // Notify the user of a successful update
-                    Notification.show("Vehicle updated successfully");
-
-                    // Re-enable editing mode
-                    enableEditing();
-                }
-            } catch (Exception ex) {
-                Notification.show("An error occurred during the update: " + ex.getMessage());
-            }
-
-
-        });
-
- */
-
-
-
-/*
-
-        updateButton.addClickListener(e -> {
-            try {
-                if (isEditing) {
-                    // Only perform the update operation if in editing mode
-                    Vehicle updatedVehicle = setVehicleValues();
-                    updateVehicle(updatedVehicle);
-                    Notification.show("Vehicle updated successfully");
-                    enableEditing(); // Re-enable editing mode
-                }
-            } catch (Exception ex) {
-                Notification.show("An error occurred during the update: " + ex.getMessage());
-            }
-        });
-
- */
-
-
         //styling stuff can come last
+        Style buttonStyle = saveButton.getStyle();
+        buttonStyle.set("color", "white");
+        buttonStyle.set("background-color", "#000000");
+        buttonStyle.set("font-family", "Arial");
+        buttonStyle.set("font-size", "16px");
+        buttonStyle.set("font-weight", "bold");
+        buttonStyle.set("border-radius", "17px");
+        buttonStyle.set("box-shadow", "0 5px 4px rgba(0, 0, 0, 0.2)");
+//        buttonStyle.set("margin-right", "auto");
+//        buttonStyle.set("margin-left", "auto");
 
+        Style buttonStyle2 = updateButton.getStyle();
+        buttonStyle2.set("color", "white");
+        buttonStyle2.set("background-color", "#000000");
+        buttonStyle2.set("font-family", "Arial");
+        buttonStyle2.set("font-size", "16px");
+        buttonStyle2.set("font-weight", "bold");
+        buttonStyle2.set("border-radius", "17px");
+        buttonStyle2.set("box-shadow", "0 5px 4px rgba(0, 0, 0, 0.2)");
+//        buttonStyle2.set("margin-right", "auto");
+//        buttonStyle2.set("margin-left", "auto");
         setMargin(true);
 
         add(vehicleId);
@@ -302,7 +210,13 @@ public class VehicleView extends VerticalLayout {
         String yearValue = year.getValue();
         String colourValue = colour.getValue();
 
-        Vehicle updateVehicleData = VehicleFactory.buildVehicle(vehicleIdValue, vehicleTypeValue, makeValue, modelValue, yearValue, colourValue);
+        Vehicle updateVehicleData = VehicleFactory.buildVehicle(
+                vehicleIdValue,
+                vehicleTypeValue,
+                makeValue,
+                modelValue,
+                yearValue,
+                colourValue);
 
         return updateVehicleData;
 
