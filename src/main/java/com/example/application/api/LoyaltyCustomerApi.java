@@ -104,7 +104,7 @@ public class LoyaltyCustomerApi {
         restTemplate.delete(entityUrl);
     }
     public Set<LoyaltyCustomer> getAllLoyaltyCustomer() {
-        String apiUrl = urlLoyaltyCustomer + "getAll";
+        String apiUrl = urlLoyaltyCustomer + "getall";
         ResponseEntity<LoyaltyCustomer[]> response1 = restTemplate.getForEntity(apiUrl, LoyaltyCustomer[].class);
 
         if (response1.getStatusCode().is2xxSuccessful()) {

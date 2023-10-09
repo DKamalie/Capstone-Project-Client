@@ -1,10 +1,13 @@
 package com.example.application.views.login;
 
+import com.example.application.api.LoyaltyCustomerApi;
+import com.example.application.domain.LoyaltyCustomer;
 import com.example.application.views.MainLayout;
 import com.example.application.views.home.HomeView;
 import com.example.application.views.signUp.Both;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -14,6 +17,7 @@ import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
+import java.util.Set;
 
 /*
 Login View.java
@@ -28,8 +32,13 @@ public class LoginView extends VerticalLayout {
     private Button btnLogin;
     private Button btnCancel;
     private HorizontalLayout hl = new HorizontalLayout();
+    private HorizontalLayout hl2 = new HorizontalLayout();
+    private final LoyaltyCustomerApi loyaltyCustomerApi;
 
-    public LoginView() {
+
+    public LoginView(LoyaltyCustomerApi loyaltyCustomerApi) {
+        this.loyaltyCustomerApi = loyaltyCustomerApi;
+
         email = new TextField("Email:");
         email.setWidth("300px");
         email.setPlaceholder("Enter your email");
@@ -39,22 +48,38 @@ public class LoginView extends VerticalLayout {
         password.setPlaceholder("Enter your password");
 
         btnLogin = new Button("Login");
-        btnLogin.setWidth("300px");
+        btnLogin.setWidth("150px");
 
         btnCancel = new Button("Cancel");
-        btnCancel.setWidth("300px");
+        btnCancel.setWidth("150px");
         btnCancel.addClickListener(e -> {
             getUI().ifPresent(ui -> ui.navigate(HomeView.class));
         });
 
         btnLogin.addClickListener(e -> {
-            if (validateCredentials()) {
-                // Authentication logic here
+            String enteredEmail = email.getValue();
+            String enteredPassword = password.getValue();
+
+            Set<LoyaltyCustomer> loyaltyCustomers = loyaltyCustomerApi.getAllLoyaltyCustomer();
+
+            boolean loginSuccessful = false;
+
+            for (LoyaltyCustomer customer : loyaltyCustomers) {
+                if (customer.getEmail().equals(enteredEmail) && customer.getPassword().equals(enteredPassword)) {
+                    loginSuccessful = true;
+                    Notification.show("Welcome " + customer.getCustomerName() +"!");
+                    break;
+                }
+            }
+
+            if (loginSuccessful) {
+                Notification.show("Login successful!");
                 getUI().ifPresent(ui -> ui.navigate(HomeView.class));
             } else {
                 Notification.show("Invalid email or password. Please try again.");
             }
         });
+
 
         Text notMember = new Text("Not a Member?");
         RouterLink signUpLink = new RouterLink("SignUp", Both.class);
@@ -93,16 +118,21 @@ public class LoginView extends VerticalLayout {
         passwordTextField.set("margin-right", "auto");
         passwordTextField.set("margin-left", "auto");
 
-        setMargin(true);
+        Div spacer = new Div();
+        spacer.setHeight("15vh");
+
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
+        setMargin(true);
 
         hl.add(notMember,signUpLink);
-        add(email, password, btnLogin, btnCancel,hl);
+        hl2.add(btnLogin,btnCancel);
+        add(spacer,email, password,hl2,hl);
     }
 
-    private boolean validateCredentials() {
-        // Dummy validation logic
-        return true;
+    public boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+        return email.matches(emailRegex);
     }
+
 }
