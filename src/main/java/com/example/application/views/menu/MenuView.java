@@ -1,6 +1,7 @@
 package com.example.application.views.menu;
 
 import com.example.application.api.MenuApi;
+import com.example.application.api.OrderApi;
 import com.example.application.domain.*;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.HasComponents;
@@ -15,6 +16,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility.AlignItems;
 import com.vaadin.flow.theme.lumo.LumoUtility.JustifyContent;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -28,19 +30,23 @@ public class MenuView extends Main implements HasComponents, HasStyle {
     private Map<Pizza, Paragraph> pizzaParapraphMap = new HashMap<>();
     Button order = new Button("Order");
     MenuApi getAll = new MenuApi();
+    OrderApi orderApi = new OrderApi();
     Div sideBar = new Div();
     Div getPriceDiv = new Div();
     double totalPrice;
+    Button chkBtn;
     Div priceDiv = new Div();
     public MenuView() {
+        chkBtn = new Button("Checkout");
+        chkBtn.addClassName("checkout");
         H3 h = new H3("ORDER:");
         getPriceDiv.addClassName("getPriceDiv");
         getPriceDiv.setText("Total: R0");
 
-
         sideBar.addClassName("sideBar");
         sideBar.add(getPriceDiv);
         sideBar.add(h);
+        sideBar.add(chkBtn);
         addClassName("mainContainer");
         Set<Pizza> pizzas = getAll.getAllPizzas();
         pizzas.forEach(pizza -> {
@@ -48,17 +54,14 @@ public class MenuView extends Main implements HasComponents, HasStyle {
             add(createPizzaSpan(pizza));
         });
         add(orderBar());
-        //setSideBar();
+
+        chkBtn.addClickListener(event -> {
+           checkOut();
+        });
     }
     public Div orderBar() {
         return sideBar;
     }
-//    public void setSideBar(){
-//        sideBar.addClickListener(clickEvent -> {
-//            sideBar.addClassName("openSidebar");
-//            System.out.println("Korean marmelade");
-//        });
-//    }
     private Div createPizzaSpan(Pizza pizza) {
         Div pizzaContainer = new Div();
         Button plus = new Button("+");
@@ -81,36 +84,6 @@ public class MenuView extends Main implements HasComponents, HasStyle {
                 System.out.println(count);
             }
         });
-
-
-
-        //order = new Button("Add");
-        //order.addClassName("orderBtn");
-
-
-//        order.addClickListener(event -> {
-//
-//            System.out.println(pizza.getName());
-//
-//            // Check if pizza in map already
-//            // Add count if not
-//            if(!pizzaCountMap.containsKey(pizza)) {
-//                pizzaCountMap.put(pizza, 1);
-//            }else {
-//                int count = pizzaCountMap.get(pizza);
-//                pizzaCountMap.put(pizza, count + 1);
-//                System.out.println(count);
-//            }
-//            // update total price
-//
-//            this.totalPrice = this.totalPrice + pizza.getPrice();
-//            System.out.println(totalPrice);
-//            getPriceDiv.setText("Total: R" + totalPrice);
-//            if (pizzaCountMap.get(pizza) <= 1) {
-//                sideBar.add(new Paragraph(String.valueOf(pizza.getName())));
-//            }
-//
-//        });
 
         pizzaContainer.addClassName("pizzaContainer");
         Div wholeCard = new Div();
@@ -192,16 +165,12 @@ private void updateCountAndPrice(Pizza pizza, int count) {
         }
         return total;
     }
-    private Div createOrder() {
-        Div btnContainer = new Div();
-        btnContainer.addClassName("btnContainer");
-        Div span = new Div();
-        span.setText("Total: R" + totalPrice);
-        span.addClassName("test");
-        order.addClickListener(buttonClickEvent -> span.setText("Total: R" + totalPrice));
-        HorizontalLayout hl = new HorizontalLayout();
-        hl.add(span);
-        //sideBar.add(span);
-        return span;
+//    private Order createOrder() {
+//
+//        Order order1 = new Order(1, LocalDate.now(),);
+//    }
+    private void checkOut(){
+        //orderApi.createOrder();
+        System.out.println("test");
     }
 }
