@@ -1,29 +1,3 @@
-/*.menu-view ol {*/
-/*  grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));*/
-/*}*/
-
-/*.menu-view li {*/
-/*  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);*/
-/*  transition-property: background-color, box-shadow;*/
-/*}*/
-
-/*.menu-view li:hover {*/
-/*  background-color: var(--lumo-base-color);*/
-/*  box-shadow: var(--lumo-box-shadow-s);*/
-/*}*/
-/*.menu-view ol {*/
-/*  grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));*/
-/*}*/
-
-/*.menu-view li {*/
-/*  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);*/
-/*  transition-property: background-color, box-shadow;*/
-/*}*/
-
-/*.menu-view li:hover {*/
-/*  background-color: var(--lumo-base-color);*/
-/*  box-shadow: var(--lumo-box-shadow-s);*/
-/*}*/
 .pizzaContainer {
   background-color: var(--lumo-base-color);
   box-shadow: var(--lumo-box-shadow-s);
@@ -32,28 +6,7 @@
   margin: 3rem;
 
 }
-/*.grid-container, .menuCard {*/
-/*  display: grid;*/
-/*  grid-template-columns: auto auto auto auto;*/
-/*  gap: 10px;*/
-/*  padding: 10px;*/
-/*}*/
-/*.grid-container > div {*/
-/*  text-align: center;*/
-/*}*/
-/*.menuCard {*/
-/*  display: grid;*/
-/*  grid-template-columns: 1fr 1fr 1fr;*/
-/*  grid-template-rows: 20px 20px 20px 20px;*/
-/*  grid-template-areas:*/
-/*  "pId pId pId"*/
-/*  "pDescription pDescription pDescription"*/
-/*  "pDelivery pPrice orderBtn"*/
-/*  "pTime pizzaPrice orderBtn";*/
-/*  background: bisque;*/
-/*  align-items: center;*/
-/*  justify-items: center;*/
-/*}*/
+
 .pId {
   font-family: monospace;
   font-weight: bold;
@@ -85,19 +38,12 @@
 main > .menuCard {
   //background: rgb(15,129,208);
   //background: linear-gradient(0deg, rgba(15,129,208,0.45989733784138653) 0%, rgba(9,81,121,0) 5%, rgba(255,179,0,0) 100%); margin: 2rem;
-  /*border-radius: 25px 25px 25px 25px;*/
-  /*-webkit-box-shadow: 0px 29px 16px -10px rgba(163,161,146,1);*/
-  /*-moz-box-shadow: 0px 29px 16px -10px rgba(163,161,146,1);*/
-  /*box-shadow: 0px 29px 16px -10px rgba(163,161,146,1);*/
 
-  /*border-radius: 50px;*/
-  /*background: linear-gradient(145deg, #ffffff, #e6e6e6);*/
-  /*box-shadow:  20px 20px 60px #d9d9d9,*/
-  /*-20px -20px 60px #ffffff;*/
   border-radius: 50px;
   background: linear-gradient(145deg, #ffffff, #e6e6e6);
   box-shadow:  20px 20px 60px #737373,
   -20px -20px 60px #ffffff;
+  transition: 2s;
 }
 main {
   display: grid;
@@ -122,21 +68,35 @@ main {
   height: 600px;
   text-align: center;
   font-family: monospace;
-  transition: 40s;
+  transition: 2s;
 }
+
 .sideBar:hover {
   border-radius: 50px;
   background: linear-gradient(315deg, #ffffff, #e6e6e6);
-  transition: 20s;
+  //transition: 2s;
   box-shadow:  -5px -5px 15px #666666,
   5px 5px 15px #ffffff;
 }
+.sideBar > h3 {
+  margin-top: 2rem;
+}
 .sideBar > p {
-  margin-top: 1.5rem;
+  margin: 0.2rem 1rem;
   font-size: 1rem;
+  border-radius: 50px;
+  background: linear-gradient(145deg, #a5ffc9, #8be1a9);
+  box-shadow:  20px 20px 60px #83d5a0,
+  -20px -20px 60px #b1ffd8;
   
 }
-.test {
-  z-index: 40;
-  background-color: red;
+
+.getPriceDiv {
+  position: absolute;
+  bottom: 10%;
+  right: 40%;
+}
+.openSidebar {
+  z-index: 50;
+  width: 500px;
 }
