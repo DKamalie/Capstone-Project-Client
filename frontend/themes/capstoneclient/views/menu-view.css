@@ -64,7 +64,7 @@ main {
   position: absolute;
   top: 15%;
   right: 1.2%;
-  width: 250px;
+  width: 300px;
   height: 600px;
   text-align: center;
   font-family: monospace;
@@ -82,7 +82,8 @@ main {
   margin-top: 2rem;
 }
 .sideBar > p {
-  margin: 0.2rem 1rem;
+
+  margin: 0.2rem 2rem;
   font-size: 1rem;
   border-radius: 50px;
   background: linear-gradient(145deg, #a5ffc9, #8be1a9);
@@ -90,7 +91,6 @@ main {
   -20px -20px 60px #b1ffd8;
   
 }
-
 .getPriceDiv {
   position: absolute;
   bottom: 10%;
@@ -99,4 +99,26 @@ main {
 .openSidebar {
   z-index: 50;
   width: 500px;
+}
+.plus {
+  transition: 1s;
+
+}
+.minus {
+  transition: 1s;
+
+}
+.plus:hover {
+  transition: .1s;
+  border-radius: 50px;
+  background: linear-gradient(145deg, #a5ffc9, #8be1a9);
+  box-shadow:  20px 20px 60px #83d5a0,
+  -20px -20px 60px #b1ffd8;
+}
+.minus:hover {
+  transition: .1s;
+  border-radius: 50px;
+  background: linear-gradient(145deg, rgba(255, 0, 0, 0.65), rgba(175, 17, 17, 0.58));
+  box-shadow:  20px 20px 60px rgba(176, 17, 30, 0.53),
+  -20px -20px 60px rgba(159, 24, 24, 0.6);
 }
