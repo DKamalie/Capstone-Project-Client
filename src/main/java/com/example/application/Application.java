@@ -1,10 +1,11 @@
 package com.example.application;
 
-import com.example.application.api.VehicleApi;
+import com.example.application.api.AuthenticateUserApi;
 import com.example.application.domain.*;
 import com.example.application.factory.*;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -86,16 +87,14 @@ public class Application implements AppShellConfigurator {
                 pizzeria);
 
 
-        Vehicle getVehicleData = VehicleFactory.buildVehicle(466555689, "nn", "nn", "nn", "2015", "bue");
-        VehicleApi vehicleApi = new VehicleApi();
-        System.out.println(getVehicleData);
-        vehicleApi.deleteVehicle(1843803432);
 
-
-
+        AuthenticateUserApi y = new AuthenticateUserApi();
+         String p = y.getToken(
+                "bouali.social@gmail.com",
+                "password"
+        );
+        //System.out.println(VaadinSession.getCurrent().getAttribute("token"));
     }
-
-  //  Vehicle getVehicleData = VehicleFactory.buildVehicle(vehicleIdValue, vehicleTypeValue, makeValue, modelValue, yearValue, colourValue);
 
 
 
