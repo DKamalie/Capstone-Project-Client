@@ -25,6 +25,15 @@ public class Employee {
     }
 
 
+    public Employee(String empId, String name, String surname, String phoneNumber, String email, Pizzeria pizzeria) {
+        this.empId = empId;
+        this.name = name;
+        this.surname = surname;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.pizzeria = pizzeria;
+    }
+
     protected Employee(Builder builder) {
         this.empId = builder.empId;
         this.name = builder.name;
