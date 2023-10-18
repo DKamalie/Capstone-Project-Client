@@ -199,6 +199,8 @@ public class VehicleView extends VerticalLayout {
             try {
                 clearFormFields();
 
+                viewContainer.removeAll();
+
             } catch (Exception e) {
                 Notification.show("Failed to clear the fields." + e.getMessage());
             }
@@ -385,5 +387,6 @@ public class VehicleView extends VerticalLayout {
         model.clear();
         year.clear();
         colour.clear();
+        vehicleId.setEnabled(true);
     }
 }
