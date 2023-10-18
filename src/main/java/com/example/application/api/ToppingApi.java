@@ -5,10 +5,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class ToppingApi {
 
@@ -61,15 +58,15 @@ public class ToppingApi {
         restTemplate.delete(deletedTopping);
     }
 
-    public Set<Topping> getAllToppings() {
+    public ArrayList<Topping> getAllToppings() {
         String allToppings = toppingServerURL + "/getall";
         ResponseEntity<Topping[]> response1 = restTemplate.getForEntity(allToppings, Topping[].class);
 
         if (response1.getStatusCode().is2xxSuccessful()) {
             Topping[] toppings = response1.getBody();
-            return new HashSet<>(Arrays.asList(toppings));
+            return new ArrayList<>(Arrays.asList(toppings));
         } else {
-            return Collections.emptySet();
+            return new ArrayList<>();
         }
     }
 }

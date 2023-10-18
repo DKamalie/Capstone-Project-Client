@@ -1,8 +1,7 @@
 package com.example.application.api;
 
-import com.example.application.domain.Chef;
-import com.example.application.domain.Driver;
-import com.example.application.domain.Employee;
+import com.example.application.domain.*;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -15,9 +14,59 @@ import java.util.Set;
 @RestController
 public class EmployeeApi {
 
+    protected String empId;
+
+    protected String name;
+    protected String surname;
+    protected String phoneNumber;
+    protected String email;
+
+    protected Pizzeria pizzeria;
+
     private final RestTemplate restTemplate = new RestTemplate();
 
     private final String employeeServerUrl = "http://localhost:8080/employee";
+
+    public Employee createEmployee(Employee employee) {
+        empId = employee.getEmpId();
+        name = employee.getName();
+        surname = employee.getSurname();
+        phoneNumber = employee.getPhoneNumber();
+        email = employee.getEmail();
+        pizzeria = employee.getPizzeria();
+
+        HttpEntity<Employee> request = new HttpEntity<>(new Employee(empId, name, surname, phoneNumber, email, pizzeria));
+        Employee createdEmployee = restTemplate.postForObject(employeeServerUrl + "/create", request, Employee.class);
+        System.out.println(employee.toString());
+        return createdEmployee;
+    }
+
+    public Employee readEmployee(Integer employeeId) {
+        Employee readEmployee = restTemplate.getForObject(employeeServerUrl + "/read/" + employeeId, Employee.class);
+        System.out.println(readEmployee.toString());
+        return readEmployee;
+    }
+
+    public String updateEmployee(Employee employee) {
+        empId = employee.getEmpId();
+        name = employee.getName();
+        surname = employee.getSurname();
+        phoneNumber = employee.getPhoneNumber();
+        email = employee.getEmail();
+
+        HttpEntity<Employee> request = new HttpEntity<>(new Employee(empId, name, surname, phoneNumber, email, pizzeria));
+        Employee updatedEmployee = restTemplate.postForObject(employeeServerUrl + "/update", request, Employee.class);
+        System.out.println(employee.toString());
+
+        String update = "Updated Employee: " + updatedEmployee;
+        return update;
+    }
+
+    public void deleteEmployee(Integer employeeId) {
+        String deletedEmployee = employeeServerUrl + "/delete/" + employeeId;
+        System.out.println(deletedEmployee);
+        restTemplate.delete(deletedEmployee);
+    }
 
     public Set<Employee> getAllEmployee() {
         String apiUrl = employeeServerUrl + "/getall";
@@ -31,6 +80,7 @@ public class EmployeeApi {
             return Collections.emptySet();
         }
     }
+
 
     private final String driverServerUrl = "http://localhost:8080/driver";
 
@@ -46,6 +96,8 @@ public class EmployeeApi {
             return Collections.emptySet();
         }
     }
+
+
 
     private final String chefServerUrl = "http://localhost:8080/chef";
 
