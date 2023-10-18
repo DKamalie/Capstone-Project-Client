@@ -9,8 +9,8 @@ import com.example.application.factory.AddressFactory;
 import com.example.application.factory.CustomerFactory;
 import com.example.application.factory.LoyaltyCustomerFactory;
 import com.example.application.views.MainLayout;
+import com.example.application.views.home.HomeView;
 import com.example.application.views.login.LoginView;
-import com.example.application.views.welcome.WelcomeView;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
@@ -54,12 +54,10 @@ public class Both extends VerticalLayout{
     private TextField province;
     private TextField country;
     private TextField postalCode;
-
     private Button btnSubmit;
     private Button btnNext;
     private HorizontalLayout hL;
     private VerticalLayout mainframe;
-
 
     public Both() {
 
@@ -68,6 +66,7 @@ public class Both extends VerticalLayout{
         hL = new HorizontalLayout();
         mainframe = new VerticalLayout();
         hL.add(alreadyWithUs, loginLink);
+
 
         //customer
         firstName = new TextField("First name:");
@@ -114,7 +113,7 @@ public class Both extends VerticalLayout{
         btnNext = new Button("Next");
         btnNext.setWidth("300px");
 
-        //address visiblity
+        //address visibility
         streetNumber.setVisible(false);
         streetName .setVisible(false);
         suburb.setVisible(false);
@@ -167,7 +166,7 @@ public class Both extends VerticalLayout{
 
                 Notification.show("You are now logged in as " + l.getCustomerName());
 
-                getUI().ifPresent(ui -> ui.navigate(WelcomeView.class));
+                getUI().ifPresent(ui -> ui.navigate(HomeView.class));
                 }else{
                     System.out.println("entered Address errors");
                 }
@@ -282,8 +281,7 @@ public class Both extends VerticalLayout{
         postalCodeTextField.set("margin-left", "auto");
 
 
-        setMargin(true);
-
+//      setMargin(true);
         mainframe.add(hL);
         mainframe.add(firstName);
         mainframe.add(lastName);
@@ -300,14 +298,12 @@ public class Both extends VerticalLayout{
         mainframe.add(btnSubmit);
         mainframe.add(btnNext);
         add(mainframe);
-
     }
 
     public void createLoyaltyCustomer(LoyaltyCustomer loyaltyCustomer){
         LoyaltyCustomerApi loyaltyCustomerApi = new LoyaltyCustomerApi();
         loyaltyCustomerApi.createLoyaltyCustomer(loyaltyCustomer);
     }
-
 
     public LoyaltyCustomer setValues(){
         //customer
@@ -325,7 +321,6 @@ public class Both extends VerticalLayout{
         String provinceValue = province.getValue();
         String countryValue = country.getValue();
         String postalCodeValue = postalCode.getValue();
-
 
         LocalDate date = LocalDate.now();
 
@@ -359,6 +354,7 @@ public class Both extends VerticalLayout{
         );
         return data;
     }
+
     public Boolean customerErrors() {
         String firstNameValue = firstName.getValue();
         String lastNameValue = lastName.getValue();
@@ -386,9 +382,9 @@ public class Both extends VerticalLayout{
             Notification.show("Invalid email, please try again");
             return true;
         }
-
         return false;
     }
+
     public Boolean addressErrors() {
         //address
         String streetNumberValue =  streetNumber.getValue();

@@ -83,7 +83,6 @@ public class TeamView extends VerticalLayout {
         teamButtonStyle.set("border-radius", "22px");
         teamButtonStyle.set("box-shadow", "0 5px 4px rgba(0, 0, 0, 0.2)");
 
-
         setMargin(true);
         add(team);
         add(message);
@@ -107,7 +106,6 @@ public class TeamView extends VerticalLayout {
                         "<tr><td></td><td></td></tr>" +
                         "</table>")
         );
-
     }
 
     private Span createChefSpan(Chef chef) {
@@ -144,8 +142,6 @@ public class TeamView extends VerticalLayout {
                         "<tr><td></td><td></td></tr>" +
                         "<tr><td></td><td></td></tr>" +
                         "</table>")
-
         );
     }
-
 }

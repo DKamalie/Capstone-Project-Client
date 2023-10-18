@@ -25,7 +25,7 @@ public class PizzaApi {
     public double price;
 
     public Pizzeria pizzeria;
-    private static String urlPizza = "http://localhost:8080/pizza/";
+    private static String urlPizza = "http://localhost:8080/pizza";
 
 
     public Pizza createPizza(Pizza pizza) {
@@ -47,13 +47,13 @@ public class PizzaApi {
                 vegetarianOrNot,
                 price,
                 pizzeria));
-        Pizza pizza2 = restTemplate.postForObject(urlPizza+ "create", request, Pizza.class);
+        Pizza pizza2 = restTemplate.postForObject(urlPizza+ "/create", request, Pizza.class);
         System.out.println(pizzeria.toString());
 
         return pizza2;
     }
-    public Pizza readPizza(Integer id){
-        Pizza p = restTemplate.getForObject(urlPizza + "read/" + id, Pizza.class);
+    public Pizza readPizza(Integer pizzaId){
+        Pizza p = restTemplate.getForObject(urlPizza + "/read/" + pizzaId, Pizza.class);
         System.out.println(p.toString());
         return p;
     }
@@ -77,20 +77,21 @@ public class PizzaApi {
                 vegetarianOrNot,
                 price,
                 pizzeria));
-        Pizza pizza2 = restTemplate.postForObject(urlPizza+ "update", request, Pizza.class);
+        Pizza pizza2 = restTemplate.postForObject(urlPizza+ "/update", request, Pizza.class);
         System.out.println(pizza2.toString());
 
-        String update = "The updated Pizzeria is: " + pizza2;
+        String update = "The updated pizza is: " + pizza2;
         return update;
     }
 
-    //    public void deleteBill(Integer id) {
-//        String entityUrl = urlPizzeria + "/delete/" + id;
-//        System.out.println(entityUrl);
-//        restTemplate.delete(entityUrl);
-//    }
+    public void deletePizza(Integer pizzaId) {
+        String deletedPizza = urlPizza + "/delete/" + pizzaId;
+        System.out.println(deletedPizza);
+        restTemplate.delete(deletedPizza);
+    }
+
     public Set<Pizza> getAllPizza() {
-        String apiUrl = urlPizza + "/getAll";
+        String apiUrl = urlPizza + "/getall";
         ResponseEntity<Pizza[]> response1 = restTemplate.getForEntity(apiUrl, Pizza[].class);
 
         if (response1.getStatusCode().is2xxSuccessful()) {

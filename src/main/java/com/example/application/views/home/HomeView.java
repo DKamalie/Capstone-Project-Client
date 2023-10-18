@@ -39,7 +39,6 @@ public class HomeView extends VerticalLayout {
         htmlMsg = new Html("<div><br>Craving delicious, piping-hot pizza delivered straight to your doorstep? <br>" +
                 "Look no further! <br><br></div>");
 
-
         htmlEndMsg = new Html("<div><br>Your satisfaction is our top priority. " +
                 "<br>We can't wait to serve you the pizza you love.<br><br>");
 
@@ -83,7 +82,6 @@ public class HomeView extends VerticalLayout {
         htmlEndMsgStyle.set("padding-left", "60px");
 
         Style btnViewMenuStyle = btnViewMenu.getStyle();
-//        btnViewMenuStyle.set("margin-left", "auto");
         btnViewMenuStyle.set("color", "white");
         btnViewMenuStyle.set("background-color", "#000000");
         btnViewMenuStyle.set("font-family", "Georgia, serif");

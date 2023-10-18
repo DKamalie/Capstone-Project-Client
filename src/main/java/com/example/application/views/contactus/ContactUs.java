@@ -32,15 +32,13 @@ public class ContactUs extends VerticalLayout {
 
         contactUs = new Html("<div>CONTACT US</div>");//still figure out what to do with this
 
-
-
         hillCrestAddress = new Html("<div><b>Hill Crest address:</b><br>" +
                 "300 Long St<br>" +
                 "Cape Town City Centre<br>" +
                 "Cape Town<br>" +
                 "8000<br><br></div>");
 
-        phoneNumber = new Html("<div><b>Phone number:</b> 071 093 0123<br><br></div>");
+        phoneNumber = new Html("<div><b>Phone number:</b> 071 093 0123<br><br><br></div>");
 
         email = new Html("<div><b>Email:</b> contact@hillcrest.co.za</div>");
 
@@ -56,20 +54,29 @@ public class ContactUs extends VerticalLayout {
         mail.setWidth("33px");
         mail.setHeight("42px");
 
-        pizzaBG = new Image("/images/pizzaBG.png", "");
+//        pizzaBG = new Image("/images/pizzaBG.png", "");
+        pizzaBG = new Image("/images/eating_pizza_boarder.jpg", "");    //just testing another image for background
+//        pizzaBG = new Image("/images/contact.jpg", "");
 
         Style pizzaImageStyle = pizzaBG.getStyle();
-        pizzaImageStyle.set("position", "fixed");
-        pizzaImageStyle.set("top", "60%");//60%
-        pizzaImageStyle.set("left", "52%");//50%
-        pizzaImageStyle.set("right", "52%");
-        pizzaImageStyle.set("bottom", "60%");
-        pizzaImageStyle.set("transform", "translate(-50%, -50%)");
-        pizzaImageStyle.set("width", "100%");//100%
-        pizzaImageStyle.set("height", "71%");//80%
-        pizzaImageStyle.set("object-fit", "cover");
-        pizzaImageStyle.set("z-index", "-1");
+//        pizzaImageStyle.set("position", "fixed");
+//        pizzaImageStyle.set("top", "60%");//60%
+//        pizzaImageStyle.set("left", "52%");//50%
+//        pizzaImageStyle.set("right", "52%");
+//        pizzaImageStyle.set("bottom", "60%");
+//        pizzaImageStyle.set("transform", "translate(-50%, -50%)");
+//        pizzaImageStyle.set("width", "100%");//100%
+//        pizzaImageStyle.set("height", "71%");//80%
+//        pizzaImageStyle.set("object-fit", "cover");
+//        pizzaImageStyle.set("z-index", "-1");
 
+        pizzaImageStyle.set("position", "fixed");
+        pizzaImageStyle.set("top", "0");
+//        imgPizzaStyle.set("bottom", "0");
+        pizzaImageStyle.set("left", "0");
+        pizzaImageStyle.set("width", "100%");
+        pizzaImageStyle.set("height", "100%");
+        pizzaImageStyle.set("z-index", "-1");
 
 
         Style contactUsStyle = contactUs.getStyle();
@@ -92,6 +99,7 @@ public class ContactUs extends VerticalLayout {
         emailStyle.set("font-family", "Arial");
         emailStyle.set("font-size", "17px");
 
+
         addressLayout = new HorizontalLayout(address, hillCrestAddress);
         telephoneLayout = new HorizontalLayout(telephone, phoneNumber);
         mailLayout = new HorizontalLayout(mail, email);
@@ -107,20 +115,11 @@ public class ContactUs extends VerticalLayout {
                 .set("border-radius", "5px")
                 .set("margin-top", "23px");
 
-
-
         VerticalLayout centerAlignedLayout = new VerticalLayout(borderDiv);
         centerAlignedLayout.setAlignItems(FlexComponent.Alignment.CENTER);
-
-
-
-
-
 
         add(contactUs);
         add(pizzaBG);
         add(centerAlignedLayout);
-
-
     }
 }
