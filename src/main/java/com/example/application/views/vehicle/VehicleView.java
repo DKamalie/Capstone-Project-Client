@@ -208,8 +208,9 @@ public class VehicleView extends VerticalLayout {
         resetButton.addClickListener(event -> {//use for getAll method
             try {
 
-
                 clearFormFields();
+
+                viewContainer.removeAll();
 
             } catch (Exception e) {
 
@@ -411,6 +412,7 @@ public class VehicleView extends VerticalLayout {
         model.clear();
         year.clear();
         colour.clear();
+        vehicleId.setEnabled(true);
 
     }
 
