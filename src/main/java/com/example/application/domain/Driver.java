@@ -14,6 +14,16 @@ public class Driver extends Employee{
     protected Driver() {
     }
 
+    public Driver(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    public Driver(String empId, String name, String surname, String phoneNumber, String email, Pizzeria pizzeria, Vehicle vehicle) {
+        super(empId, name, surname, phoneNumber, email, pizzeria);
+        this.vehicle = vehicle;
+    }
+
+
     private Driver(Builder builder){
         super(builder);
         this.vehicle = builder.vehicle;
