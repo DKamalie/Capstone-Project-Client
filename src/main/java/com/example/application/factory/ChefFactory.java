@@ -15,12 +15,21 @@ public class ChefFactory {
             return null;
         }
 
-        String empId = Helper.generateId();
+        Integer empId = Helper.generateId2();
 
         Chef chef = (Chef) new Chef.Builder().setTitle(title).setCulinaryExperience(culinaryExperience).setEmpId(empId).setName(name).setSurname(surname).setPhoneNumber(phoneNumber).setEmail(email).setPizzeria(pizzeria).build();
         return chef;
 
+    }
 
+    public static Chef createChef(Integer empId, String name, String surname, String phoneNumber, String email, String title, String culinaryExperience, Pizzeria pizzeria) {
+        if (  Helper.isNullOrEmpty(title) || Helper.isNullOrEmpty(culinaryExperience)) {
+            return null;
+        }
+
+
+        Chef chef = (Chef) new Chef.Builder().setTitle(title).setCulinaryExperience(culinaryExperience).setEmpId(empId).setName(name).setSurname(surname).setPhoneNumber(phoneNumber).setEmail(email).setPizzeria(pizzeria).build();
+        return chef;
 
     }
 }

@@ -1,12 +1,14 @@
 package com.example.application.views.employee;
 
+import com.example.application.api.ChefApi;
+import com.example.application.api.DriverApi;
 import com.example.application.api.EmployeeApi;
-import com.example.application.api.PizzeriaApi;
-import com.example.application.api.VehicleApi;
-import com.example.application.domain.Employee;
+import com.example.application.domain.Chef;
+import com.example.application.domain.Driver;
 import com.example.application.domain.Pizzeria;
 import com.example.application.domain.Vehicle;
-import com.example.application.factory.EmployeeFactory;
+import com.example.application.factory.ChefFactory;
+import com.example.application.factory.DriverFactory;
 import com.example.application.factory.PizzeriaFactory;
 import com.example.application.factory.VehicleFactory;
 import com.example.application.views.MainLayout;
@@ -24,15 +26,17 @@ import com.vaadin.flow.router.Route;
 
 import java.util.Set;
 
-@PageTitle("Employee")
-@Route(value = "employee", layout = MainLayout.class)
-public class EmployeeView extends VerticalLayout {
+@PageTitle("Chef")
+@Route(value = "chef", layout = MainLayout.class)
+public class ChefView extends VerticalLayout {
 
     private TextField employeeId;
     private TextField name;
     private TextField surname;
     private TextField phoneNumber;
     private TextField email;
+    private TextField title;
+    private TextField culinaryExperience;
     private TextField pizzariaId;
     private Button saveButton;
     private Button updateButton;
@@ -42,9 +46,9 @@ public class EmployeeView extends VerticalLayout {
     private Div viewContainer;
     private boolean isEditing = false;
 
-    EmployeeApi getAll = new EmployeeApi();
+    EmployeeApi getALL = new EmployeeApi();
 
-    public EmployeeView(){
+    public ChefView(){
         employeeId = new TextField("Employee Id: ");
         employeeId.setWidth("300px");
         employeeId.setPlaceholder("Enter in the employee Id");
@@ -65,6 +69,14 @@ public class EmployeeView extends VerticalLayout {
         email.setWidth("300px");
         email.setPlaceholder("Enter in the email");
 
+        title = new TextField("Title: ");
+        title.setWidth("300px");
+        title.setPlaceholder("Enter in the title");
+
+        culinaryExperience = new TextField("Culinary experience: ");
+        culinaryExperience.setWidth("300px");
+        culinaryExperience.setPlaceholder("Enter in the culinary experience");
+
         pizzariaId = new TextField("Pizzaria Id: ");
         pizzariaId.setWidth("300px");
         pizzariaId.setPlaceholder("");
@@ -79,13 +91,13 @@ public class EmployeeView extends VerticalLayout {
         deleteButton = new Button("Delete");
         deleteButton.setWidth("300px");
 
-        viewAllButton = new Button("View all employees");
+        viewAllButton = new Button("View all chefs");
         viewAllButton.setWidth("300px");
 
         resetButton = new Button("Reset");
         resetButton.setWidth("300px");
 
-        VerticalLayout inputContainer = new VerticalLayout(employeeId, name, surname, phoneNumber, email, pizzariaId, saveButton, updateButton, deleteButton, viewAllButton, resetButton);
+        VerticalLayout inputContainer = new VerticalLayout(employeeId, name, surname, phoneNumber, email,title, culinaryExperience, pizzariaId , saveButton, updateButton, deleteButton, viewAllButton, resetButton);
         inputContainer.setAlignItems(Alignment.BASELINE);
 
         viewContainer = new Div();
@@ -107,14 +119,15 @@ public class EmployeeView extends VerticalLayout {
         mainContainer.setDefaultVerticalComponentAlignment(Alignment.CENTER);
 
 
+
         saveButton.addClickListener(e -> {//this is for creating a vehicle and saving it to the database
             try {
                 boolean hasErrors = checkErrors();
 
                 if (!hasErrors) {
-                    Employee employeeSave = setEmployeeValues();
-                    createEmployee(employeeSave);
-                    Notification.show("Employee saved");
+                    Chef chefSave = setChefValues();
+                    createChef(chefSave);
+                    Notification.show("Chef saved");
                 }
             } catch (Exception exception) {
                 Notification.show(exception.getMessage());
@@ -130,11 +143,11 @@ public class EmployeeView extends VerticalLayout {
                     Integer enteredEmployeeId = Integer.valueOf(enteredValue);
 
                     // Call the readVehicleId method to fetch vehicle data
-                    Employee employeeData = readEmployeeId(enteredEmployeeId);
+                    Chef employeeData = readEmployeeId(enteredEmployeeId);
 
                     // Update the other text fields with the retrieved data
                     if (employeeData != null) {
-                        updateEmployeeFields(employeeData);
+                        updateChefFields(employeeData);
                         employeeId.setEnabled(false);
                         pizzariaId.setEnabled(false);
                         Notification.show("Employee Id read successfully");
@@ -152,24 +165,24 @@ public class EmployeeView extends VerticalLayout {
             }
         });
 
-
+        /*
 
         updateButton.addClickListener(e -> {//use for update method
             try {
                 System.out.println(isEditing);
 
                 if (isEditing == false) {
-                    Employee updatedEmployee = updateSetEmployeeValues();
-                    updateEmployee(updatedEmployee);
+                    Chef updatedChef = updateSetChefValues();
+                    updateChef(updatedChef);
 
-                    Notification.show("Employee updated successfully");
+                    Notification.show("Chef updated successfully");
                 }
             } catch (Exception ex) {
                 Notification.show("An error occurred during the update: " + ex.getMessage());
             }
         });
 
-
+         */
 
         deleteButton.addClickListener(e ->{//use for delete method
             try {
@@ -177,7 +190,7 @@ public class EmployeeView extends VerticalLayout {
                 if (!employeeIdValue.isEmpty()) {
                     Integer id = Integer.valueOf(employeeIdValue);
                     deleteEmployeeId(id);
-                    Notification.show("Employee deleted successfully");
+                    Notification.show("Chef deleted successfully");
                     clearFormFields();
                 } else {
                     Notification.show("Please enter a employee ID.");
@@ -192,20 +205,20 @@ public class EmployeeView extends VerticalLayout {
 
         viewAllButton.addClickListener(event -> {//use for getAll method
             try {
-                Set<Employee> employees = getAll.getAllEmployee();
+                Set<Chef> chefs = getALL.getAllChef();
 
 
                 viewContainer.removeAll();
 
 
-                employees.forEach(employee -> {
-                    viewContainer.add(createEmployeeSpan(employee));
+                chefs.forEach(chef -> {
+                    viewContainer.add(createChefSpan(chef));
                 });
 
 
             } catch (Exception e) {
 
-                Notification.show("Failed to retrieve employees. Please try again later." + e.getMessage());
+                Notification.show("Failed to retrieve chefs. Please try again later." + e.getMessage());
             }
         });
 
@@ -221,6 +234,7 @@ public class EmployeeView extends VerticalLayout {
                 Notification.show("Failed to clear the fields." + e.getMessage());
             }
         });
+
 
 
         Style buttonStyle = saveButton.getStyle();
@@ -274,52 +288,39 @@ public class EmployeeView extends VerticalLayout {
         add(mainContainer);
     }
 
-    public void createEmployee(Employee employee) {//use for create method
-        EmployeeApi employeeApi = new EmployeeApi();
-        employeeApi.createEmployee(employee);
+    public void createChef(Chef chef) {//use for create method
+        ChefApi chefApi = new ChefApi();
+        chefApi.createChef(chef);
     }
 
-    public Employee readEmployeeId(Integer employeeId) {//use for read method
-        EmployeeApi readEmployeeId = new EmployeeApi();
-        return readEmployeeId.readEmployee(employeeId);
+    public Chef readEmployeeId(Integer employeeId) {//use for read method
+        ChefApi readEmployeeId = new ChefApi();
+        return readEmployeeId.readChef(employeeId);
     }
 
-    public void updateEmployee(Employee employee) {//use for the update method
-        EmployeeApi updateEmployee = new EmployeeApi();
-        updateEmployee.updateEmployee(employee);
+    public void updateChef(Chef chef) {//use for the update method
+        ChefApi updateChef = new ChefApi();
+        updateChef.updateChef(chef);
     }
 
     public void deleteEmployeeId(Integer employeeId){//use for delete method
-        EmployeeApi deleteEmployeeId = new EmployeeApi();
-        deleteEmployeeId.deleteEmployee(employeeId);
+        ChefApi deleteEmployeeId = new ChefApi();
+        deleteEmployeeId.deleteChef(employeeId);
     }
 
-    public void updateEmployeeFields(Employee employee) {//this is not an update method, this is for the read method
-        name.setValue(employee.getName());
-        surname.setValue(employee.getSurname());
-        phoneNumber.setValue(employee.getPhoneNumber());
-        email.setValue(employee.getEmail());
-        pizzariaId.setValue(String.valueOf(employee.getPizzeria().getPizzeriaID()));
+    public void updateChefFields(Chef chef) {//this is not an update method, this is for the read method
+        name.setValue(chef.getName());
+        surname.setValue(chef.getSurname());
+        phoneNumber.setValue(chef.getPhoneNumber());
+        email.setValue(chef.getEmail());
+        title.setValue(chef.getTitle());
+        culinaryExperience.setValue(chef.getCulinaryExperience());
+        pizzariaId.setValue(String.valueOf(chef.getPizzeria().getPizzeriaID()));
+
     }
 
-    public Employee setEmployeeValues() {//use for create method
-
-        String nameValue = name.getValue();
-        String surnameValue = surname.getValue();
-        String phoneNumberValue = phoneNumber.getValue();
-        String emailValue = email.getValue();
-
-        Pizzeria pizzeria = PizzeriaFactory.buildPizzaria("Hill Crest", "300 Long St, Cape Town City Centre, 8000");
-
-        Employee getEmployeeData = EmployeeFactory.buildEmployee(nameValue, surnameValue, phoneNumberValue, emailValue, pizzeria);
-
-        return getEmployeeData;
-    }
-
-
-
-
-    public Employee updateSetEmployeeValues() {//use for update method
+    /*
+    public Chef updateSetChefValues() {//use for update method
 
 
         Integer employeeIdValue = Integer.valueOf(employeeId.getValue());
@@ -328,15 +329,31 @@ public class EmployeeView extends VerticalLayout {
         String phoneNumberValue = phoneNumber.getValue();
         String emailValue = email.getValue();
 
+        Driver updateDriverData = DriverFactory.buildDriver(employeeIdValue, nameValue, surnameValue, phoneNumberValue, emailValue);
 
-
-        Employee updateEmployeeData = EmployeeFactory.createEmployee(employeeIdValue, nameValue, surnameValue, phoneNumberValue, emailValue, null );
-
-        return updateEmployeeData;
+        return updateDriverData;
 
     }
 
+ */
 
+    public Chef setChefValues() {//use for create method
+
+        String nameValue = name.getValue();
+        String surnameValue = surname.getValue();
+        String phoneNumberValue = phoneNumber.getValue();
+        String emailValue = email.getValue();
+        String titleValue = title.getValue();
+        String culinaryExperienceValue = culinaryExperience.getValue();
+
+
+        Pizzeria pizzeria = PizzeriaFactory.buildPizzaria("Hill Crest", "300 Long St, Cape Town City Centre, 8000");
+
+
+        Chef getChefData = ChefFactory.buildChef(nameValue, surnameValue, phoneNumberValue, emailValue, titleValue, culinaryExperienceValue, pizzeria);
+
+        return getChefData;
+    }
 
     public boolean isValidEmail(String email) {//email validation
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
@@ -348,13 +365,16 @@ public class EmployeeView extends VerticalLayout {
         String surnameValue = surname.getValue();
         String phoneNumberValue = phoneNumber.getValue();
         String emailValue = email.getValue();
+        String titleValue = title.getValue();
+        String culinaryExperienceValue = culinaryExperience.getValue();
 
-        if (nameValue.isEmpty() || surnameValue.isEmpty() || phoneNumberValue.isEmpty() || emailValue.isEmpty()) {
+
+        if (nameValue.isEmpty() || surnameValue.isEmpty() || phoneNumberValue.isEmpty() || emailValue.isEmpty() || titleValue.isEmpty() || culinaryExperienceValue.isEmpty()) {
             Notification.show("Please enter in all the fields.");
             return true;
         }
 
-        if (!nameValue.matches("[a-zA-Z ]+") || !surnameValue.matches("[a-zA-Z ]+")) {
+        if (!nameValue.matches("[a-zA-Z ]+") || !surnameValue.matches("[a-zA-Z ]+") || !titleValue.matches("[a-zA-Z ]+") || !culinaryExperienceValue.matches("[a-zA-Z ]+")) {
             Notification.show("Invalid input. please only enter letters.");
             return true;
         }
@@ -376,9 +396,10 @@ public class EmployeeView extends VerticalLayout {
 
         return false;
 
+
     }
 
-    private Div createEmployeeSpan(Employee employee) {
+    private Div createChefSpan(Chef chef) {
         Div outerDiv = new Div();
         outerDiv.getStyle().set("display", "flex");
         outerDiv.getStyle().set("justify-content", "center");
@@ -390,11 +411,11 @@ public class EmployeeView extends VerticalLayout {
         innerDiv.getStyle().set("flex-direction", "row");
         innerDiv.getStyle().set("justify-content", "space-between");
 
-        createDataField(innerDiv, "Employee ID ", String.valueOf(employee.getEmpId()));
-        createDataField(innerDiv, "Name ", employee.getName());
-        createDataField(innerDiv, "Surname ", employee.getSurname());
-        createDataField(innerDiv, "Phone number ", employee.getPhoneNumber());
-        createDataField(innerDiv, "Email ", employee.getEmail());
+        createDataField(innerDiv, "Employee ID ", String.valueOf(chef.getEmpId()));
+        createDataField(innerDiv, "Name ", chef.getName());
+        createDataField(innerDiv, "Surname ", chef.getSurname());
+        createDataField(innerDiv, "Phone number ", chef.getPhoneNumber());
+        createDataField(innerDiv, "Email ", chef.getEmail());
 
 
         outerDiv.add(innerDiv);
@@ -418,10 +439,10 @@ public class EmployeeView extends VerticalLayout {
         surname.clear();
         phoneNumber.clear();
         email.clear();
+        title.clear();
+        culinaryExperience.clear();
         pizzariaId.clear();
         employeeId.setEnabled(true);
 
     }
-
-
 }

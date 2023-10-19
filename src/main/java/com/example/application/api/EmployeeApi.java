@@ -1,6 +1,7 @@
 package com.example.application.api;
 
 import com.example.application.domain.*;
+import com.vaadin.flow.component.notification.Notification;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,7 @@ import java.util.Set;
 @RestController
 public class EmployeeApi {
 
-    protected String empId;
+    protected Integer empId;
 
     protected String name;
     protected String surname;
@@ -113,6 +114,8 @@ public class EmployeeApi {
             return Collections.emptySet();
         }
     }
+
+
 
 
 

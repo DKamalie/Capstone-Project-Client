@@ -18,7 +18,7 @@ public class Driver extends Employee{
         this.vehicle = vehicle;
     }
 
-    public Driver(String empId, String name, String surname, String phoneNumber, String email, Pizzeria pizzeria, Vehicle vehicle) {
+    public Driver(Integer empId, String name, String surname, String phoneNumber, String email, Pizzeria pizzeria, Vehicle vehicle) {
         super(empId, name, surname, phoneNumber, email, pizzeria);
         this.vehicle = vehicle;
     }
