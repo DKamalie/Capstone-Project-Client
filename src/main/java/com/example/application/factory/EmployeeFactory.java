@@ -16,9 +16,21 @@ public class EmployeeFactory {
             return null;
         }
 
-        String empId = Helper.generateId();
+        int empId = Helper.generateId2();
 
        Employee employee = new Employee.Builder().setEmpId(empId).setName(name).setSurname(surname).setPhoneNumber(phoneNumber).setEmail(email).setPizzeria(pizzeria).build();
        return employee;
     }
+
+    public static Employee createEmployee(Integer empId, String name, String surname, String phoneNumber, String email, Pizzeria pizzeria) {
+        if (Helper.isNullOrEmpty(name) || Helper.isNullOrEmpty(surname) || Helper.isNullOrEmpty(phoneNumber) || Helper.isNullOrEmpty(email) || Helper.isNullOrEmpty(String.valueOf(pizzeria))) {
+            return null;
+        }
+
+
+        Employee employee = new Employee.Builder().setEmpId(empId).setName(name).setSurname(surname).setPhoneNumber(phoneNumber).setEmail(email).setPizzeria(pizzeria).build();
+        return employee;
+    }
+
+
 }

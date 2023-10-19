@@ -16,6 +16,16 @@ public class Chef extends Employee {
     protected Chef() {
 
     }
+
+
+
+    public Chef(Integer empId, String name, String surname, String phoneNumber, String email, Pizzeria pizzeria, String title, String culinaryExperience) {
+        super(empId, name, surname, phoneNumber, email, pizzeria);
+        this.title = title;
+        this.culinaryExperience = culinaryExperience;
+    }
+
+
     private Chef(Builder builder){
         super(builder);
        this.title = builder.title;

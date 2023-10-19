@@ -16,6 +16,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.dom.Style;
@@ -33,6 +34,8 @@ public class DriverView extends VerticalLayout {
     private TextField surname;
     private TextField phoneNumber;
     private TextField email;
+    private TextField pizzariaId;
+    private TextField vehicleId;
     private Button saveButton;
     private Button updateButton;
     private Button deleteButton;
@@ -64,6 +67,14 @@ public class DriverView extends VerticalLayout {
         email.setWidth("300px");
         email.setPlaceholder("Enter in the email");
 
+        pizzariaId = new TextField("Pizzaria Id: ");
+        pizzariaId.setWidth("300px");
+        pizzariaId.setPlaceholder("");
+
+        vehicleId = new TextField("Vehicle Id: ");
+        vehicleId.setWidth("300px");
+        vehicleId.setPlaceholder("");
+
         saveButton = new Button("Save");
         saveButton.setWidth("300px");
 
@@ -74,11 +85,32 @@ public class DriverView extends VerticalLayout {
         deleteButton = new Button("Delete");
         deleteButton.setWidth("300px");
 
-        viewAllButton = new Button("View all employees");
+        viewAllButton = new Button("View all drivers");
         viewAllButton.setWidth("300px");
 
         resetButton = new Button("Reset");
         resetButton.setWidth("300px");
+
+        VerticalLayout inputContainer = new VerticalLayout(employeeId, name, surname, phoneNumber, email, pizzariaId, vehicleId, saveButton, updateButton, deleteButton, viewAllButton, resetButton);
+        inputContainer.setAlignItems(Alignment.BASELINE);
+
+        viewContainer = new Div();
+
+        VerticalLayout centeringLayout = new VerticalLayout();
+        centeringLayout.setDefaultHorizontalComponentAlignment(Alignment.CENTER);
+        centeringLayout.setSizeFull();
+
+        centeringLayout.add(viewContainer);
+
+        Div dataContainer = new Div(viewContainer);
+
+
+        Div dataMarginContainer = new Div(dataContainer);
+        dataMarginContainer.getStyle()
+                .set("margin-left", "200px");
+
+        HorizontalLayout mainContainer = new HorizontalLayout(inputContainer, dataMarginContainer);
+        mainContainer.setDefaultVerticalComponentAlignment(Alignment.CENTER);
 
         saveButton.addClickListener(e -> {//this is for creating a vehicle and saving it to the database
             try {
@@ -109,6 +141,8 @@ public class DriverView extends VerticalLayout {
                     if (employeeData != null) {
                         updateDriverFields(employeeData);
                         employeeId.setEnabled(false);
+                        pizzariaId.setEnabled(false);
+                        vehicleId.setEnabled(false);
                         Notification.show("Employee Id read successfully");
                     } else {
                         // Handle the case where the entered vehicleId does not exist
@@ -242,16 +276,9 @@ public class DriverView extends VerticalLayout {
 
         setMargin(true);
 
-        add(employeeId);
-        add(name);
-        add(surname);
-        add(phoneNumber);
-        add(email);
-        add(saveButton);
-        add(updateButton);
-        add(deleteButton);
-        add(viewAllButton);
-        add(resetButton);
+        add(mainContainer);
+
+
     }
 
     public void createDriver(Driver driver) {//use for create method
@@ -279,6 +306,8 @@ public class DriverView extends VerticalLayout {
         surname.setValue(driver.getSurname());
         phoneNumber.setValue(driver.getPhoneNumber());
         email.setValue(driver.getEmail());
+        pizzariaId.setValue(String.valueOf(driver.getPizzeria().getPizzeriaID()));
+        vehicleId.setValue(String.valueOf(driver.getVehicle().getVehicleId()));
     }
 
     /*
@@ -395,6 +424,8 @@ public class DriverView extends VerticalLayout {
         surname.clear();
         phoneNumber.clear();
         email.clear();
+        pizzariaId.clear();
+        vehicleId.clear();
         employeeId.setEnabled(true);
 
     }
