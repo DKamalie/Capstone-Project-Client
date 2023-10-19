@@ -86,14 +86,6 @@ public class Application implements AppShellConfigurator {
                 55,
                 pizzeria);
 
-
-
-        AuthenticateUserApi y = new AuthenticateUserApi();
-         String p = y.getToken(
-                "bouali.social@gmail.com",
-                "password"
-        );
-        //System.out.println(VaadinSession.getCurrent().getAttribute("token"));
     }
 
 

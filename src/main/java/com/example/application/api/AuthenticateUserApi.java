@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 public class AuthenticateUserApi {
     static RestTemplate restTemplate = new RestTemplate();
 
-    private static String url = "http://localhost:8080/api/v1/auth/authenticate";
+    private static String url = "http://localhost:8083/api/v1/auth/authenticate";
     private  AuthenticationRequest authenticationRequest = new AuthenticationRequest();
 
     public String getToken(String email, String password) {
@@ -23,7 +23,6 @@ public class AuthenticateUserApi {
         String token = String.valueOf(restTemplate.postForObject(url, request, String.class));
         System.out.println(token);
         VaadinSession.getCurrent().setAttribute("token", token);
-        //System.out.println(VaadinSession.getCurrent().getAttribute(token));
         return token;
     }
 
