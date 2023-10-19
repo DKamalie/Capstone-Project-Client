@@ -4,7 +4,6 @@ import com.example.application.api.VehicleApi;
 import com.example.application.domain.Vehicle;
 import com.example.application.factory.VehicleFactory;
 import com.example.application.views.MainLayout;
-import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
@@ -22,8 +21,6 @@ import java.util.Set;
 @PageTitle("Vehicle")
 @Route(value = "vehicle", layout = MainLayout.class)
 public class VehicleView extends VerticalLayout {
-
-
     private TextField vehicleId;
     private TextField vehicleType;
     private TextField make;
@@ -97,13 +94,10 @@ public class VehicleView extends VerticalLayout {
 
 
         Div dataMarginContainer = new Div(dataContainer);
-        dataMarginContainer.getStyle()
-                .set("margin-left", "200px");
+        dataMarginContainer.getStyle().set("margin-left", "200px");
 
         HorizontalLayout mainContainer = new HorizontalLayout(inputContainer, dataMarginContainer);
         mainContainer.setDefaultVerticalComponentAlignment(Alignment.CENTER);
-
-
 
 
         saveButton.addClickListener(e -> {//this is for creating a vehicle and saving it to the database
@@ -190,15 +184,11 @@ public class VehicleView extends VerticalLayout {
             try {
                 Set<Vehicle> vehicles = getAll.getAll();
 
-
                 viewContainer.removeAll();
-
 
                 vehicles.forEach(vehicle -> {
                     viewContainer.add(createVehicleSpan(vehicle));
                 });
-
-
             } catch (Exception e) {
 
                 Notification.show("Failed to retrieve vehicles. Please try again later." + e.getMessage());
@@ -207,17 +197,14 @@ public class VehicleView extends VerticalLayout {
 
         resetButton.addClickListener(event -> {//use for getAll method
             try {
-
                 clearFormFields();
 
                 viewContainer.removeAll();
 
             } catch (Exception e) {
-
                 Notification.show("Failed to clear the fields." + e.getMessage());
             }
         });
-
 
 
         Style buttonStyle = saveButton.getStyle();
@@ -228,7 +215,6 @@ public class VehicleView extends VerticalLayout {
         buttonStyle.set("font-weight", "bold");
         buttonStyle.set("border-radius", "17px");
         buttonStyle.set("box-shadow", "0 5px 4px rgba(0, 0, 0, 0.2)");
-
 
         Style buttonStyle2 = updateButton.getStyle();
         buttonStyle2.set("color", "white");
@@ -268,9 +254,6 @@ public class VehicleView extends VerticalLayout {
 
         setMargin(true);
         add(mainContainer);
-
-
-
     }
 
     public void createVehicle(Vehicle vehicle) {//use for create method
@@ -314,9 +297,7 @@ public class VehicleView extends VerticalLayout {
         return getVehicleData;
     }
 
-
     public Vehicle updateSetVehicleValues() {//use for update method
-
 
         Integer vehicleIdValue = Integer.valueOf(vehicleId.getValue());
         String vehicleTypeValue = vehicleType.getValue();
@@ -334,10 +315,7 @@ public class VehicleView extends VerticalLayout {
                 colourValue);
 
         return updateVehicleData;
-
     }
-
-
 
     public boolean checkErrors() {//checks errors
         String vehicleTypeValue = vehicleType.getValue();
@@ -365,10 +343,7 @@ public class VehicleView extends VerticalLayout {
             Notification.show("Invalid input, please enter in a valid year.");
             return true;
         }
-
         return false;
-
-
     }
 
     private Div createVehicleSpan(Vehicle vehicle) {
@@ -413,8 +388,5 @@ public class VehicleView extends VerticalLayout {
         year.clear();
         colour.clear();
         vehicleId.setEnabled(true);
-
     }
-
-
 }

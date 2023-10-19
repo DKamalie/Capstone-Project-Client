@@ -129,7 +129,7 @@ public class LoginView extends VerticalLayout {
 
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
-        setMargin(true);
+//        setMargin(true);
 
         hl.add(notMember,signUpLink);
         hl2.add(btnLogin,btnCancel);

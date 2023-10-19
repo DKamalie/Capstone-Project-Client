@@ -7,26 +7,25 @@ import java.util.Objects;
  Author: Timothy Lombard (220154856)
  Date: 21st July (last updated) 2023
 */
+
 public class Pizza {
 
     public enum Size{
         EXTRA_SMALL, SMALL, MEDIUM, LARGE, EXTRA_LARGE
     }
     private Integer pizzaId;
-
     private Base baseId;
     private String name;
     private String description;
     private Size size;
     private boolean vegetarianOrNot;
-
     private double price;
-
     private Pizzeria pizzeria;
 
     protected Pizza(){
 
     }
+
     public Pizza(Integer pizzaId,Base baseId ,String name , String description , Size size , Boolean vegetarianOrNot, double price, Pizzeria pizzeria){
         this.pizzaId = pizzaId;
         this.baseId = baseId;
@@ -52,11 +51,9 @@ public class Pizza {
     public Integer getPizzaId() {
             return pizzaId;
         }
-
     public Base getBaseId() {
         return baseId;
     }
-
     public String getName() {
             return name;
         }
@@ -66,13 +63,10 @@ public class Pizza {
     public Size getSize() {
             return size;
         }
-
     public boolean isVegetarianOrNot(){return vegetarianOrNot;}
-
     public double getPrice() {
             return price;
         }
-
     public Pizzeria getPizzeria() {
         return pizzeria;
     }
