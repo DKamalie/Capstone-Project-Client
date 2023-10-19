@@ -116,4 +116,16 @@ public class LoyaltyCustomerApi {
         }
     }
 
+    public LoyaltyCustomer getLoggedInCustomer(String enteredEmail, String enteredPassword) {
+        Set<LoyaltyCustomer> loyaltyCustomers = getAllLoyaltyCustomer();
+
+        for (LoyaltyCustomer customer : loyaltyCustomers) {
+            if (customer.getEmail().equals(enteredEmail) && customer.getPassword().equals(enteredPassword)) {
+                return customer; // Return the matched customer if credentials are valid
+
+            }
+        }
+
+        return null; // Return null if no matching customer is found
+    }
 }
