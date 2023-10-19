@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class Employee {
 
-    protected String empId;
+    protected Integer empId;
 
     protected String name;
     protected String surname;
@@ -25,7 +25,7 @@ public class Employee {
     }
 
 
-    public Employee(String empId, String name, String surname, String phoneNumber, String email, Pizzeria pizzeria) {
+    public Employee(Integer empId, String name, String surname, String phoneNumber, String email, Pizzeria pizzeria) {
         this.empId = empId;
         this.name = name;
         this.surname = surname;
@@ -42,7 +42,7 @@ public class Employee {
         this.email = builder.email;
         this.pizzeria = builder.pizzeria;
     }
-    public String getEmpId() {
+    public Integer getEmpId() {
         return empId;
     }
     public String getName() {
@@ -63,14 +63,14 @@ public class Employee {
     }
 
     public static class Builder {
-        private String empId;
+        private Integer empId;
         private String name;
         private String surname;
         private String phoneNumber;
         private String email;
         protected Pizzeria pizzeria;
 
-        public Builder setEmpId(String empId) {
+        public Builder setEmpId(Integer empId) {
             this.empId = empId;
             return this;
         }

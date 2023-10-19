@@ -14,7 +14,7 @@ public class DriverFactory {
         if(Helper.isNullOrEmpty(name) || Helper.isNullOrEmpty(surname) || Helper.isNullOrEmpty(phoneNumber) || Helper.isNullOrEmpty(email) || Helper.isNullOrEmpty(String.valueOf(vehicleId)) || Helper.isNullOrEmpty(String.valueOf(pizzeria))){
             return null;
         }
-        String empId = Helper.generateId();
+        Integer empId = Helper.generateId2();
 
       Driver driver = (Driver) new Driver.Builder().setVehicle(vehicleId).setEmpId(empId).setName(name).setSurname(surname).setPhoneNumber(phoneNumber).setEmail(email).setPizzeria(pizzeria).build();
       return driver;
