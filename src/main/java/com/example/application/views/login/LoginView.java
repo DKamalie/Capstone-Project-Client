@@ -1,12 +1,14 @@
 package com.example.application.views.login;
 
-import com.example.application.api.AuthenticateUserApi;
 import com.example.application.api.LoyaltyCustomerApi;
 import com.example.application.domain.LoyaltyCustomer;
 import com.example.application.views.MainLayout;
 import com.example.application.views.home.HomeView;
 import com.example.application.views.signUp.Both;
+import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.notification.Notification;
@@ -15,10 +17,9 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.dom.Style;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
+import com.vaadin.flow.shared.Registration;
 
 import java.util.Set;
 
@@ -29,7 +30,7 @@ Date: 30/09/2023
 */
 @PageTitle("Login")
 @Route(value = "login", layout = MainLayout.class)
-public class LoginView extends VerticalLayout {
+public class LoginView extends VerticalLayout implements BeforeEnterObserver {
     private TextField email;
     private PasswordField password;
     private Button btnLogin;
@@ -59,33 +60,8 @@ public class LoginView extends VerticalLayout {
             getUI().ifPresent(ui -> ui.navigate(HomeView.class));
         });
 
-        btnLogin.addClickListener(e -> {
-            String enteredEmail = email.getValue();
-            String enteredPassword = password.getValue();
 
-            Set<LoyaltyCustomer> loyaltyCustomers = loyaltyCustomerApi.getAllLoyaltyCustomer();
-
-            boolean loginSuccessful = false;
-
-            for (LoyaltyCustomer customer : loyaltyCustomers) {
-                if (customer.getEmail().equals(enteredEmail) && customer.getPassword().equals(enteredPassword)) {
-                    loginSuccessful = true;
-                    Notification.show("Welcome " + customer.getCustomerName() +"!");
-
-                    AuthenticateUserApi authenticateUserApi = new AuthenticateUserApi();
-                    authenticateUserApi.getToken(enteredEmail, enteredPassword);
-                    break;
-                }
-            }
-
-            if (loginSuccessful) {
-                Notification.show("Login successful!");
-                getUI().ifPresent(ui -> ui.navigate(HomeView.class));
-            } else {
-                Notification.show("Invalid email or password. Please try again.");
-            }
-        });
-
+        btnLogin.addClickListener(e -> {handleLogin();});
 
         Text notMember = new Text("Not a Member?");
         RouterLink signUpLink = new RouterLink("SignUp", Both.class);
@@ -129,14 +105,31 @@ public class LoginView extends VerticalLayout {
 
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
-//        setMargin(true);
+        setMargin(true);
 
-        hl.add(notMember,signUpLink);
-        hl2.add(btnLogin,btnCancel);
-        add(spacer,email, password,hl2,hl);
+        hl.add(notMember, signUpLink);
+        hl2.add(btnLogin, btnCancel);
+        add(spacer, email, password, hl2, hl);
     }
 
-    public boolean isValidEmail(String email) {
+    public void beforeEnter(BeforeEnterEvent event) {
+        if (VaadinSession.getCurrent().getAttribute("loggedInCustomer") != null) {
+            event.forwardTo(HomeView.class);
+        }
+    }
+
+    private void handleLogin() {
+        LoyaltyCustomer matchedCustomer = loyaltyCustomerApi.getLoggedInCustomer(email.getValue(), password.getValue());
+
+        if (matchedCustomer != null) {
+            VaadinSession.getCurrent().setAttribute("loggedInCustomer", matchedCustomer);
+            EventBus.getInstance().fireLoginSuccessEvent( new LoginSuccessEvent(matchedCustomer));
+            UI.getCurrent().navigate(HomeView.class);
+        } else {
+            Notification.show("Invalid email or password. Please try again.");
+        }
+    }
+    public boolean isValidEmail (String email){
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
         return email.matches(emailRegex);
     }

@@ -1,23 +1,25 @@
 package com.example.application.views;
 
+import com.example.application.domain.LoyaltyCustomer;
 import com.example.application.views.about.AboutView;
 import com.example.application.views.checkout.CheckoutView;
 import com.example.application.views.contactus.ContactUs;
 import com.example.application.views.home.HomeView;
+import com.example.application.views.login.EventBus;
+import com.example.application.views.login.LoginSuccessEvent;
 import com.example.application.views.login.LoginView;
 import com.example.application.views.menu.MenuView;
 import com.example.application.views.team.TeamView;
-import com.example.application.views.welcome.WelcomeView;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.Header;
-import com.vaadin.flow.component.html.ListItem;
-import com.vaadin.flow.component.html.Nav;
-import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.html.UnorderedList;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.*;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.theme.lumo.LumoUtility.AlignItems;
 import com.vaadin.flow.theme.lumo.LumoUtility.BoxSizing;
 import com.vaadin.flow.theme.lumo.LumoUtility.Display;
@@ -38,7 +40,13 @@ import org.vaadin.lineawesome.LineAwesomeIcon;
 /**
  * The main view is a top-level placeholder for other views.
  */
-public class MainLayout extends AppLayout {
+public class MainLayout extends AppLayout implements EventBus.LoginSuccessListener{
+
+    @Override
+    public void onLoginSuccess(LoginSuccessEvent event) {
+        LoyaltyCustomer loggedInCustomer = event.getCustomer();
+        addToNavbar(updateHeaderContent(loggedInCustomer));
+    }
 
     /**
      * A simple navigation item component, based on ListItem element.
@@ -73,10 +81,42 @@ public class MainLayout extends AppLayout {
     }
 
     public MainLayout() {
-        addToNavbar(createHeaderContent());
+        EventBus.getInstance().addLoginSuccessListener(this);
+        UI.getCurrent().addBeforeEnterListener(event -> {
+            if (!isUserLoggedIn()) {
+                event.forwardTo(LoginView.class);
+            }
+        });
+
+        if (isUserLoggedIn()) {
+            LoyaltyCustomer loggedInCustomer = (LoyaltyCustomer) VaadinSession.getCurrent().getAttribute("loggedInCustomer");
+            addToNavbar(updateHeaderContent(loggedInCustomer));
+        } else {
+            addToNavbar(createHeaderContent());
+        }
+
+        UI.getCurrent().addDetachListener(event -> {
+            VaadinSession.getCurrent().setAttribute("loggedInCustomer", null);
+            VaadinSession.getCurrent().close(); // Close the current session
+        });
     }
 
+    private boolean isUserLoggedIn() {
+        return VaadinSession.getCurrent().getAttribute("loggedInCustomer") != null;
+    }
+
+
+
+    private void clearSessionData() {
+        VaadinSession.getCurrent().setAttribute("loggedInCustomer", null);
+        VaadinSession.getCurrent().close(); // Close the current session
+        UI.getCurrent().navigate(LoginView.class); // Redirect to the login page
+    }
+
+
+
     private Component createHeaderContent() {
+
         Header header = new Header();
         header.addClassNames(BoxSizing.BORDER, Display.FLEX, FlexDirection.COLUMN, Width.FULL);
 
@@ -99,27 +139,53 @@ public class MainLayout extends AppLayout {
             list.add(menuItem);
 
         }
-
         header.add(layout, nav);
         return header;
     }
 
+    public Component updateHeaderContent(LoyaltyCustomer loggedInUser) {
+        Image userImage = new Image("/images/LoginIcon.png", "User Image");
+        userImage.setWidth("50px");
+
+        Span welcomeMessage = new Span("Welcome, " + loggedInUser.getCustomerName());
+
+        Button logoutButton = new Button("Logout", event -> {
+            clearSessionData();
+        });
+
+        HorizontalLayout userLayout = new HorizontalLayout(userImage, welcomeMessage, logoutButton);
+        userLayout.setSpacing(true); // Optional: Set spacing between components
+        userLayout.setAlignItems(FlexComponent.Alignment.CENTER); // Center components horizontally
+
+        // Create another layout to center the components vertically
+        Div centeredLayout = new Div(userLayout);
+        centeredLayout.getStyle().set("margin-top", "1.0"); // Centers the layout vertically
+
+        VerticalLayout headerLayout = new VerticalLayout(centeredLayout);
+        headerLayout.setWidth("100%");
+        headerLayout.setAlignItems(FlexComponent.Alignment.END); // Align components at the end
+
+        return headerLayout;
+    }
+
+
+
     private MenuItemInfo[] createMenuItems() {
         return new MenuItemInfo[]{
 
-            new MenuItemInfo("Home", LineAwesomeIcon.HOME_SOLID.create(), HomeView.class), //
+                new MenuItemInfo("Home", LineAwesomeIcon.HOME_SOLID.create(), HomeView.class), //
 
-            new MenuItemInfo("Menu", LineAwesomeIcon.TH_LIST_SOLID.create(), MenuView.class), //
+                new MenuItemInfo("Menu", LineAwesomeIcon.TH_LIST_SOLID.create(), MenuView.class), //
 
-            new MenuItemInfo("Checkout", LineAwesomeIcon.CREDIT_CARD.create(), CheckoutView.class), //
+                new MenuItemInfo("Checkout", LineAwesomeIcon.CREDIT_CARD.create(), CheckoutView.class), //
 
-             new MenuItemInfo("Team", LineAwesomeIcon.PERSON_BOOTH_SOLID.create(), TeamView.class), //
+                new MenuItemInfo("Team", LineAwesomeIcon.PERSON_BOOTH_SOLID.create(), TeamView.class), //
 
-            new MenuItemInfo("Login", LineAwesomeIcon.SIGN_SOLID.create(), LoginView.class), //
+                new MenuItemInfo("Login", LineAwesomeIcon.SIGN_SOLID.create(), LoginView.class), //
 
-            new MenuItemInfo("ContactUs", LineAwesomeIcon.PHONE_VOLUME_SOLID.create(), ContactUs.class), //
+                new MenuItemInfo("ContactUs", LineAwesomeIcon.PHONE_VOLUME_SOLID.create(), ContactUs.class), //
 
-            new MenuItemInfo("About", LineAwesomeIcon.INFO_CIRCLE_SOLID.create(), AboutView.class), //
+                new MenuItemInfo("About", LineAwesomeIcon.INFO_CIRCLE_SOLID.create(), AboutView.class), //
         };
     }
 
