@@ -1,5 +1,6 @@
 package com.example.application.views.login;
 
+import com.example.application.api.AuthenticateUserApi;
 import com.example.application.api.LoyaltyCustomerApi;
 import com.example.application.domain.LoyaltyCustomer;
 import com.example.application.views.MainLayout;
@@ -17,6 +18,8 @@ import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.VaadinSession;
+
 import java.util.Set;
 
 /*
@@ -68,6 +71,9 @@ public class LoginView extends VerticalLayout {
                 if (customer.getEmail().equals(enteredEmail) && customer.getPassword().equals(enteredPassword)) {
                     loginSuccessful = true;
                     Notification.show("Welcome " + customer.getCustomerName() +"!");
+
+                    AuthenticateUserApi authenticateUserApi = new AuthenticateUserApi();
+                    authenticateUserApi.getToken(enteredEmail, enteredPassword);
                     break;
                 }
             }
