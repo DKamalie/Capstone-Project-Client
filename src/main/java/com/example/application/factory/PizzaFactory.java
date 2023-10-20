@@ -21,7 +21,7 @@ public class PizzaFactory {
 
         Pizza pizza = new Pizza.Builder().
                 setPizzaId(pizzaId).
-                setBaseId(baseId).
+                setBase(baseId).
                 setName(name).
                 setDescription(description).
                 setSize(size).
@@ -39,7 +39,7 @@ public class PizzaFactory {
 
         Pizza pizza = new Pizza.Builder().
                 setPizzaId(pizzaId).
-                setBaseId(baseId).
+                setBase(baseId).
                 setName(name).
                 setDescription(description).
                 setSize(size).

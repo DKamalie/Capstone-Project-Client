@@ -30,7 +30,7 @@ public class PizzaApi {
 
     public Pizza createPizza(Pizza pizza) {
           pizzaId = pizza.getPizzaId();
-          baseId = pizza.getBaseId();
+          baseId = pizza.getBase();
           name = pizza.getName();
           description = pizza.getDescription();
           Pizza.Size size = pizza.getSize();
@@ -60,7 +60,7 @@ public class PizzaApi {
 
     public String updatePizza(Pizza pizza){
         pizzaId = pizza.getPizzaId();
-        baseId = pizza.getBaseId();
+        baseId = pizza.getBase();
         name = pizza.getName();
         description = pizza.getDescription();
         Pizza.Size size = pizza.getSize();
