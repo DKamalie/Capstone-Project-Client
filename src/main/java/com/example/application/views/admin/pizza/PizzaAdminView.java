@@ -36,7 +36,7 @@ import java.util.Set;
 public class PizzaAdminView extends VerticalLayout {
 
     private Html heading;
-    private TextField txtPizzaId, txtName, txtDescription, txtSize, txtPrice;
+    private TextField txtPizzaId, txtBaseId, txtName, txtDescription, txtSize, txtPrice, txtPizzeriaId;
     private Button btnSave, btnUpdate, btnDelete, btnViewAll, btnReset;
     RadioButtonGroup<Boolean> rdoVegetarianOrNot;
     private Div viewContainer;
@@ -50,12 +50,12 @@ public class PizzaAdminView extends VerticalLayout {
         heading = new Html("<H1>Pizzas</H1>");
 
         txtPizzaId = new TextField("Pizza Id: ");
-//        txtBaseId = new TextField("Base Id: ");
+        txtBaseId = new TextField("Base Id: ");
         txtName = new TextField("Name: ");
         txtDescription = new TextField("Description: ");
         txtSize = new TextField("Size:");
         txtPrice = new TextField("Price: ");
-//        txtPizzeria = new TextField("Pizzeria: ");
+        txtPizzeriaId = new TextField("Pizzeria Id: ");
 
         btnSave = new Button("Save");
         btnUpdate = new Button("Update");
@@ -66,7 +66,7 @@ public class PizzaAdminView extends VerticalLayout {
         rdoVegetarianOrNot = new RadioButtonGroup<>();
 
 
-        VerticalLayout inputContainer = new VerticalLayout(txtPizzaId, txtName, txtDescription, txtSize, rdoVegetarianOrNot, txtPrice, btnSave, btnUpdate, btnDelete, btnViewAll, btnReset);
+        VerticalLayout inputContainer = new VerticalLayout(txtPizzaId, txtBaseId, txtName, txtDescription, txtSize, rdoVegetarianOrNot, txtPrice, txtPizzeriaId, btnSave, btnUpdate, btnDelete, btnViewAll, btnReset);
         inputContainer.setAlignItems(Alignment.BASELINE);
 
         viewContainer = new Div();
@@ -87,7 +87,7 @@ public class PizzaAdminView extends VerticalLayout {
 
 
 //      Button events
-        btnSave.addClickListener(e -> {//this is for creating a vehicle and saving it to the database
+        btnSave.addClickListener(e -> {//this is for creating a pizza and saving it to the database
             try {
                 boolean hasErrors = checkErrors();
 
@@ -116,6 +116,8 @@ public class PizzaAdminView extends VerticalLayout {
                     if (pizzaData != null) {
                         updatePizzaFields(pizzaData);
                         txtPizzaId.setEnabled(false);
+                        txtBaseId.setEnabled(false);
+                        txtPizzeriaId.setEnabled(false);
                         Notification.show("Pizza Id read successfully");
                     } else {
                         // Handle the case where the entered pizzaId does not exist
@@ -197,6 +199,9 @@ public class PizzaAdminView extends VerticalLayout {
         txtPizzaId.setPlaceholder("Enter a valid pizza Id");
         txtPizzaId.setWidth("300px");
 
+        txtBaseId.setPlaceholder("");
+        txtBaseId.setWidth("300px");
+
         txtName.setPlaceholder("Enter a name");
         txtName.setWidth("300px");
 
@@ -211,6 +216,9 @@ public class PizzaAdminView extends VerticalLayout {
 
         txtPrice.setPlaceholder("Enter a price");
         txtPrice.setWidth("300px");
+
+        txtPizzeriaId.setPlaceholder("");
+        txtPizzeriaId.setWidth("300px");
 
 
         Style btnSaveStyle = btnSave.getStyle();
@@ -265,18 +273,7 @@ public class PizzaAdminView extends VerticalLayout {
 
 
 //      Add components to layout
-//        add(heading);
-//        add(txtPizzaId);
-//        add(txtName);
-//        add(txtDescription);
-//        add(txtSize);
-//        add(rdoContainer);
         add(mainContainer);
-//        add(txtPrice);
-//        add(btnSave);
-//        add(btnUpdate);
-//        add(btnDelete);
-//        add(btnViewAll);
     }
 
 
@@ -295,14 +292,17 @@ public class PizzaAdminView extends VerticalLayout {
     public void deletePizzaId(Integer pizzaId){
         pizzaApi.deletePizza(pizzaId);
     }
-
+    Base base = BaseFactory.buildBase( Base.BaseCrust.CRUSTY, Base.BaseThickness.THICK, Base.BaseTexture.CRISPY, 22);
+    Pizzeria pizzeria = PizzeriaFactory.buildPizzaria("Hill Crest", "300 Long St, Cape Town City Centre, 8000");
 
     public void updatePizzaFields(Pizza pizza) {//this is not an update method, this is for the read method
+        txtBaseId.setValue(String.valueOf(pizza.getBase().getBaseId()));
         txtName.setValue(pizza.getName());
         txtDescription.setValue(pizza.getDescription());
         txtSize.setValue(String.valueOf(pizza.getSize()));
         rdoVegetarianOrNot.setValue(pizza.isVegetarianOrNot());
         txtPrice.setValue(String.valueOf(pizza.getPrice()));
+        txtPizzeriaId.setValue(String.valueOf(pizza.getPizzeria().getPizzeriaID()));
     }
 
     public Pizza setPizzaValues() {//use for create method
@@ -312,8 +312,7 @@ public class PizzaAdminView extends VerticalLayout {
         Boolean vegetarianOrNot = rdoVegetarianOrNot.getValue();
         Double price = Double.valueOf(txtPrice.getValue());
 
-        Base base = BaseFactory.buildBase( Base.BaseCrust.CRUSTY, Base.BaseThickness.THICK, Base.BaseTexture.CRISPY, 26);
-        Pizzeria pizzeria = PizzeriaFactory.buildPizzaria("Hill Crest", "300 Long St, Cape Town City Centre, 8000");
+
         Pizza getPizzaData = PizzaFactory.createPizza(base, name, description, Pizza.Size.valueOf(size), vegetarianOrNot, price, pizzeria);
 
         return getPizzaData;
@@ -331,11 +330,13 @@ public class PizzaAdminView extends VerticalLayout {
 
         Pizza updatePizzaData = PizzaFactory.createPizza(
                 pizzaIdValue,
+                base,
                 nameValue,
                 descriptionValue,
                 sizeValue,
                 vegetarianOrNotValueValue,
-                priceValue);
+                priceValue,
+                pizzeria);
 
         return updatePizzaData;
     }
@@ -368,9 +369,9 @@ public class PizzaAdminView extends VerticalLayout {
             return true;
         }
 
-        int priceInt = Integer.parseInt(price);
+        double priceValueDouble = Double.parseDouble(txtPrice.getValue());
 
-        if (priceInt <= 0) {
+        if (priceValueDouble <= 0) {
             Notification.show("Invalid input, price must contain numbers.");
             return true;
         }
@@ -395,13 +396,13 @@ public class PizzaAdminView extends VerticalLayout {
         innerDiv.getStyle().set("justify-content", "space-between");
 
         createDataField(innerDiv, "Pizza Id ", String.valueOf(pizza.getPizzaId()));
-        createDataField(innerDiv, "Base Id ", String.valueOf(pizza.getBaseId()));
+        createDataField(innerDiv, "Base Id ", String.valueOf(pizza.getBase().getBaseId()));
         createDataField(innerDiv, "Name ", pizza.getName());
         createDataField(innerDiv, "Description ", pizza.getDescription());
         createDataField(innerDiv, "Size ", String.valueOf(pizza.getSize()));
         createDataField(innerDiv, "Vegetarian ", String.valueOf(pizza.isVegetarianOrNot()));
         createDataField(innerDiv, "Price ", String.valueOf(pizza.getPrice()));
-        createDataField(innerDiv, "Pizzeria ", String.valueOf(pizza.getPizzeria()));
+        createDataField(innerDiv, "Pizzeria ", String.valueOf(pizza.getPizzeria().getPizzeriaID()));
 
         outerDiv.add(innerDiv);
 
@@ -421,11 +422,13 @@ public class PizzaAdminView extends VerticalLayout {
 
     private void clearFormFields() {
         txtPizzaId.clear();
+        txtBaseId.clear();
         txtPizzaId.setEnabled(true);
         txtName.clear();
         txtDescription.clear();
         txtSize.clear();
         rdoVegetarianOrNot.clear();
         txtPrice.clear();
+        txtPizzeriaId.clear();
     }
 }
