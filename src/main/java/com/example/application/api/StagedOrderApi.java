@@ -1,9 +1,6 @@
 package com.example.application.api;
 
-import com.example.application.domain.Customer;
-import com.example.application.domain.Pizza;
-import com.example.application.domain.Pizzeria;
-import com.example.application.domain.StagedOrder;
+import com.example.application.domain.*;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,17 +8,15 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+
 @RestController
 public class StagedOrderApi {
     static RestTemplate restTemplate = new RestTemplate();
     private Integer orderId;
     private LocalDate createDate;
     private LocalTime time;
-    private Customer customer;
+    private LoyaltyCustomer customer;
     private String quantity;
 
     private Pizza pizza;
@@ -30,12 +25,11 @@ public class StagedOrderApi {
     private Pizzeria pizzeria;
     private static String urlPizzeria = "http://localhost:8080/stagedOrder/";
 
-
     public StagedOrder createStagedOrder(StagedOrder stagedOrder) {
         orderId = stagedOrder.getOrderId();
         createDate = stagedOrder.getCreateDate();
         time = stagedOrder.getTime();
-        customer = stagedOrder.getCustomer();
+        customer = (LoyaltyCustomer) stagedOrder.getCustomer();
         quantity = stagedOrder.getQuantity();
         pizza = stagedOrder.getPizza();
         total = stagedOrder.getTotal();
@@ -69,7 +63,7 @@ public class StagedOrderApi {
         orderId = stagedOrder.getOrderId();
         createDate = stagedOrder.getCreateDate();
         time = stagedOrder.getTime();
-        customer = stagedOrder.getCustomer();
+        //customer = stagedOrder.getCustomer();
         quantity = stagedOrder.getQuantity();
         pizza = stagedOrder.getPizza();
         total = stagedOrder.getTotal();

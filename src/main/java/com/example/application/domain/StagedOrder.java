@@ -22,7 +22,7 @@ public class StagedOrder {
     private OrderStatus orderStatus;
     private Pizzeria pizzeria;
 
-    protected StagedOrder(){
+    public StagedOrder(){
 
     }
     public StagedOrder(Integer orderId,
@@ -89,6 +89,42 @@ public class StagedOrder {
 
     public Pizzeria getPizzeria() {
         return pizzeria;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
+
+    public void setCreateDate(LocalDate createDate) {
+        this.createDate = createDate;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setPizza(Pizza pizza) {
+        this.pizza = pizza;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public void setPizzeria(Pizzeria pizzeria) {
+        this.pizzeria = pizzeria;
     }
 
     public static class Builder {
