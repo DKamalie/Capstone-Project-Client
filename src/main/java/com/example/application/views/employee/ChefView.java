@@ -120,7 +120,7 @@ public class ChefView extends VerticalLayout {
 
 
 
-        saveButton.addClickListener(e -> {//this is for creating a vehicle and saving it to the database
+        saveButton.addClickListener(e -> {//this is for creating a chef and saving it to the database
             try {
                 boolean hasErrors = checkErrors();
 
@@ -142,7 +142,7 @@ public class ChefView extends VerticalLayout {
                 if (!enteredValue.isEmpty()) {
                     Integer enteredEmployeeId = Integer.valueOf(enteredValue);
 
-                    // Call the readVehicleId method to fetch vehicle data
+                    // Call the readChefId method to fetch chef data
                     Chef employeeData = readEmployeeId(enteredEmployeeId);
 
                     // Update the other text fields with the retrieved data
@@ -152,7 +152,7 @@ public class ChefView extends VerticalLayout {
                         pizzariaId.setEnabled(false);
                         Notification.show("Employee Id read successfully");
                     } else {
-                        // Handle the case where the entered vehicleId does not exist
+                        // Handle the case where the entered chefId does not exist
                         Notification.show("Employee with ID " + enteredEmployeeId + " not found");
                     }
                 }
@@ -165,7 +165,7 @@ public class ChefView extends VerticalLayout {
             }
         });
 
-        /*
+
 
         updateButton.addClickListener(e -> {//use for update method
             try {
@@ -182,7 +182,7 @@ public class ChefView extends VerticalLayout {
             }
         });
 
-         */
+
 
         deleteButton.addClickListener(e ->{//use for delete method
             try {
@@ -308,6 +308,8 @@ public class ChefView extends VerticalLayout {
         deleteEmployeeId.deleteChef(employeeId);
     }
 
+    Pizzeria pizzeria = PizzeriaFactory.buildPizzaria("Hill Crest", "300 Long St, Cape Town City Centre, 8000");
+
     public void updateChefFields(Chef chef) {//this is not an update method, this is for the read method
         name.setValue(chef.getName());
         surname.setValue(chef.getSurname());
@@ -319,7 +321,7 @@ public class ChefView extends VerticalLayout {
 
     }
 
-    /*
+
     public Chef updateSetChefValues() {//use for update method
 
 
@@ -328,14 +330,16 @@ public class ChefView extends VerticalLayout {
         String surnameValue = surname.getValue();
         String phoneNumberValue = phoneNumber.getValue();
         String emailValue = email.getValue();
+        String titleValue = title.getValue();
+        String culinaryExperienceValue = culinaryExperience.getValue();
 
-        Driver updateDriverData = DriverFactory.buildDriver(employeeIdValue, nameValue, surnameValue, phoneNumberValue, emailValue);
+        Chef updateChefData = ChefFactory.createChef(employeeIdValue, nameValue, surnameValue, phoneNumberValue, emailValue, titleValue, culinaryExperienceValue, pizzeria);
 
-        return updateDriverData;
+        return updateChefData;
 
     }
 
- */
+
 
     public Chef setChefValues() {//use for create method
 
@@ -347,7 +351,7 @@ public class ChefView extends VerticalLayout {
         String culinaryExperienceValue = culinaryExperience.getValue();
 
 
-        Pizzeria pizzeria = PizzeriaFactory.buildPizzaria("Hill Crest", "300 Long St, Cape Town City Centre, 8000");
+
 
 
         Chef getChefData = ChefFactory.buildChef(nameValue, surnameValue, phoneNumberValue, emailValue, titleValue, culinaryExperienceValue, pizzeria);

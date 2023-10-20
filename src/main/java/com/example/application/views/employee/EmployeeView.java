@@ -3,9 +3,7 @@ package com.example.application.views.employee;
 import com.example.application.api.EmployeeApi;
 import com.example.application.api.PizzeriaApi;
 import com.example.application.api.VehicleApi;
-import com.example.application.domain.Employee;
-import com.example.application.domain.Pizzeria;
-import com.example.application.domain.Vehicle;
+import com.example.application.domain.*;
 import com.example.application.factory.EmployeeFactory;
 import com.example.application.factory.PizzeriaFactory;
 import com.example.application.factory.VehicleFactory;
@@ -107,7 +105,7 @@ public class EmployeeView extends VerticalLayout {
         mainContainer.setDefaultVerticalComponentAlignment(Alignment.CENTER);
 
 
-        saveButton.addClickListener(e -> {//this is for creating a vehicle and saving it to the database
+        saveButton.addClickListener(e -> {//this is for creating a employee and saving it to the database
             try {
                 boolean hasErrors = checkErrors();
 
@@ -129,7 +127,7 @@ public class EmployeeView extends VerticalLayout {
                 if (!enteredValue.isEmpty()) {
                     Integer enteredEmployeeId = Integer.valueOf(enteredValue);
 
-                    // Call the readVehicleId method to fetch vehicle data
+                    // Call the readEmployeeId method to fetch vehicle data
                     Employee employeeData = readEmployeeId(enteredEmployeeId);
 
                     // Update the other text fields with the retrieved data
@@ -139,7 +137,7 @@ public class EmployeeView extends VerticalLayout {
                         pizzariaId.setEnabled(false);
                         Notification.show("Employee Id read successfully");
                     } else {
-                        // Handle the case where the entered vehicleId does not exist
+                        // Handle the case where the entered employeeId does not exist
                         Notification.show("Employee with ID " + enteredEmployeeId + " not found");
                     }
                 }
@@ -194,6 +192,9 @@ public class EmployeeView extends VerticalLayout {
             try {
                 Set<Employee> employees = getAll.getAllEmployee();
 
+                Set<Chef> chefs = getAll.getAllChef();
+
+                Set<Driver> drivers = getAll.getAllDriver();
 
                 viewContainer.removeAll();
 
@@ -201,6 +202,7 @@ public class EmployeeView extends VerticalLayout {
                 employees.forEach(employee -> {
                     viewContainer.add(createEmployeeSpan(employee));
                 });
+
 
 
             } catch (Exception e) {
@@ -293,6 +295,7 @@ public class EmployeeView extends VerticalLayout {
         EmployeeApi deleteEmployeeId = new EmployeeApi();
         deleteEmployeeId.deleteEmployee(employeeId);
     }
+    Pizzeria pizzeria = PizzeriaFactory.buildPizzaria("Hill Crest", "300 Long St, Cape Town City Centre, 8000");
 
     public void updateEmployeeFields(Employee employee) {//this is not an update method, this is for the read method
         name.setValue(employee.getName());
@@ -309,7 +312,7 @@ public class EmployeeView extends VerticalLayout {
         String phoneNumberValue = phoneNumber.getValue();
         String emailValue = email.getValue();
 
-        Pizzeria pizzeria = PizzeriaFactory.buildPizzaria("Hill Crest", "300 Long St, Cape Town City Centre, 8000");
+
 
         Employee getEmployeeData = EmployeeFactory.buildEmployee(nameValue, surnameValue, phoneNumberValue, emailValue, pizzeria);
 
@@ -330,7 +333,7 @@ public class EmployeeView extends VerticalLayout {
 
 
 
-        Employee updateEmployeeData = EmployeeFactory.createEmployee(employeeIdValue, nameValue, surnameValue, phoneNumberValue, emailValue, null );
+        Employee updateEmployeeData = EmployeeFactory.createEmployee(employeeIdValue, nameValue, surnameValue, phoneNumberValue, emailValue, pizzeria );
 
         return updateEmployeeData;
 
@@ -378,6 +381,18 @@ public class EmployeeView extends VerticalLayout {
 
     }
 
+    private void createDataField(Div container, String label, String value) {
+        Span labelSpan = new Span(label);
+        labelSpan.getStyle().set("font-weight", "bold");
+        Span valueSpan = new Span(value);
+
+        Div dataField = new Div(labelSpan, valueSpan);
+        dataField.getStyle().set("margin-right", "40px");
+
+        container.add(dataField);
+    }
+
+
     private Div createEmployeeSpan(Employee employee) {
         Div outerDiv = new Div();
         outerDiv.getStyle().set("display", "flex");
@@ -402,16 +417,6 @@ public class EmployeeView extends VerticalLayout {
         return outerDiv;
     }
 
-    private void createDataField(Div container, String label, String value) {
-        Span labelSpan = new Span(label);
-        labelSpan.getStyle().set("font-weight", "bold");
-        Span valueSpan = new Span(value);
-
-        Div dataField = new Div(labelSpan, valueSpan);
-        dataField.getStyle().set("margin-right", "40px");
-
-        container.add(dataField);
-    }
     private void clearFormFields() {//clear text fields
         employeeId.clear();
         name.clear();

@@ -158,7 +158,7 @@ public class DriverView extends VerticalLayout {
             }
         });
 
-        /*
+
 
         updateButton.addClickListener(e -> {//use for update method
             try {
@@ -175,7 +175,7 @@ public class DriverView extends VerticalLayout {
             }
         });
 
-         */
+
 
         deleteButton.addClickListener(e ->{//use for delete method
             try {
@@ -301,6 +301,9 @@ public class DriverView extends VerticalLayout {
         deleteEmployeeId.deleteDriver(employeeId);
     }
 
+    Pizzeria pizzeria = PizzeriaFactory.buildPizzaria("Hill Crest", "300 Long St, Cape Town City Centre, 8000");
+    Vehicle vehicle = VehicleFactory.createVehicle("Mazda", "Mazda RX", "GTR", "2021", "Black");
+
     public void updateDriverFields(Driver driver) {//this is not an update method, this is for the read method
         name.setValue(driver.getName());
         surname.setValue(driver.getSurname());
@@ -310,8 +313,8 @@ public class DriverView extends VerticalLayout {
         vehicleId.setValue(String.valueOf(driver.getVehicle().getVehicleId()));
     }
 
-    /*
-    public Vehicle updateSetDriverValues() {//use for update method
+
+    public Driver updateSetDriverValues() {//use for update method
 
 
         Integer employeeIdValue = Integer.valueOf(employeeId.getValue());
@@ -320,13 +323,13 @@ public class DriverView extends VerticalLayout {
         String phoneNumberValue = phoneNumber.getValue();
         String emailValue = email.getValue();
 
-        Driver updateDriverData = DriverFactory.buildDriver(employeeIdValue, nameValue, surnameValue, phoneNumberValue, emailValue);
+        Driver updateDriverData = DriverFactory.createDriver(employeeIdValue, nameValue, surnameValue, phoneNumberValue, emailValue, vehicle, pizzeria);
 
         return updateDriverData;
 
     }
 
- */
+
 
     public Driver setDriverValues() {//use for create method
 
@@ -335,8 +338,6 @@ public class DriverView extends VerticalLayout {
         String phoneNumberValue = phoneNumber.getValue();
         String emailValue = email.getValue();
 
-        Pizzeria pizzeria = PizzeriaFactory.buildPizzaria("Hill Crest", "300 Long St, Cape Town City Centre, 8000");
-        Vehicle vehicle = VehicleFactory.createVehicle("Mazda", "Mazda RX", "GTR", "2021", "Black");
 
         Driver getDriverData = DriverFactory.buildDriver(nameValue, surnameValue, phoneNumberValue, emailValue, vehicle, pizzeria);
 
