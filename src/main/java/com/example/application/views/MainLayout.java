@@ -9,6 +9,7 @@ import com.example.application.views.login.EventBus;
 import com.example.application.views.login.LoginSuccessEvent;
 import com.example.application.views.login.LoginView;
 import com.example.application.views.menu.MenuView;
+import com.example.application.views.signUp.Both;
 import com.example.application.views.team.TeamView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
@@ -84,7 +85,15 @@ public class MainLayout extends AppLayout implements EventBus.LoginSuccessListen
         EventBus.getInstance().addLoginSuccessListener(this);
         UI.getCurrent().addBeforeEnterListener(event -> {
             if (!isUserLoggedIn()) {
-                event.forwardTo(LoginView.class);
+                if (event.getNavigationTarget() != LoginView.class && event.getNavigationTarget() != Both.class) {
+                    // Redirect to LoginView or Both if the user is not logged in and trying to access other views
+                    event.forwardTo(LoginView.class);
+                }
+            } else {
+                if (event.getNavigationTarget() == Both.class) {
+                    // Redirect to HomeView if the user is already logged in and trying to access Both (signup) page
+                    event.forwardTo(HomeView.class);
+                }
             }
         });
 
