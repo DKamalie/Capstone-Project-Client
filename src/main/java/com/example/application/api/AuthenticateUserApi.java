@@ -57,7 +57,6 @@ public class AuthenticateUserApi {
 
         EntityUtils.toString(response.getEntity());
 
-
         return token;
     }
 
