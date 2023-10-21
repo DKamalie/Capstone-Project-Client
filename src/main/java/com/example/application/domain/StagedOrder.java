@@ -20,7 +20,6 @@ public class StagedOrder {
     private Pizza pizza;
     private double total;
     private OrderStatus orderStatus;
-    private Pizzeria pizzeria;
 
     public StagedOrder(){
 
@@ -32,8 +31,7 @@ public class StagedOrder {
                        String  quantity,
                        Pizza pizza,
                        double total,
-                       OrderStatus orderStatus,
-                       Pizzeria pizzeria){
+                       OrderStatus orderStatus){
         this.orderId = orderId;
         this.createDate =createDate;
         this.time = time;
@@ -42,7 +40,6 @@ public class StagedOrder {
         this.pizza = pizza;
         this.total = total;
         this.orderStatus = orderStatus;
-        this.pizzeria = pizzeria;
     }
 
 
@@ -52,7 +49,6 @@ public class StagedOrder {
         this.time = builder.time;
         this.customer = builder.customer;
         this.orderStatus = builder.orderStatus;
-        this.pizzeria = builder.pizzeria;
         this.quantity = builder.quantity;
         this.pizza = builder.pizza;
         this.total = builder.total;
@@ -87,9 +83,6 @@ public class StagedOrder {
         return orderStatus;
     }
 
-    public Pizzeria getPizzeria() {
-        return pizzeria;
-    }
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
@@ -123,9 +116,6 @@ public class StagedOrder {
         this.orderStatus = orderStatus;
     }
 
-    public void setPizzeria(Pizzeria pizzeria) {
-        this.pizzeria = pizzeria;
-    }
 
     public static class Builder {
         private Integer orderId;
@@ -136,7 +126,6 @@ public class StagedOrder {
         private Pizza pizza;
         private double total;
         private OrderStatus orderStatus;
-        private Pizzeria pizzeria;
 
 
         public Builder setOrderId(Integer orderId) {
@@ -178,10 +167,6 @@ public class StagedOrder {
             return this;
         }
 
-        public Builder setPizzeria(Pizzeria pizzeria) {
-            this.pizzeria = pizzeria;
-            return this;
-        }
 
         public Builder copy(StagedOrder order) {
             this.orderId = order.orderId;
@@ -190,7 +175,6 @@ public class StagedOrder {
             this.customer = order.customer;
             this.total = order.total;
             this.orderStatus = order.orderStatus;
-            this.pizzeria = order.pizzeria;
             this.quantity = order.quantity;
             return this;
         }
@@ -203,7 +187,7 @@ public class StagedOrder {
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, createDate, time, customer, orderStatus, pizzeria);
+        return Objects.hash(orderId, createDate, time, customer, orderStatus);
     }
 
     @Override
@@ -217,7 +201,6 @@ public class StagedOrder {
                 ", pizza=" + pizza +
                 ", total=" + total +
                 ", orderStatus=" + orderStatus +
-                ", pizzeria=" + pizzeria +
                 '}';
     }
 }

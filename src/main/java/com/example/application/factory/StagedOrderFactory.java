@@ -16,7 +16,7 @@ import java.time.LocalTime;
 
 public class StagedOrderFactory {
     public static StagedOrder createOrder(LocalDate createDate, LocalTime time, Customer customer, String qauntity, Pizza pizza, double total, StagedOrder.OrderStatus orderStatus, Pizzeria pizzeria) {
-        if (Helper.isNullOrEmpty(String.valueOf(Helper.isNullOrEmpty(String.valueOf(createDate)))) || Helper.isNullOrEmpty(String.valueOf(time))  || Helper.isNullOrEmpty(String.valueOf(customer)) || Helper.isNullOrEmpty(String.valueOf(orderStatus)) || Helper.isNullOrEmpty(String.valueOf(pizzeria)))  {
+        if (Helper.isNullOrEmpty(String.valueOf(Helper.isNullOrEmpty(String.valueOf(createDate)))) || Helper.isNullOrEmpty(String.valueOf(time))  || Helper.isNullOrEmpty(String.valueOf(customer)) || Helper.isNullOrEmpty(String.valueOf(orderStatus)))  {
             return null;
         }
 
@@ -32,7 +32,6 @@ public class StagedOrderFactory {
                 .setPizza(pizza)
                 .setTotal(total)
                 .setOrderStatus(orderStatus)
-                .setPizzeria(pizzeria)
                 .build();
         return stagedOrder;
 

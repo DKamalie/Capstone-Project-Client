@@ -22,7 +22,6 @@ public class StagedOrderApi {
     private Pizza pizza;
     private double total;
     private StagedOrder.OrderStatus orderStatus;
-    private Pizzeria pizzeria;
     private static String urlPizzeria = "http://localhost:8080/stagedOrder/";
 
     public StagedOrder createStagedOrder(StagedOrder stagedOrder) {
@@ -34,7 +33,6 @@ public class StagedOrderApi {
         pizza = stagedOrder.getPizza();
         total = stagedOrder.getTotal();
         orderStatus = stagedOrder.getOrderStatus();
-        pizzeria = stagedOrder.getPizzeria();
 
 
         HttpEntity<StagedOrder> request = new HttpEntity<>(new StagedOrder(
@@ -45,11 +43,10 @@ public class StagedOrderApi {
                 quantity,
                 pizza,
                 total,
-                orderStatus,
-                pizzeria
+                orderStatus
         ));
         StagedOrder stagedOrder1 = restTemplate.postForObject(urlPizzeria+ "create", request, StagedOrder.class);
-        System.out.println(pizzeria.toString());
+
 
         return stagedOrder1;
     }
@@ -68,7 +65,6 @@ public class StagedOrderApi {
         pizza = stagedOrder.getPizza();
         total = stagedOrder.getTotal();
         orderStatus = stagedOrder.getOrderStatus();
-        pizzeria = stagedOrder.getPizzeria();
 
         HttpEntity<StagedOrder> request = new HttpEntity<>(new StagedOrder(
                 orderId,
@@ -78,8 +74,7 @@ public class StagedOrderApi {
                 quantity,
                 pizza,
                 total,
-                orderStatus,
-                pizzeria
+                orderStatus
         ));
         StagedOrder stagedOrder1 = restTemplate.postForObject(urlPizzeria+ "update", request, StagedOrder.class);
         System.out.println(stagedOrder1.toString());
