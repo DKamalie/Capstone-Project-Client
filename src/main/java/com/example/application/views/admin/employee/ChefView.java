@@ -1,15 +1,11 @@
-package com.example.application.views.employee;
+package com.example.application.views.admin.employee;
 
-import com.example.application.api.DriverApi;
+import com.example.application.api.ChefApi;
 import com.example.application.api.EmployeeApi;
-import com.example.application.domain.Driver;
-import com.example.application.domain.Employee;
+import com.example.application.domain.Chef;
 import com.example.application.domain.Pizzeria;
-import com.example.application.domain.Vehicle;
-import com.example.application.factory.DriverFactory;
-import com.example.application.factory.EmployeeFactory;
+import com.example.application.factory.ChefFactory;
 import com.example.application.factory.PizzeriaFactory;
-import com.example.application.factory.VehicleFactory;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
@@ -25,17 +21,18 @@ import com.vaadin.flow.router.Route;
 
 import java.util.Set;
 
-@PageTitle("Driver")
-@Route(value = "driver", layout = MainLayout.class)
-public class DriverView extends VerticalLayout {
+@PageTitle("Chef")
+@Route(value = "chef", layout = MainLayout.class)
+public class ChefView extends VerticalLayout {
 
     private TextField employeeId;
     private TextField name;
     private TextField surname;
     private TextField phoneNumber;
     private TextField email;
-    private TextField pizzariaId;
-    private TextField vehicleId;
+    private TextField title;
+    private TextField culinaryExperience;
+    private TextField pizzeriaId;
     private Button saveButton;
     private Button updateButton;
     private Button deleteButton;
@@ -46,7 +43,7 @@ public class DriverView extends VerticalLayout {
 
     EmployeeApi getALL = new EmployeeApi();
 
-    public DriverView(){
+    public ChefView(){
         employeeId = new TextField("Employee Id: ");
         employeeId.setWidth("300px");
         employeeId.setPlaceholder("Enter in the employee Id");
@@ -67,13 +64,18 @@ public class DriverView extends VerticalLayout {
         email.setWidth("300px");
         email.setPlaceholder("Enter in the email");
 
-        pizzariaId = new TextField("Pizzaria Id: ");
-        pizzariaId.setWidth("300px");
-        pizzariaId.setPlaceholder("");
+        title = new TextField("Title: ");
+        title.setWidth("300px");
+        title.setPlaceholder("Enter in the title");
 
-        vehicleId = new TextField("Vehicle Id: ");
-        vehicleId.setWidth("300px");
-        vehicleId.setPlaceholder("");
+        culinaryExperience = new TextField("Culinary experience: ");
+        culinaryExperience.setWidth("300px");
+        culinaryExperience.setPlaceholder("Enter in the culinary experience");
+
+        pizzeriaId = new TextField("Pizzeria Id: ");
+        pizzeriaId.setWidth("300px");
+        pizzeriaId.setPlaceholder("");
+        pizzeriaId.setEnabled(false);
 
         saveButton = new Button("Save");
         saveButton.setWidth("300px");
@@ -85,13 +87,13 @@ public class DriverView extends VerticalLayout {
         deleteButton = new Button("Delete");
         deleteButton.setWidth("300px");
 
-        viewAllButton = new Button("View all drivers");
+        viewAllButton = new Button("View all chefs");
         viewAllButton.setWidth("300px");
 
         resetButton = new Button("Reset");
         resetButton.setWidth("300px");
 
-        VerticalLayout inputContainer = new VerticalLayout(employeeId, name, surname, phoneNumber, email, pizzariaId, vehicleId, saveButton, updateButton, deleteButton, viewAllButton, resetButton);
+        VerticalLayout inputContainer = new VerticalLayout(employeeId, name, surname, phoneNumber, email,title, culinaryExperience, pizzeriaId, saveButton, updateButton, deleteButton, viewAllButton, resetButton);
         inputContainer.setAlignItems(Alignment.BASELINE);
 
         viewContainer = new Div();
@@ -112,14 +114,15 @@ public class DriverView extends VerticalLayout {
         HorizontalLayout mainContainer = new HorizontalLayout(inputContainer, dataMarginContainer);
         mainContainer.setDefaultVerticalComponentAlignment(Alignment.CENTER);
 
-        saveButton.addClickListener(e -> {//this is for creating a vehicle and saving it to the database
+
+        saveButton.addClickListener(e -> {//this is for creating a chef and saving it to the database
             try {
                 boolean hasErrors = checkErrors();
 
                 if (!hasErrors) {
-                    Driver driverSave = setDriverValues();
-                    createDriver(driverSave);
-                    Notification.show("Driver saved");
+                    Chef chefSave = setChefValues();
+                    createChef(chefSave);
+                    Notification.show("Chef saved");
                 }
             } catch (Exception exception) {
                 Notification.show(exception.getMessage());
@@ -134,18 +137,17 @@ public class DriverView extends VerticalLayout {
                 if (!enteredValue.isEmpty()) {
                     Integer enteredEmployeeId = Integer.valueOf(enteredValue);
 
-                    // Call the readVehicleId method to fetch vehicle data
-                    Driver employeeData = readEmployeeId(enteredEmployeeId);
+                    // Call the readChefId method to fetch chef data
+                    Chef employeeData = readEmployeeId(enteredEmployeeId);
 
                     // Update the other text fields with the retrieved data
                     if (employeeData != null) {
-                        updateDriverFields(employeeData);
+                        updateChefFields(employeeData);
                         employeeId.setEnabled(false);
-                        pizzariaId.setEnabled(false);
-                        vehicleId.setEnabled(false);
+                        pizzeriaId.setEnabled(false);
                         Notification.show("Employee Id read successfully");
                     } else {
-                        // Handle the case where the entered vehicleId does not exist
+                        // Handle the case where the entered chefId does not exist
                         Notification.show("Employee with ID " + enteredEmployeeId + " not found");
                     }
                 }
@@ -158,24 +160,20 @@ public class DriverView extends VerticalLayout {
             }
         });
 
-
-
         updateButton.addClickListener(e -> {//use for update method
             try {
                 System.out.println(isEditing);
 
                 if (isEditing == false) {
-                    Driver updatedDriver = updateSetDriverValues();
-                    updateDriver(updatedDriver);
+                    Chef updatedChef = updateSetChefValues();
+                    updateChef(updatedChef);
 
-                    Notification.show("Driver updated successfully");
+                    Notification.show("Chef updated successfully");
                 }
             } catch (Exception ex) {
                 Notification.show("An error occurred during the update: " + ex.getMessage());
             }
         });
-
-
 
         deleteButton.addClickListener(e ->{//use for delete method
             try {
@@ -183,7 +181,7 @@ public class DriverView extends VerticalLayout {
                 if (!employeeIdValue.isEmpty()) {
                     Integer id = Integer.valueOf(employeeIdValue);
                     deleteEmployeeId(id);
-                    Notification.show("Driver deleted successfully");
+                    Notification.show("Chef deleted successfully");
                     clearFormFields();
                 } else {
                     Notification.show("Please enter a employee ID.");
@@ -195,38 +193,27 @@ public class DriverView extends VerticalLayout {
             }
         });
 
-
         viewAllButton.addClickListener(event -> {//use for getAll method
             try {
-                Set<Driver> drivers = getALL.getAllDriver();
-
-
+                Set<Chef> chefs = getALL.getAllChef();
                 viewContainer.removeAll();
-
-
-                drivers.forEach(driver -> {
-                    viewContainer.add(createDriverSpan(driver));
+                chefs.forEach(chef -> {
+                    viewContainer.add(createChefSpan(chef));
                 });
-
-
             } catch (Exception e) {
-
-                Notification.show("Failed to retrieve drivers. Please try again later." + e.getMessage());
+                Notification.show("Failed to retrieve chefs. Please try again later." + e.getMessage());
             }
         });
 
         resetButton.addClickListener(event -> {//use for getAll method
             try {
-
                 clearFormFields();
-
                 viewContainer.removeAll();
-
             } catch (Exception e) {
-
                 Notification.show("Failed to clear the fields." + e.getMessage());
             }
         });
+
 
         Style buttonStyle = saveButton.getStyle();
         buttonStyle.set("color", "white");
@@ -236,7 +223,6 @@ public class DriverView extends VerticalLayout {
         buttonStyle.set("font-weight", "bold");
         buttonStyle.set("border-radius", "17px");
         buttonStyle.set("box-shadow", "0 5px 4px rgba(0, 0, 0, 0.2)");
-
 
         Style buttonStyle2 = updateButton.getStyle();
         buttonStyle2.set("color", "white");
@@ -277,71 +263,68 @@ public class DriverView extends VerticalLayout {
         setMargin(true);
 
         add(mainContainer);
-
-
     }
 
-    public void createDriver(Driver driver) {//use for create method
-        DriverApi driverApi = new DriverApi();
-        driverApi.createDriver(driver);
+    public void createChef(Chef chef) {//use for create method
+        ChefApi chefApi = new ChefApi();
+        chefApi.createChef(chef);
     }
 
-    public Driver readEmployeeId(Integer employeeId) {//use for read method
-        DriverApi readEmployeeId = new DriverApi();
-        return readEmployeeId.readDriver(employeeId);
+    public Chef readEmployeeId(Integer employeeId) {//use for read method
+        ChefApi readEmployeeId = new ChefApi();
+        return readEmployeeId.readChef(employeeId);
     }
 
-    public void updateDriver(Driver driver) {//use for the update method
-        DriverApi updateDriver = new DriverApi();
-        updateDriver.updateDriver(driver);
+    public void updateChef(Chef chef) {//use for the update method
+        ChefApi updateChef = new ChefApi();
+        updateChef.updateChef(chef);
     }
 
     public void deleteEmployeeId(Integer employeeId){//use for delete method
-        DriverApi deleteEmployeeId = new DriverApi();
-        deleteEmployeeId.deleteDriver(employeeId);
+        ChefApi deleteEmployeeId = new ChefApi();
+        deleteEmployeeId.deleteChef(employeeId);
     }
 
     Pizzeria pizzeria = PizzeriaFactory.buildPizzaria("Hill Crest", "300 Long St, Cape Town City Centre, 8000");
-    Vehicle vehicle = VehicleFactory.createVehicle("Mazda", "Mazda RX", "GTR", "2021", "Black");
 
-    public void updateDriverFields(Driver driver) {//this is not an update method, this is for the read method
-        name.setValue(driver.getName());
-        surname.setValue(driver.getSurname());
-        phoneNumber.setValue(driver.getPhoneNumber());
-        email.setValue(driver.getEmail());
-        pizzariaId.setValue(String.valueOf(driver.getPizzeria().getPizzeriaID()));
-        vehicleId.setValue(String.valueOf(driver.getVehicle().getVehicleId()));
+    public void updateChefFields(Chef chef) {//this is not an update method, this is for the read method
+        name.setValue(chef.getName());
+        surname.setValue(chef.getSurname());
+        phoneNumber.setValue(chef.getPhoneNumber());
+        email.setValue(chef.getEmail());
+        title.setValue(chef.getTitle());
+        culinaryExperience.setValue(chef.getCulinaryExperience());
+        pizzeriaId.setValue(String.valueOf(chef.getPizzeria().getPizzeriaID()));
     }
 
 
-    public Driver updateSetDriverValues() {//use for update method
-
-
+    public Chef updateSetChefValues() {//use for update method
         Integer employeeIdValue = Integer.valueOf(employeeId.getValue());
         String nameValue = name.getValue();
         String surnameValue = surname.getValue();
         String phoneNumberValue = phoneNumber.getValue();
         String emailValue = email.getValue();
+        String titleValue = title.getValue();
+        String culinaryExperienceValue = culinaryExperience.getValue();
 
-        Driver updateDriverData = DriverFactory.createDriver(employeeIdValue, nameValue, surnameValue, phoneNumberValue, emailValue, vehicle, pizzeria);
+        Chef updateChefData = ChefFactory.createChef(employeeIdValue, nameValue, surnameValue, phoneNumberValue, emailValue, titleValue, culinaryExperienceValue, pizzeria);
 
-        return updateDriverData;
-
+        return updateChefData;
     }
 
 
 
-    public Driver setDriverValues() {//use for create method
-
+    public Chef setChefValues() {//use for create method
         String nameValue = name.getValue();
         String surnameValue = surname.getValue();
         String phoneNumberValue = phoneNumber.getValue();
         String emailValue = email.getValue();
+        String titleValue = title.getValue();
+        String culinaryExperienceValue = culinaryExperience.getValue();
 
+        Chef getChefData = ChefFactory.buildChef(nameValue, surnameValue, phoneNumberValue, emailValue, titleValue, culinaryExperienceValue, pizzeria);
 
-        Driver getDriverData = DriverFactory.buildDriver(nameValue, surnameValue, phoneNumberValue, emailValue, vehicle, pizzeria);
-
-        return getDriverData;
+        return getChefData;
     }
 
     public boolean isValidEmail(String email) {//email validation
@@ -354,13 +337,15 @@ public class DriverView extends VerticalLayout {
         String surnameValue = surname.getValue();
         String phoneNumberValue = phoneNumber.getValue();
         String emailValue = email.getValue();
+        String titleValue = title.getValue();
+        String culinaryExperienceValue = culinaryExperience.getValue();
 
-        if (nameValue.isEmpty() || surnameValue.isEmpty() || phoneNumberValue.isEmpty() || emailValue.isEmpty()) {
+        if (nameValue.isEmpty() || surnameValue.isEmpty() || phoneNumberValue.isEmpty() || emailValue.isEmpty() || titleValue.isEmpty() || culinaryExperienceValue.isEmpty()) {
             Notification.show("Please enter in all the fields.");
             return true;
         }
 
-        if (!nameValue.matches("[a-zA-Z ]+") || !surnameValue.matches("[a-zA-Z ]+")) {
+        if (!nameValue.matches("[a-zA-Z ]+") || !surnameValue.matches("[a-zA-Z ]+") || !titleValue.matches("[a-zA-Z ]+") || !culinaryExperienceValue.matches("[a-zA-Z ]+")) {
             Notification.show("Invalid input. please only enter letters.");
             return true;
         }
@@ -379,13 +364,10 @@ public class DriverView extends VerticalLayout {
             Notification.show("Invalid email, please try again");
             return true;
         }
-
         return false;
-
-
     }
 
-    private Div createDriverSpan(Driver driver) {
+    private Div createChefSpan(Chef chef) {
         Div outerDiv = new Div();
         outerDiv.getStyle().set("display", "flex");
         outerDiv.getStyle().set("justify-content", "center");
@@ -397,12 +379,11 @@ public class DriverView extends VerticalLayout {
         innerDiv.getStyle().set("flex-direction", "row");
         innerDiv.getStyle().set("justify-content", "space-between");
 
-        createDataField(innerDiv, "Employee ID ", String.valueOf(driver.getEmpId()));
-        createDataField(innerDiv, "Name ", driver.getName());
-        createDataField(innerDiv, "Surname ", driver.getSurname());
-        createDataField(innerDiv, "Phone number ", driver.getPhoneNumber());
-        createDataField(innerDiv, "Email ", driver.getEmail());
-
+        createDataField(innerDiv, "Employee ID ", String.valueOf(chef.getEmpId()));
+        createDataField(innerDiv, "Name ", chef.getName());
+        createDataField(innerDiv, "Surname ", chef.getSurname());
+        createDataField(innerDiv, "Phone number ", chef.getPhoneNumber());
+        createDataField(innerDiv, "Email ", chef.getEmail());
 
         outerDiv.add(innerDiv);
 
@@ -419,16 +400,16 @@ public class DriverView extends VerticalLayout {
 
         container.add(dataField);
     }
+
     private void clearFormFields() {//clear text fields
         employeeId.clear();
         name.clear();
         surname.clear();
         phoneNumber.clear();
         email.clear();
-        pizzariaId.clear();
-        vehicleId.clear();
+        title.clear();
+        culinaryExperience.clear();
+        pizzeriaId.clear();
         employeeId.setEnabled(true);
-
     }
-
 }

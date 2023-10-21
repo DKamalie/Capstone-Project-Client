@@ -201,6 +201,7 @@ public class PizzaAdminView extends VerticalLayout {
 
         txtBaseId.setPlaceholder("");
         txtBaseId.setWidth("300px");
+        txtBaseId.setEnabled(false);
 
         txtName.setPlaceholder("Enter a name");
         txtName.setWidth("300px");
@@ -219,7 +220,7 @@ public class PizzaAdminView extends VerticalLayout {
 
         txtPizzeriaId.setPlaceholder("");
         txtPizzeriaId.setWidth("300px");
-
+        txtPizzeriaId.setEnabled(false);
 
         Style btnSaveStyle = btnSave.getStyle();
         btnSaveStyle.set("color", "white");
@@ -292,6 +293,7 @@ public class PizzaAdminView extends VerticalLayout {
     public void deletePizzaId(Integer pizzaId){
         pizzaApi.deletePizza(pizzaId);
     }
+
     Base base = BaseFactory.buildBase( Base.BaseCrust.CRUSTY, Base.BaseThickness.THICK, Base.BaseTexture.CRISPY, 22);
     Pizzeria pizzeria = PizzeriaFactory.buildPizzaria("Hill Crest", "300 Long St, Cape Town City Centre, 8000");
 
@@ -371,7 +373,7 @@ public class PizzaAdminView extends VerticalLayout {
 
         double priceValueDouble = Double.parseDouble(txtPrice.getValue());
 
-        if (priceValueDouble <= 0) {
+        if (priceValueDouble <= 0.0) {
             Notification.show("Invalid input, price must contain numbers.");
             return true;
         }
@@ -402,7 +404,7 @@ public class PizzaAdminView extends VerticalLayout {
         createDataField(innerDiv, "Size ", String.valueOf(pizza.getSize()));
         createDataField(innerDiv, "Vegetarian ", String.valueOf(pizza.isVegetarianOrNot()));
         createDataField(innerDiv, "Price ", String.valueOf(pizza.getPrice()));
-        createDataField(innerDiv, "Pizzeria ", String.valueOf(pizza.getPizzeria().getPizzeriaID()));
+        createDataField(innerDiv, "Pizzeria Id ", String.valueOf(pizza.getPizzeria().getPizzeriaID()));
 
         outerDiv.add(innerDiv);
 

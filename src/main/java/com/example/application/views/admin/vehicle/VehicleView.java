@@ -1,4 +1,4 @@
-package com.example.application.views.vehicle;
+package com.example.application.views.admin.vehicle;
 
 import com.example.application.api.VehicleApi;
 import com.example.application.domain.Vehicle;
