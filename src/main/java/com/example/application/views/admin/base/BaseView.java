@@ -1,16 +1,15 @@
-package com.example.application.views.topping;
+package com.example.application.views.admin.base;
 
-
-
-import com.example.application.api.ToppingApi;
-import com.example.application.domain.Topping;
-import com.example.application.factory.ToppingFactory;
+import com.example.application.api.BaseApi;
+import com.example.application.domain.Base;
+import com.example.application.factory.BaseFactory;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -19,16 +18,15 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import java.util.ArrayList;
-import java.util.Set;
 
-@PageTitle("Topping")
-@Route(value = "topping", layout = MainLayout.class)
-public class ToppingView extends VerticalLayout {
+@PageTitle("Base")
+@Route(value = "base", layout = MainLayout.class)
+public class BaseView extends VerticalLayout {
 
-    private TextField toppingId;
-    private TextField name;
-    private TextField description;
-    private TextField quantity;
+    private TextField baseId;
+    private TextField crust;
+    private TextField thickness;
+    private TextField texture;
     private TextField price;
     private Button saveButton;
     private Button updateButton;
@@ -37,25 +35,25 @@ public class ToppingView extends VerticalLayout {
     private Button resetButton;
     private Div viewContainer;
     private boolean isEditing = false;
-    ToppingApi getAll = new ToppingApi();
 
-    public ToppingView() {
+    BaseApi getAll = new BaseApi();
 
-        toppingId = new TextField("Topping Id: ");
-        toppingId.setWidth("300px");
-        toppingId.setPlaceholder("Enter in the topping Id");
+    public BaseView(){
+        baseId = new TextField("Base Id: ");
+        baseId.setWidth("300px");
+        baseId.setPlaceholder("Enter in the base Id");
 
-        name = new TextField("Name: ");
-        name.setWidth("300px");
-        name.setPlaceholder("Enter in the name");
+        crust = new TextField("Crust: ");
+        crust.setWidth("300px");
+        crust.setPlaceholder("Enter in the crust");
 
-        description = new TextField("Description: ");
-        description.setWidth("300px");
-        description.setPlaceholder("Enter in the description");
+        thickness = new TextField("Thickness: ");
+        thickness.setWidth("300px");
+        thickness.setPlaceholder("Enter in the thickness");
 
-        quantity = new TextField("Quantity: ");
-        quantity.setWidth("300px");
-        quantity.setPlaceholder("Enter in the quantity");
+        texture = new TextField("Texture: ");
+        texture.setWidth("300px");
+        texture.setPlaceholder("Enter in the texture");
 
         price = new TextField("Price R: ");
         price.setWidth("300px");
@@ -71,72 +69,69 @@ public class ToppingView extends VerticalLayout {
         deleteButton = new Button("Delete");
         deleteButton.setWidth("300px");
 
-        viewAllButton = new Button("View all toppings");
+        viewAllButton = new Button("View all bases");
         viewAllButton.setWidth("300px");
 
         resetButton = new Button("Reset");
         resetButton.setWidth("300px");
 
-
-        VerticalLayout inputContainer = new VerticalLayout(toppingId, name, description, quantity, price, saveButton, updateButton, deleteButton, viewAllButton, resetButton);
-        inputContainer.setAlignItems(Alignment.BASELINE);
+        VerticalLayout inputContainer = new VerticalLayout(baseId, crust, thickness, texture, price, saveButton, updateButton, deleteButton, viewAllButton, resetButton);
+        inputContainer.setAlignItems(FlexComponent.Alignment.BASELINE);
 
         viewContainer = new Div();
 
         VerticalLayout centeringLayout = new VerticalLayout();
-        centeringLayout.setDefaultHorizontalComponentAlignment(Alignment.CENTER);
+        centeringLayout.setDefaultHorizontalComponentAlignment(FlexComponent.Alignment.CENTER);
         centeringLayout.setSizeFull();
 
         centeringLayout.add(viewContainer);
 
         Div dataContainer = new Div(viewContainer);
 
-
         Div dataMarginContainer = new Div(dataContainer);
-        dataMarginContainer.getStyle()
-                .set("margin-left", "200px");
+        dataMarginContainer.getStyle().set("margin-left", "200px");
 
         HorizontalLayout mainContainer = new HorizontalLayout(inputContainer, dataMarginContainer);
-        mainContainer.setDefaultVerticalComponentAlignment(Alignment.CENTER);
+        mainContainer.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
 
-        saveButton.addClickListener(e -> {//this is for creating a vehicle and saving it to the database
+        saveButton.addClickListener(e -> {//this is for creating a base and saving it to the database
             try {
                 boolean hasErrors = checkErrors();
 
                 if (!hasErrors) {
-                    Topping toppingSave = setToppingValues();
-                    createTopping(toppingSave);
-                    Notification.show("Topping saved");
+                    Base baseSave = setBaseValues();
+                    createBase(baseSave);
+                    Notification.show("Base saved");
                 }
             } catch (Exception exception) {
                 Notification.show(exception.getMessage());
             }
         });
 
-        toppingId.addKeyDownListener(Key.ENTER, event -> {//read method
+        baseId.addKeyDownListener(Key.ENTER, event -> {//read method
             try {
                 TextField source = (TextField) event.getSource();
                 String enteredValue = source.getValue();
 
                 if (!enteredValue.isEmpty()) {
-                    Integer enteredToppingId = Integer.valueOf(enteredValue);
+                    Integer enteredBaseId = Integer.valueOf(enteredValue);
 
-                    // Call the readToppingId method to fetch topping data
-                    Topping toppingData = readToppingId(enteredToppingId);
+                    // Call the readBaseId method to fetch base data
+                    Base baseData = readBaseId(enteredBaseId);
 
                     // Update the other text fields with the retrieved data
-                    if (toppingData != null) {
-                        updateToppingFields(toppingData);
-                        toppingId.setEnabled(false);
-                        Notification.show("Topping Id read successfully");
+                    if (baseData != null) {
+                        updateBaseFields(baseData);
+                        baseId.setEnabled(false);
+                        Notification.show("Base Id read successfully");
                     } else {
-                        // Handle the case where the entered toppingId does not exist
-                        Notification.show("Topping with ID " + enteredToppingId + " not found");
+                        // Handle the case where the entered baseId does not exist
+                        Notification.show("Vehicle with ID " + enteredBaseId + " not found");
                     }
                 }
             } catch (NumberFormatException e) {
                 // Handle the case where the entered value is not a valid integer
-                Notification.show("Please enter a valid vehicle ID as a number.");
+                Notification.show("Please enter a valid base ID as a number.");
             } catch (Exception e) {
                 // Handle any other exceptions that may occur
                 Notification.show("An error occurred: " + e.getMessage());
@@ -148,10 +143,10 @@ public class ToppingView extends VerticalLayout {
                 System.out.println(isEditing);
 
                 if (isEditing == false) {
-                    Topping updatedTopping = updateSetToppingValues();
-                    updateTopping(updatedTopping);
+                    Base updatedBase = updateSetBaseValues();
+                    updateBase(updatedBase);
 
-                    Notification.show("Topping updated successfully");
+                    Notification.show("Base updated successfully");
                 }
             } catch (Exception ex) {
                 Notification.show("An error occurred during the update: " + ex.getMessage());
@@ -160,17 +155,17 @@ public class ToppingView extends VerticalLayout {
 
         deleteButton.addClickListener(e ->{//use for delete method
             try {
-                String toppingIdValue = toppingId.getValue();
-                if (!toppingIdValue.isEmpty()) {
-                    Integer id = Integer.valueOf(toppingIdValue);
-                    deleteToppingId(id);
-                    Notification.show("Topping deleted successfully");
+                String baseIdValue = baseId.getValue();
+                if (!baseIdValue.isEmpty()) {
+                    Integer id = Integer.valueOf(baseIdValue);
+                    deleteBaseId(id);
+                    Notification.show("Base deleted successfully");
                     clearFormFields();
                 } else {
-                    Notification.show("Please enter a topping ID.");
+                    Notification.show("Please enter a base ID.");
                 }
             } catch (NumberFormatException ex) {
-                Notification.show("Please enter a valid topping ID as a number.");
+                Notification.show("Please enter a valid base ID as a number.");
             } catch (Exception ex) {
                 Notification.show("An error occurred during the delete: " + ex.getMessage());
             }
@@ -178,39 +173,29 @@ public class ToppingView extends VerticalLayout {
 
         viewAllButton.addClickListener(event -> {//use for getAll method
             try {
-                ArrayList<Topping> toppings = getAll.getAllToppings();
-
+                ArrayList<Base> bases = getAll.getAllBase();
 
                 viewContainer.removeAll();
 
-
-                toppings.forEach(topping -> {
-                    viewContainer.add(createToppingSpan(topping));
+                bases.forEach(base -> {
+                    viewContainer.add(createBaseSpan(base));
                 });
-
-
             } catch (Exception e) {
 
-                Notification.show("Failed to retrieve toppings. Please try again later." + e.getMessage());
+                Notification.show("Failed to retrieve bases. Please try again later." + e.getMessage());
             }
         });
 
-
-
-        resetButton.addClickListener(event -> {//use for resetting the text fields
+        resetButton.addClickListener(event -> {//use for getAll method
             try {
-
                 clearFormFields();
 
-                viewContainer.removeAll();//this is here to not display the table format when the getAll button is pressed
+                viewContainer.removeAll();
 
             } catch (Exception e) {
-
                 Notification.show("Failed to clear the fields." + e.getMessage());
             }
         });
-
-
 
         Style buttonStyle = saveButton.getStyle();
         buttonStyle.set("color", "white");
@@ -220,7 +205,6 @@ public class ToppingView extends VerticalLayout {
         buttonStyle.set("font-weight", "bold");
         buttonStyle.set("border-radius", "17px");
         buttonStyle.set("box-shadow", "0 5px 4px rgba(0, 0, 0, 0.2)");
-
 
         Style buttonStyle2 = updateButton.getStyle();
         buttonStyle2.set("color", "white");
@@ -259,92 +243,86 @@ public class ToppingView extends VerticalLayout {
         buttonStyle5.set("box-shadow", "0 5px 4px rgba(0, 0, 0, 0.2)");
 
         setMargin(true);
-
-
         add(mainContainer);
     }
 
-    public void createTopping(Topping topping) {//use for create method
-        ToppingApi toppingApi = new ToppingApi();
-        toppingApi.createTopping(topping);
+    public void createBase(Base base) {//use for create method
+        BaseApi baseApi = new BaseApi();
+        baseApi.createBase(base);
     }
 
-    public Topping readToppingId(Integer toppingId) {//use for read method
-        ToppingApi readToppingApi = new ToppingApi();
-        return readToppingApi.readTopping(toppingId);
+    public Base readBaseId(Integer baseId) {//use for read method
+        BaseApi readBaseId = new BaseApi();
+        return readBaseId.readBase(baseId);
     }
 
-    public void updateTopping(Topping topping) {//use for update method
-        ToppingApi updateToppingApi = new ToppingApi();
-        updateToppingApi.updateTopping(topping);
+    public void updateBase(Base base) {//use for the update method
+        BaseApi updateBase = new BaseApi();
+        updateBase.updateBase(base);
     }
 
-    public void deleteToppingId(Integer toppingId){//use for delete method
-        ToppingApi deleteToppingId = new ToppingApi();
-        deleteToppingId.deleteTopping(toppingId);
+    public void deleteBaseId(Integer baseId){//use for delete method
+        BaseApi deleteBaseId = new BaseApi();
+        deleteBaseId.deleteBase(baseId);
     }
 
-    public Topping setToppingValues() {//use for create method
+    public void updateBaseFields(Base base) {//this is not an update method, this is for the read method
+        crust.setValue(String.valueOf(base.getCrust()));
+        thickness.setValue(String.valueOf(base.getThickness()));
+        texture.setValue(String.valueOf(base.getTexture()));
+        price.setValue(String.valueOf(base.getPrice()));
+    }
 
-        String toppingNameValue = name.getValue();
-        String descriptionValue = description.getValue();
-        int quantityValue = Integer.parseInt(quantity.getValue());
+    public Base setBaseValues() {//use for create method
+
+        Base.BaseCrust crustValue = Base.BaseCrust.valueOf(crust.getValue());
+        Base.BaseThickness thicknessValue = Base.BaseThickness.valueOf(thickness.getValue());
+        Base.BaseTexture textureValue = Base.BaseTexture.valueOf(texture.getValue());
         double priceValue = Double.parseDouble(price.getValue());
 
+        Base getBaseData = BaseFactory.buildBase(crustValue, thicknessValue, textureValue, priceValue);
 
-        Topping getToppingData = ToppingFactory.buildTopping(toppingNameValue, descriptionValue, quantityValue, priceValue);
-
-        return getToppingData;
+        return getBaseData;
     }
 
-    public void updateToppingFields(Topping topping) {//this is not an update method, this is for the read method
-        name.setValue(topping.getName());
-        description.setValue(topping.getDescription());
-        quantity.setValue(String.valueOf(topping.getQuantity()));
-        price.setValue(String.valueOf(topping.getPrice()));
-    }
+    public Base updateSetBaseValues() {//use for update method
 
-    public Topping updateSetToppingValues() {//use for update method
-
-
-        Integer toppingIdValue = Integer.valueOf(toppingId.getValue());
-        String nameValue = name.getValue();
-        String descriptionValue = description.getValue();
-        int quantityValue = Integer.parseInt(quantity.getValue());
+        Integer baseIdValue = Integer.valueOf(baseId.getValue());
+        Base.BaseCrust crustValue = Base.BaseCrust.valueOf(crust.getValue());
+        Base.BaseThickness thicknessValue = Base.BaseThickness.valueOf(thickness.getValue());
+        Base.BaseTexture textureValue = Base.BaseTexture.valueOf(texture.getValue());
         double priceValue = Double.parseDouble(price.getValue());
 
-        Topping updateToppingData = ToppingFactory.createTopping(toppingIdValue, nameValue, descriptionValue, quantityValue, priceValue);
+        Base updateBaseData = BaseFactory.createBase(
+                baseIdValue,
+                crustValue,
+                thicknessValue,
+                textureValue,
+                priceValue
+                );
 
-        return updateToppingData;
-
+        return updateBaseData;
     }
 
     public boolean checkErrors() {//checks errors
 
-        String toppingNameValue = name.getValue();
-        String descriptionValue = description.getValue();
-        String quantityValue = quantity.getValue();
+        String crustValue = crust.getValue();
+        String thicknessValue = thickness.getValue();
+        String textureValue = texture.getValue();
         String priceValue = price.getValue();
+        double priceValueDouble = Double.parseDouble(price.getValue());
 
-        if (toppingNameValue.isEmpty() || descriptionValue.isEmpty() || quantityValue.isEmpty() || priceValue.isEmpty()) {
+        if (crustValue.isEmpty() || thicknessValue.isEmpty() || textureValue.isEmpty() || priceValue.isEmpty()) {
             Notification.show("Please enter in all the fields.");
             return true;
         }
 
-        if (!toppingNameValue.matches("[a-zA-Z ]+") || !descriptionValue.matches("[a-zA-Z ]+")) {
+        if (!crustValue.matches("[a-zA-Z ]+") || !thicknessValue.matches("[a-zA-Z ]+") || !textureValue.matches("[a-zA-Z ]+")) {
             Notification.show("Invalid input. please only enter letters.");
             return true;
         }
 
-        int quantityInt = Integer.parseInt(quantityValue);
-        int priceInt = Integer.parseInt(priceValue);
-
-        if (quantityInt <= 0) {
-            Notification.show("Invalid input, quantity must contain numbers.");
-            return true;
-        }
-
-        if (priceInt <= 0) {
+        if (priceValueDouble <= 0) {
             Notification.show("Invalid input, price must contain numbers.");
             return true;
         }
@@ -352,7 +330,7 @@ public class ToppingView extends VerticalLayout {
         return false;
     }
 
-    private Div createToppingSpan(Topping topping) {
+    private Div createBaseSpan(Base base) {
         Div outerDiv = new Div();
         outerDiv.getStyle().set("display", "flex");
         outerDiv.getStyle().set("justify-content", "center");
@@ -364,12 +342,11 @@ public class ToppingView extends VerticalLayout {
         innerDiv.getStyle().set("flex-direction", "row");
         innerDiv.getStyle().set("justify-content", "space-between");
 
-        createDataField(innerDiv, "Topping ID ", String.valueOf(topping.getToppingId()));
-        createDataField(innerDiv, "Name ", topping.getName());
-        createDataField(innerDiv, "Description ", topping.getDescription());
-        createDataField(innerDiv, "Quantity ", String.valueOf(topping.getQuantity()));
-        createDataField(innerDiv, "Price ", String.valueOf(topping.getPrice()));
-
+        createDataField(innerDiv, "Base ID ", String.valueOf(base.getBaseId()));
+        createDataField(innerDiv, "Crust ", String.valueOf(base.getCrust()));
+        createDataField(innerDiv, "Thickness ", String.valueOf(base.getThickness()));
+        createDataField(innerDiv, "Texture ", String.valueOf(base.getTexture()));
+        createDataField(innerDiv, "Price ", String.valueOf(base.getPrice()));
 
         outerDiv.add(innerDiv);
 
@@ -386,17 +363,12 @@ public class ToppingView extends VerticalLayout {
 
         container.add(dataField);
     }
-
     private void clearFormFields() {//clear text fields
-        toppingId.clear();
-        name.clear();
-        description.clear();
-        quantity.clear();
+        baseId.clear();
+        crust.clear();
+        thickness.clear();
+        texture.clear();
         price.clear();
-        toppingId.setEnabled(true);
-
+        baseId.setEnabled(true);
     }
-
-
-
 }
