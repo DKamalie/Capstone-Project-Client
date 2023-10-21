@@ -1,5 +1,7 @@
 package com.example.application.views.checkout;
 
+import com.example.application.api.StagedOrderApi;
+import com.example.application.domain.StagedOrder;
 import com.example.application.views.MainLayout;
 import com.example.application.views.menu.MenuView;
 import com.vaadin.flow.component.Component;
@@ -44,10 +46,16 @@ import java.util.Set;
 @PageTitle("Checkout")
 @Route(value = "checkout", layout = MainLayout.class)
 public class CheckoutView extends Div {
-
+    StagedOrderApi stagedOrderApi = new StagedOrderApi();
     private Image imgPizza;
 
     public CheckoutView() {
+        Set<StagedOrder> stagedOrders = stagedOrderApi.getAllPizzeria();
+        stagedOrders.forEach(stagedOrder -> {
+            System.out.println(stagedOrder);
+        });
+
+
         addClassNames("checkout-view");
         addClassNames(Display.FLEX, FlexDirection.COLUMN, Height.FULL);
 

@@ -89,7 +89,7 @@ public class StagedOrderApi {
         restTemplate.delete(entityUrl);
     }
     public Set<StagedOrder> getAllPizzeria() {
-        String apiUrl = urlPizzeria + "/getAll";
+        String apiUrl = urlPizzeria + "/getall";
         ResponseEntity<StagedOrder[]> response1 = restTemplate.getForEntity(apiUrl, StagedOrder[].class);
 
         if (response1.getStatusCode().is2xxSuccessful()) {
