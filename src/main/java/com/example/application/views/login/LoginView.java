@@ -3,6 +3,14 @@ package com.example.application.views.login;
 import com.example.application.api.LoyaltyCustomerApi;
 import com.example.application.domain.LoyaltyCustomer;
 import com.example.application.views.MainLayout;
+import com.example.application.views.admin.base.BaseView;
+import com.example.application.views.admin.employee.ChefView;
+import com.example.application.views.admin.employee.DriverView;
+import com.example.application.views.admin.employee.EmployeeView;
+import com.example.application.views.admin.pizza.PizzaAdminView;
+import com.example.application.views.admin.topping.ToppingAdminView;
+import com.example.application.views.admin.vehicle.VehicleView;
+import com.example.application.views.admindashboard.AdminDashboard;
 import com.example.application.views.home.HomeView;
 import com.example.application.views.signUp.Both;
 import com.vaadin.flow.component.AttachEvent;
@@ -119,16 +127,36 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
     }
 
     private void handleLogin() {
-        LoyaltyCustomer matchedCustomer = loyaltyCustomerApi.getLoggedInCustomer(email.getValue(), password.getValue());
+        String enteredEmail = email.getValue();
+        String enteredPassword = password.getValue();
 
-        if (matchedCustomer != null) {
-            VaadinSession.getCurrent().setAttribute("loggedInCustomer", matchedCustomer);
-            EventBus.getInstance().fireLoginSuccessEvent( new LoginSuccessEvent(matchedCustomer));
-            UI.getCurrent().navigate(HomeView.class);
+        // Check if the entered credentials match the admin user
+        if ("admin@gmail.com".equals(enteredEmail) && "admin".equals(enteredPassword)) {
+            // Admin login, set the matchedCustomer object in the session
+            LoyaltyCustomer adminCustomer = loyaltyCustomerApi.getLoggedInCustomer(enteredEmail, enteredPassword);
+            VaadinSession.getCurrent().setAttribute("loggedInCustomer", adminCustomer);
+            // Fire the login success event
+            EventBus.getInstance().fireLoginSuccessEvent(new LoginSuccessEvent(adminCustomer));
+            // Navigate to AdminDashboard
+            UI.getCurrent().navigate(AdminDashboard.class);
         } else {
-            Notification.show("Invalid email or password. Please try again.");
+            // For regular customers, check against the loyaltyCustomerApi
+            LoyaltyCustomer matchedCustomer = loyaltyCustomerApi.getLoggedInCustomer(enteredEmail, enteredPassword);
+
+            if (matchedCustomer != null) {
+                // Regular customer login, set the matchedCustomer object in the session
+                VaadinSession.getCurrent().setAttribute("loggedInCustomer", matchedCustomer);
+                // Fire the login success event
+                EventBus.getInstance().fireLoginSuccessEvent(new LoginSuccessEvent(matchedCustomer));
+                // Navigate to HomeView
+                UI.getCurrent().navigate(HomeView.class);
+            } else {
+                Notification.show("Invalid email or password. Please try again.");
+            }
         }
     }
+
+
     public boolean isValidEmail (String email){
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
         return email.matches(emailRegex);

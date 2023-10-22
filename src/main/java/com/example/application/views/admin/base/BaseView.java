@@ -4,6 +4,7 @@ import com.example.application.api.BaseApi;
 import com.example.application.domain.Base;
 import com.example.application.factory.BaseFactory;
 import com.example.application.views.MainLayout;
+import com.example.application.views.admindashboard.AdminDashboard;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
@@ -38,7 +39,7 @@ public class BaseView extends VerticalLayout {
 
     BaseApi getAll = new BaseApi();
 
-    public BaseView(){
+    public BaseView() {
         baseId = new TextField("Base Id: ");
         baseId.setWidth("300px");
         baseId.setPlaceholder("Enter in the base Id");
@@ -153,7 +154,7 @@ public class BaseView extends VerticalLayout {
             }
         });
 
-        deleteButton.addClickListener(e ->{//use for delete method
+        deleteButton.addClickListener(e -> {//use for delete method
             try {
                 String baseIdValue = baseId.getValue();
                 if (!baseIdValue.isEmpty()) {
@@ -241,6 +242,23 @@ public class BaseView extends VerticalLayout {
         buttonStyle5.set("font-weight", "bold");
         buttonStyle5.set("border-radius", "17px");
         buttonStyle5.set("box-shadow", "0 5px 4px rgba(0, 0, 0, 0.2)");
+
+        Button backButton = new Button("< Back");
+        backButton.addClickListener(event -> getUI().ifPresent(ui -> ui.navigate(AdminDashboard.class)));
+
+
+        backButton.getStyle().set("color", "white");
+        backButton.getStyle().set("background-color", "#000000");
+        backButton.getStyle().set("font-family", "Arial");
+        backButton.getStyle().set("font-size", "16px");
+        backButton.getStyle().set("font-weight", "bold");
+        backButton.getStyle().set("border-radius", "17px");
+        backButton.getStyle().set("box-shadow", "0 5px 4px rgba(0, 0, 0, 0.2)");
+
+
+        HorizontalLayout buttonLayout = new HorizontalLayout(backButton);
+        buttonLayout.setVerticalComponentAlignment(Alignment.START, backButton);
+        add(buttonLayout);
 
         setMargin(true);
         add(mainContainer);

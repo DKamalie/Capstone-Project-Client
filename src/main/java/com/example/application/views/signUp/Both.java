@@ -9,9 +9,11 @@ import com.example.application.factory.AddressFactory;
 import com.example.application.factory.CustomerFactory;
 import com.example.application.factory.LoyaltyCustomerFactory;
 import com.example.application.views.MainLayout;
+import com.example.application.views.admindashboard.AdminDashboard;
 import com.example.application.views.home.HomeView;
 import com.example.application.views.login.LoginView;
 import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -164,9 +166,8 @@ public class Both extends VerticalLayout{
                     System.out.println("Before create" + l.toString());
                     createLoyaltyCustomer(l);
 
-                Notification.show("You are now logged in as " + l.getCustomerName());
+                    UI.getCurrent().navigate(LoginView.class);
 
-                getUI().ifPresent(ui -> ui.navigate(HomeView.class));
                 }else{
                     System.out.println("entered Address errors");
                 }
