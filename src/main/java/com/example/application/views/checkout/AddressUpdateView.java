@@ -30,7 +30,6 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 @PageTitle("Address Update")
 @Route(value = "addressupdate", layout = MainLayout.class)
-@Push
 public class AddressUpdateView extends FormLayout {
     private TextField city = new TextField("City");
     private TextField country = new TextField("Country");

@@ -33,7 +33,6 @@ import java.util.Set;
 
 @PageTitle("Checkout")
 @Route(value = "checkout", layout = MainLayout.class)
-@Push
 public class CheckoutView extends Div {
 
     private Image imgPizza;
