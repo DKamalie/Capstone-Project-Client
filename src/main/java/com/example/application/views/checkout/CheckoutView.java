@@ -145,7 +145,7 @@ public class CheckoutView extends Div {
 
         checkOut.getStyle().set("color", "white");
         checkOut.getStyle().set("background-color", "#03C03C");
-        checkOut.getStyle().set("font-family", "Georgia, serif");
+        checkOut.getStyle().set("font-family", "Arial");
         checkOut.getStyle().set("font-size", "20px");
         checkOut.getStyle().set("font-weight", "bold");
         checkOut.getStyle().set("width", "350px");
@@ -228,7 +228,7 @@ public class CheckoutView extends Div {
 
         updateButton.getStyle().set("color", "white");
         updateButton.getStyle().set("background-color", "#000000");
-        updateButton.getStyle().set("font-family", "Georgia, serif");
+        updateButton.getStyle().set("font-family", "Arial");
         updateButton.getStyle().set("font-size", "20px");
         updateButton.getStyle().set("font-weight", "bold");
         updateButton.getStyle().set("width", "150px");
