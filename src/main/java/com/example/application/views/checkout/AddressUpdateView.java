@@ -1,26 +1,14 @@
 package com.example.application.views.checkout;
 
 import com.example.application.api.AddressApi;
-import com.example.application.api.EmployeeApi;
-import com.example.application.domain.Address;
-import com.example.application.domain.Employee;
-import com.example.application.domain.LoyaltyCustomer;
-import com.example.application.domain.Pizza;
+import com.example.application.domain.*;
 import com.example.application.factory.AddressFactory;
-import com.example.application.factory.PizzaFactory;
 import com.example.application.views.MainLayout;
-import com.example.application.views.menu.MenuView;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -31,93 +19,121 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 @PageTitle("Address Update")
 @Route(value = "addressupdate", layout = MainLayout.class)
 public class AddressUpdateView extends FormLayout {
-    private TextField city = new TextField("City");
-    private TextField country = new TextField("Country");
-    private TextField flatNumber = new TextField("Flat Number");
-    private TextField postalCode = new TextField("Postal Code");
-    private TextField province = new TextField("Province");
-    private TextField streetName = new TextField("Street Name");
-    private TextField streetNumber = new TextField("Street Number");
-    private TextField suburb = new TextField("Suburb");
+    private Integer AddressId;
+    private TextField city;
+    private TextField country;
+    private TextField flatNumber;
+    private TextField postalCode;
+    private TextField province;
+    private TextField streetName;
+    private TextField streetNumber;
+    private TextField suburb;
 
-    private Button saveButton = new Button("Update");
-    private Button backButton = new Button("Back");
-    private Integer addressId;
+    private Button updateButton;
+    private Button backButton;
+
+    AddressApi getAll = new AddressApi();
 
     public AddressUpdateView() {
-        add(form());
-    }
+        city = new TextField("City");
+        city.setWidth("300px");
+        city.setPlaceholder("Enter City");
+        city.setRequired(true);
 
-    public Component form(){
+        country = new TextField("Country");
+        country.setWidth("300px");
+        country.setPlaceholder("Enter Country");
+        country.setRequired(true);
 
-        saveButton.addClickListener(event -> save());
-        saveButton.addClassNames("custom-button");
+        flatNumber = new TextField("Flat Number");
+        flatNumber.setWidth("300px");
+        flatNumber.setPlaceholder("Enter Flat Number");
+        flatNumber.setRequired(true);
 
-        backButton.addClassNames("custom-button");
-        backButton.addClickListener(e -> {
-            getUI().ifPresent(ui -> ui.navigate(CheckoutView.class));
-        });
+        postalCode = new TextField("Postal Code");
+        postalCode.setWidth("300px");
+        postalCode.setPlaceholder("Enter Postal Code");
+        postalCode.setRequired(true);
 
-        city.addClassName("my-textfield");
-        country.addClassName("my-textfield");
-        flatNumber.addClassName("my-textfield");
-        postalCode.addClassName("my-textfield");
-        province.addClassName("my-textfield");
-        streetName.addClassName("my-textfield");
-        streetNumber.addClassName("my-textfield");
-        suburb.addClassName("my-textfield");
+        province = new TextField("Province");
+        province.setWidth("300px");
+        province.setPlaceholder("Enter Province");
+        province.setRequired(true);
 
-        if (isUserLoggedIn()) {
-            LoyaltyCustomer loggedInCustomer = (LoyaltyCustomer) VaadinSession.getCurrent().getAttribute("loggedInCustomer");
+        streetName = new TextField("Street Name");
+        streetName.setWidth("300px");
+        streetName.setPlaceholder("Enter Street Name");
+        streetName.setRequired(true);
 
-            city.setPlaceholder(loggedInCustomer.getAddress().getCity());
-            country.setPlaceholder(loggedInCustomer.getAddress().getCountry());
-            flatNumber.setPlaceholder(loggedInCustomer.getAddress().getFlatNumber());
-            postalCode.setPlaceholder(loggedInCustomer.getAddress().getPostalCode());
-            province.setPlaceholder(loggedInCustomer.getAddress().getProvince());
-            streetName.setPlaceholder(loggedInCustomer.getAddress().getStreetName());
-            streetNumber.setPlaceholder(loggedInCustomer.getAddress().getStreetNumber());
-            suburb.setPlaceholder(loggedInCustomer.getAddress().getSuburb());
+        streetNumber = new TextField("Street Number");
+        streetNumber.setWidth("300px");
+        streetNumber.setPlaceholder("Enter Street Number");
+        streetNumber.setRequired(true);
 
+        suburb = new TextField("Suburb");
+        suburb.setWidth("300px");
+        suburb.setPlaceholder("Enter Suburb");
+        suburb.setRequired(true);
 
-        }
+        updateButton = new Button("Update");
+        updateButton.setWidth("300px");
 
-        H2 header = new H2("Update Address");
-        Section checkoutForm = new Section();
-        checkoutForm.addClassNames(LumoUtility.Display.FLEX, LumoUtility.FlexDirection.COLUMN,
-                LumoUtility.Flex.GROW, LumoUtility.BorderRadius.LARGE, LumoUtility.Padding.LARGE);
-        checkoutForm.add(header);
+        backButton = new Button("Back");
+        backButton.setWidth("300px");
 
-        FormLayout formLayout = new FormLayout();
-
-        formLayout.add(city, country, flatNumber, postalCode, province, streetName, streetNumber, suburb, saveButton,backButton);
+        FormLayout formLayout = new FormLayout(city, country, flatNumber, postalCode, province, streetName, streetNumber, suburb, updateButton, backButton);
         formLayout.setResponsiveSteps(
                 new FormLayout.ResponsiveStep("0", 1),
                 new FormLayout.ResponsiveStep("21em", 2)
         );
         formLayout.getStyle().set("maxWidth", "400px");
-        formLayout.getStyle().set("justify-content","center");
 
-        checkoutForm.add(header);
-        checkoutForm.add(formLayout);
+        Main content = new Main();
+        content.addClassNames(LumoUtility.Display.GRID, LumoUtility.Gap.XLARGE, LumoUtility.AlignItems.CENTER, LumoUtility.JustifyContent.CENTER, LumoUtility.MaxWidth.SCREEN_MEDIUM,
+                LumoUtility.Margin.Horizontal.AUTO, LumoUtility.Padding.Bottom.LARGE, LumoUtility.Padding.Horizontal.LARGE);
+        content.add(formLayout);
 
-        return checkoutForm;
-    }
-    private boolean isUserLoggedIn() {
+        updateButton.addClickListener(e -> {//use for update method
+            try {
 
-        return VaadinSession.getCurrent().getAttribute("loggedInCustomer") != null;
-    }
+                if (checkErrors() == false) {
+                    Address address = updateSetAddressValues();
+                    updateAddress(address);
 
-    private void save() {
-        if (isUserLoggedIn()) {
-            if(checkErrors() == false) {
-                updateEmployee(updateSetAddressValues());
-                getUI().ifPresent(ui -> ui.navigate(CheckoutView.class));
+                    Notification.show("Address updated successfully");
+                }
+            } catch (Exception ex) {
+                Notification.show("An error occurred during the update: " + ex.getMessage());
             }
-        }
+        });
+
+        backButton.addClickListener(e -> {
+            getUI().ifPresent(ui -> ui.navigate(CheckoutView.class));
+        });
+
+
+        Style buttonStyle = backButton.getStyle();
+        buttonStyle.set("color", "white");
+        buttonStyle.set("background-color", "#000000");
+        buttonStyle.set("font-family", "Arial");
+        buttonStyle.set("font-size", "16px");
+        buttonStyle.set("font-weight", "bold");
+        buttonStyle.set("border-radius", "17px");
+        buttonStyle.set("box-shadow", "0 5px 4px rgba(0, 0, 0, 0.2)");
+
+        Style buttonStyle2 = updateButton.getStyle();
+        buttonStyle2.set("color", "white");
+        buttonStyle2.set("background-color", "#000000");
+        buttonStyle2.set("font-family", "Arial");
+        buttonStyle2.set("font-size", "16px");
+        buttonStyle2.set("font-weight", "bold");
+        buttonStyle2.set("border-radius", "17px");
+        buttonStyle2.set("box-shadow", "0 5px 4px rgba(0, 0, 0, 0.2)");
+
+        add(content);
     }
 
-    public void updateEmployee(Address address) {//use for the update method
+    public void updateAddress(Address address) {//use for the update method
         AddressApi updateAddress = new AddressApi();
         updateAddress.updateAddress(address);
     }
@@ -126,36 +142,39 @@ public class AddressUpdateView extends FormLayout {
 
         if (isUserLoggedIn()) {
             LoyaltyCustomer loggedInCustomer = (LoyaltyCustomer) VaadinSession.getCurrent().getAttribute("loggedInCustomer");
-
-            addressId = loggedInCustomer.getAddress().getAddressId();
-
+            AddressId = loggedInCustomer.getAddress().getAddressId();
         }
 
-        String city = this.city.getValue();
-        String country = this.country.getValue();
-        String flatNumber = this.flatNumber.getValue();
-        String postalCode = this.postalCode.getValue();
-        String province = this.province.getValue();
-        String streetName = this.streetName.getValue();
-        String streetNumber = this.streetNumber.getValue();
-        String suburb = this.suburb.getValue();
+        Integer AddressIdValue = AddressId;
+        String cityValue = city.getValue();
+        String countryValue = country.getValue();
+        String flatNumberValue = flatNumber.getValue();
+        String postalCodeValue = postalCode.getValue();
+        String provinceValue = province.getValue();
+        String streetNameValue = streetName.getValue();
+        String streetNumberValue = streetNumber.getValue();
+        String suburbValue = suburb.getValue();
+        AddressType addressTypeValue = AddressType.RESIDENTIAL_HOME;
 
-        Address updateAddress = AddressFactory.createAddress(
-                addressId,
-                streetNumber,
-                streetName,
-                flatNumber,
-                suburb,
-                city,
-                province,
-                country,
-                postalCode,
-                null);
+        Address updateAddressData = AddressFactory.createAddress(
+                AddressIdValue,
+                streetNumberValue,
+                streetNameValue,
+                flatNumberValue,
+                suburbValue,
+                cityValue,
+                provinceValue,
+                countryValue,
+                postalCodeValue,
+                addressTypeValue);
 
 
-        return updateAddress;
+        return updateAddressData;
     }
 
+    private boolean isUserLoggedIn() {
+        return VaadinSession.getCurrent().getAttribute("loggedInCustomer") != null;
+    }
     public boolean checkErrors() {
 
         String city = this.city.getValue();

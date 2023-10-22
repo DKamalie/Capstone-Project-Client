@@ -38,6 +38,7 @@ public class CheckoutView extends Div {
     private Image imgPizza;
     private Button backButton, checkOut;
 
+    private Integer customer1;
     private String customerName, customerName2, City, Country, FlatNumber, PostalCode, Province, StreetName,StreetNumber ,Suburb;
 
     int sum = 0;
@@ -119,19 +120,19 @@ public class CheckoutView extends Div {
         price.addClassNames(Margin.NONE);
         headerSection.add(header, price);
 
+
+
         // Initialize an UnorderedList to display the staged orders
         UnorderedList ul = new UnorderedList();
         try {
             // Retrieve the staged orders from the API
             Set<StagedOrder> stagedOrders = stage.getAllPizzeria();
-
             // Iterate over the staged orders and add them to the unordered list
             for (StagedOrder stagedOrder : stagedOrders) {
-                if (Double.valueOf(stagedOrder.getQuantity()) > 0) {
-                    sum += stagedOrder.getTotal() * Double.valueOf(stagedOrder.getQuantity());
-                    ul.add(createListItem(stagedOrder.getPizza().getName(), stagedOrder.getTotal()));
-                }
+                sum += stagedOrder.getTotal() * Double.valueOf(stagedOrder.getQuantity());
+                ul.add(createListItem(stagedOrder.getPizza().getName(), stagedOrder.getTotal()));
             }
+
         } catch (Exception e) {
             Notification.show("Failed to retrieve orders. Please try again later." + e.getMessage());
         }
@@ -139,9 +140,16 @@ public class CheckoutView extends Div {
 
 
         checkOut = new Button("Checkout R"+String.valueOf(sum));
+
+        if(sum == 0){
+            checkOut.setEnabled(false);
+        }else{
+            checkOut.setEnabled(true);
+        }
         checkOut.addClickListener(e -> {
             getUI().ifPresent(ui -> ui.navigate(ThankYouView.class));
         });
+
 
         checkOut.getStyle().set("color", "white");
         checkOut.getStyle().set("background-color", "#03C03C");
