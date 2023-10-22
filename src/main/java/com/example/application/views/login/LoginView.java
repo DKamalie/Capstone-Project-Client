@@ -3,18 +3,9 @@ package com.example.application.views.login;
 import com.example.application.api.LoyaltyCustomerApi;
 import com.example.application.domain.LoyaltyCustomer;
 import com.example.application.views.MainLayout;
-import com.example.application.views.admin.base.BaseView;
-import com.example.application.views.admin.employee.ChefView;
-import com.example.application.views.admin.employee.DriverView;
-import com.example.application.views.admin.employee.EmployeeView;
-import com.example.application.views.admin.pizza.PizzaAdminView;
-import com.example.application.views.admin.topping.ToppingAdminView;
-import com.example.application.views.admin.vehicle.VehicleView;
 import com.example.application.views.admindashboard.AdminDashboard;
 import com.example.application.views.home.HomeView;
-import com.example.application.views.signUp.Both;
-import com.vaadin.flow.component.AttachEvent;
-import com.vaadin.flow.component.ComponentEventListener;
+import com.example.application.views.signUp.SignUpView;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -27,9 +18,6 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
-import com.vaadin.flow.shared.Registration;
-
-import java.util.Set;
 
 /*
 Login View.java
@@ -72,7 +60,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         btnLogin.addClickListener(e -> {handleLogin();});
 
         Text notMember = new Text("Not a Member?");
-        RouterLink signUpLink = new RouterLink("SignUp", Both.class);
+        RouterLink signUpLink = new RouterLink("SignUp", SignUpView.class);
 
         Style buttonStyle = btnLogin.getStyle();
         buttonStyle.set("color", "white");
