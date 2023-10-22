@@ -122,16 +122,16 @@ public class CheckoutView extends Div {
 
 
 
-            // Initialize an UnorderedList to display the staged orders
+        // Initialize an UnorderedList to display the staged orders
         UnorderedList ul = new UnorderedList();
         try {
             // Retrieve the staged orders from the API
             Set<StagedOrder> stagedOrders = stage.getAllPizzeria();
-                // Iterate over the staged orders and add them to the unordered list
-                for (StagedOrder stagedOrder : stagedOrders) {
-                        sum += stagedOrder.getTotal() * Double.valueOf(stagedOrder.getQuantity());
-                        ul.add(createListItem(stagedOrder.getPizza().getName(), stagedOrder.getTotal()));
-                }
+            // Iterate over the staged orders and add them to the unordered list
+            for (StagedOrder stagedOrder : stagedOrders) {
+                sum += stagedOrder.getTotal() * Double.valueOf(stagedOrder.getQuantity());
+                ul.add(createListItem(stagedOrder.getPizza().getName(), stagedOrder.getTotal()));
+            }
 
         } catch (Exception e) {
             Notification.show("Failed to retrieve orders. Please try again later." + e.getMessage());

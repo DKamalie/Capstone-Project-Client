@@ -1,23 +1,14 @@
 package com.example.application.views.checkout;
 
 import com.example.application.api.AddressApi;
-import com.example.application.api.EmployeeApi;
 import com.example.application.domain.*;
 import com.example.application.factory.AddressFactory;
-import com.example.application.factory.PizzaFactory;
 import com.example.application.views.MainLayout;
-import com.example.application.views.menu.MenuView;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.*;
 import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -27,7 +18,6 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 
 @PageTitle("Address Update")
 @Route(value = "addressupdate", layout = MainLayout.class)
-@Push
 public class AddressUpdateView extends FormLayout {
     private Integer AddressId;
     private TextField city;
@@ -101,7 +91,7 @@ public class AddressUpdateView extends FormLayout {
         Main content = new Main();
         content.addClassNames(LumoUtility.Display.GRID, LumoUtility.Gap.XLARGE, LumoUtility.AlignItems.CENTER, LumoUtility.JustifyContent.CENTER, LumoUtility.MaxWidth.SCREEN_MEDIUM,
                 LumoUtility.Margin.Horizontal.AUTO, LumoUtility.Padding.Bottom.LARGE, LumoUtility.Padding.Horizontal.LARGE);
-         content.add(formLayout);
+        content.add(formLayout);
 
         updateButton.addClickListener(e -> {//use for update method
             try {
