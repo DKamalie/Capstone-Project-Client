@@ -7,6 +7,8 @@ import com.example.application.api.StagedOrderApi;
 import com.example.application.domain.*;
 import com.example.application.factory.PizzeriaFactory;
 import com.example.application.views.MainLayout;
+import com.example.application.views.admindashboard.AdminDashboard;
+import com.example.application.views.checkout.CheckoutView;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.Html;
@@ -217,7 +219,7 @@ private void updateCountAndPrice(Pizza pizza, int count) {
 //    }
     private void checkOut(){
         //deleteZeroQuantity();
-        UI.getCurrent().getPage().setLocation("/checkout");
+        UI.getCurrent().navigate(CheckoutView.class);
 
         //orderApi.createOrder();
 //        System.out.println("test");
