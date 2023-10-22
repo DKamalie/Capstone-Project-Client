@@ -2,6 +2,7 @@ package com.example.application.views;
 
 import com.example.application.domain.LoyaltyCustomer;
 import com.example.application.views.about.AboutView;
+import com.example.application.views.admindashboard.AdminDashboard;
 import com.example.application.views.checkout.CheckoutView;
 import com.example.application.views.contactus.ContactUs;
 import com.example.application.views.home.HomeView;
@@ -83,20 +84,6 @@ public class MainLayout extends AppLayout implements EventBus.LoginSuccessListen
 
     public MainLayout() {
         EventBus.getInstance().addLoginSuccessListener(this);
-        UI.getCurrent().addBeforeEnterListener(event -> {
-            if (!isUserLoggedIn()) {
-                if (event.getNavigationTarget() != LoginView.class && event.getNavigationTarget() != Both.class) {
-                    // Redirect to LoginView or Both if the user is not logged in and trying to access other views
-                    event.forwardTo(LoginView.class);
-                }
-            } else {
-                if (event.getNavigationTarget() == Both.class) {
-                    // Redirect to HomeView if the user is already logged in and trying to access Both (signup) page
-                    event.forwardTo(HomeView.class);
-                }
-            }
-        });
-
         if (isUserLoggedIn()) {
             LoyaltyCustomer loggedInCustomer = (LoyaltyCustomer) VaadinSession.getCurrent().getAttribute("loggedInCustomer");
             addToNavbar(updateHeaderContent(loggedInCustomer));
@@ -186,15 +173,17 @@ public class MainLayout extends AppLayout implements EventBus.LoginSuccessListen
 
                 new MenuItemInfo("Menu", LineAwesomeIcon.TH_LIST_SOLID.create(), MenuView.class), //
 
-                new MenuItemInfo("Checkout", LineAwesomeIcon.CREDIT_CARD.create(), CheckoutView.class), //
-
                 new MenuItemInfo("Team", LineAwesomeIcon.PERSON_BOOTH_SOLID.create(), TeamView.class), //
 
-                new MenuItemInfo("Login", LineAwesomeIcon.SIGN_SOLID.create(), LoginView.class), //
+                new MenuItemInfo("Contact Us", LineAwesomeIcon.PHONE_VOLUME_SOLID.create(), ContactUs.class), //
 
-                new MenuItemInfo("ContactUs", LineAwesomeIcon.PHONE_VOLUME_SOLID.create(), ContactUs.class), //
+                new MenuItemInfo("About", LineAwesomeIcon.INFO_CIRCLE_SOLID.create(), AboutView.class),//
 
-                new MenuItemInfo("About", LineAwesomeIcon.INFO_CIRCLE_SOLID.create(), AboutView.class), //
+                new MenuItemInfo("Sign Up", LineAwesomeIcon.USER_ASTRONAUT_SOLID.create(), Both.class), //
+
+                new MenuItemInfo("Login", LineAwesomeIcon.USER_CIRCLE.create(), LoginView.class), //
+
+
         };
     }
 

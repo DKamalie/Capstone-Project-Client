@@ -15,6 +15,7 @@ import com.example.application.factory.BaseFactory;
 import com.example.application.factory.PizzaFactory;
 import com.example.application.factory.PizzeriaFactory;
 import com.example.application.views.MainLayout;
+import com.example.application.views.admindashboard.AdminDashboard;
 import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
@@ -272,6 +273,22 @@ public class PizzaAdminView extends VerticalLayout {
         btnResetStyle.set("border-radius", "22px");
         btnResetStyle.set("box-shadow", "0 5px 4px rgba(0, 0, 0, 0.2)");
 
+        Button backButton = new Button("< Back");
+        backButton.addClickListener(event -> getUI().ifPresent(ui -> ui.navigate(AdminDashboard.class)));
+
+
+        backButton.getStyle().set("color", "white");
+        backButton.getStyle().set("background-color", "#000000");
+        backButton.getStyle().set("font-family", "Arial");
+        backButton.getStyle().set("font-size", "16px");
+        backButton.getStyle().set("font-weight", "bold");
+        backButton.getStyle().set("border-radius", "17px");
+        backButton.getStyle().set("box-shadow", "0 5px 4px rgba(0, 0, 0, 0.2)");
+
+
+        HorizontalLayout buttonLayout = new HorizontalLayout(backButton);
+        buttonLayout.setVerticalComponentAlignment(Alignment.START, backButton);
+        add(buttonLayout);
 
 //      Add components to layout
         add(mainContainer);
