@@ -9,8 +9,6 @@ import com.example.application.factory.AddressFactory;
 import com.example.application.factory.CustomerFactory;
 import com.example.application.factory.LoyaltyCustomerFactory;
 import com.example.application.views.MainLayout;
-import com.example.application.views.admindashboard.AdminDashboard;
-import com.example.application.views.home.HomeView;
 import com.example.application.views.login.LoginView;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
@@ -37,7 +35,7 @@ import static com.example.application.helper.Helper.isValidEmail;
 */
 @PageTitle("both")
 @Route(value = "both", layout = MainLayout.class)
-public class Both extends VerticalLayout{
+public class SignUpView extends VerticalLayout{
     private Text alreadyWithUs;
     private RouterLink loginLink;
 
@@ -61,7 +59,7 @@ public class Both extends VerticalLayout{
     private HorizontalLayout hL;
     private VerticalLayout mainframe;
 
-    public Both() {
+    public SignUpView() {
 
         alreadyWithUs = new Text("Already with us?");
         loginLink = new RouterLink("Login", LoginView.class);

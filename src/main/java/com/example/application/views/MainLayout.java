@@ -2,15 +2,13 @@ package com.example.application.views;
 
 import com.example.application.domain.LoyaltyCustomer;
 import com.example.application.views.about.AboutView;
-import com.example.application.views.admindashboard.AdminDashboard;
-import com.example.application.views.checkout.CheckoutView;
 import com.example.application.views.contactus.ContactUs;
 import com.example.application.views.home.HomeView;
 import com.example.application.views.login.EventBus;
 import com.example.application.views.login.LoginSuccessEvent;
 import com.example.application.views.login.LoginView;
 import com.example.application.views.menu.MenuView;
-import com.example.application.views.signUp.Both;
+import com.example.application.views.signUp.SignUpView;
 import com.example.application.views.team.TeamView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
@@ -179,7 +177,7 @@ public class MainLayout extends AppLayout implements EventBus.LoginSuccessListen
 
                 new MenuItemInfo("About", LineAwesomeIcon.INFO_CIRCLE_SOLID.create(), AboutView.class),//
 
-                new MenuItemInfo("Sign Up", LineAwesomeIcon.USER_ASTRONAUT_SOLID.create(), Both.class), //
+                new MenuItemInfo("Sign Up", LineAwesomeIcon.USER_ASTRONAUT_SOLID.create(), SignUpView.class), //
 
                 new MenuItemInfo("Login", LineAwesomeIcon.USER_CIRCLE.create(), LoginView.class), //
 
